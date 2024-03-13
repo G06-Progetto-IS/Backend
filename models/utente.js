@@ -1,16 +1,19 @@
 const mongoose = require ("mongoose");
 
 const schema = new mongoose.Schema({
-    utente_id : {type : Number},
-    nome : {type : String},
-    cognome : {type : String},
-    mail : {type : String},
-    password : {type : String},
-    libri_in_noleggio : {type : Number},
-    libri_nolegggiati : { type : Int8Array},
-    autenticato : {type : Boolean}
+    utente_id : {type : Number, required : true},
+    nome : {type : String, required : true},
+    cognome : {type : String, required : true},
+    mail : {type : String, required : true},
+    password : {type : String, required : true},
+    libri_in_noleggio : {type : Number, required : true},
+    libri_nolegggiati : { type : Int8Array, required : true},
+    autenticato : {type : Boolean, required : true},
+    data_app : {type : Date, required : true},
+    tipo_app : {type : String, required : true},
+    Stato_app : {type : Boolean, required : true}
 
 
 });
- 
-const User = mongoose.model("User", schema);
+ const User = mongoose.model("User", schema);
+module.exports=User;
