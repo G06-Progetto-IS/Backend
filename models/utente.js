@@ -11,9 +11,10 @@ const schema = new mongoose.Schema({
     autenticato : {type : Boolean, required : true},
     data_app : {type : Date, required : true},
     tipo_app : {type : String, required : true},
-    Stato_app : {type : Boolean, required : true}
+    stato_app : {type : Boolean, required : true}
 
 
 });
- const User = mongoose.model("User", schema);
+
+const User = mongoose.model("User", schema);
 module.exports=User;
