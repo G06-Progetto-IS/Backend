@@ -8,9 +8,7 @@ const schema = new mongoose.Schema({
     Genre : {type : String, required : true},
     Is_available : {type : Boolean, required : true},
     Grade : {type : Number, required : true}
-
-
 })
 
-const User = mongoose.model("Book", schema);
-module.exports=Book;
+const Libro = mongoose.model("Libro", schema);
+module.exports = Libro;
