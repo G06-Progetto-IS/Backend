@@ -11,8 +11,7 @@ app.get('/', (req, res) => {
 });
 
 
-const routerLibro = require("./routes/libro");
-app.use("/api/u/deleteu/:book_id", routerLibro);
+app.use('/book', require('./routes/libro'));
 module.exports = app;
 
 
