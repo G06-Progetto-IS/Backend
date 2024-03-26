@@ -2,7 +2,7 @@ const app = require('./server.js');
 const express = require('express');
 const mongoose = require('mongoose');
 const Libro = require('./models/book');
-const invia = require('./invia');
+//const invia = require('./invia');
 
 const port = process.env.PORT || 8080;
 
@@ -20,7 +20,7 @@ mongoose.connect(
 const listener = app.listen(process.env.PORT || 8080, () => {
     console.log('Server in ascolto sulla porta: ' + listener.address().port)
 });
-
+/*
 // Endpoint API per l'invio di un singolo elemento di tipo libro a MongoDB
 app.post('/libri', async (req, res) => {
     try {
@@ -39,6 +39,6 @@ app.post('/libri', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+});*/
 
 module.exports = app;

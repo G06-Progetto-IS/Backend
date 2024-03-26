@@ -7,3 +7,5 @@ const routerLibro  = express.Router();
 const libroController = require("../controllers/Cancella");
 
 routerLibro.delete("/delete/:book_id", libroController.Cancella_libro);
+
+module.exports = routerLibro;
