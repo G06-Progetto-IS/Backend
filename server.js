@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/book', require('./routes/libro'));
+app.use('/utente', require('./routes/utente'));
 module.exports = app;
 
 

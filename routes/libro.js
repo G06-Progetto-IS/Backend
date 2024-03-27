@@ -4,7 +4,7 @@ const multer = require("multer")
 const upload = multer()
 
 const routerLibro  = express.Router();
-const libroController = require("../controllers/Cancella");
+const libroController = require("../controllers/book");
 
 routerLibro.delete('/?', libroController.Cancella_libro);
 
