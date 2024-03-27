@@ -1,7 +1,7 @@
 const app = require('./server.js');
 const express = require('express');
 const mongoose = require('mongoose');
-const Libro = require('./models/book');
+const Libro = require('./models/utente');
 const Appuntamento = require('./models/appuntamento');
 //const invia = require('./invia');
 
@@ -27,14 +27,16 @@ const listener = app.listen(process.env.PORT || 8080, () => {
 app.post('/appuntamento', async (req, res) => {
     try {
         const nuovoLibro = new Libro({
-            book_id: req.body.book_id,
-            titolo : req.body.titolo,
-            Author_name : req.body.Author_name,
-            Author_sur : req.body.Author_sur,
-            Genre : req.body.Genre,
-            Is_available : req.body.Is_available,
-            Grade : req.body.Grade,
-            scadenza : req.body.scadenza
+            utente_id : req.body.utente_id,
+            nome : req.body.nome,
+            cognome : req.body.cognome,
+            mail : req.body.mail,
+            password : req.body.password,
+            book_id : req.body.book_id,
+            autenticato : req.body.autenticato,
+            data_app : req.body.data_app,
+            tipo_app : req.body.tipo_app,
+            stato_app : req.body.stato_app
         });
 
         const libroInserito = await nuovoLibro.save();
