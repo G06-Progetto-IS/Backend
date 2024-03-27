@@ -10,8 +10,17 @@ const Cancella_libro = async (req, res) => {
     }
 }
 
-
+const Ricerca_libro = async (req, res) => {
+    let data =  await libro.findOne ({titolo : req.query.titolo}) .exec()
+   
+    if (!data) {
+        return res.status(404).json({success : false, message : "Libro non trovato"})
+    } else {
+        return res.status(200).send()
+    }
+}
 
 module.exports = {
-    Cancella_libro
+    Cancella_libro,
+    Ricerca_libro
 };
