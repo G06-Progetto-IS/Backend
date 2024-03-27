@@ -8,7 +8,8 @@ const schema = new mongoose.Schema({
     Author_sur : {type : String, required : true},
     Genre : {type : String, required : true},
     Is_available : {type : Boolean, required : true},
-    Grade : {type : Number, required : true}
+    Grade : {type : Number, required : true},
+    scadenza : {type : Date}
 })
 
 const Libro = mongoose.model("Libro", schema);

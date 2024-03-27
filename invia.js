@@ -5,10 +5,14 @@ const app = express();
 var date = new Date("2016-05-18T16:00:00Z");
 
 const datoDaInviare = {
-  utente_id: 1,
-  data : date,
-  tipo_app : "Donazione",
-  Stato : true
+  book_id : 7,
+  titolo : "ABC",
+  Author_name : "Oblak",
+  Author_sur : "Surname",
+  Genre : "Giallo",
+  Is_available : true,
+  Grade : 5,
+  scadenza : date
   };
 
 axios.post('http://localhost:3001/appuntamento', datoDaInviare)
