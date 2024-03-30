@@ -16,6 +16,7 @@ app.use('/utente', require('./routes/deleteApp'));
 app.use('/prenotazione', require('./routes/deletePren'));
 app.use('/ricerca', require('./routes/getLibro'));
 app.use('/noleggio', require('./routes/getStato'));
+app.use('/libri', require('./routes/getBooks'))
 
 module.exports = app;
 

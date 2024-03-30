@@ -5,11 +5,12 @@ const app = express();
 var date = new Date("2016-05-18T16:00:00Z");
 
 const datoDaInviare = {
-  utente_id : 1,
+  utente_id : 2,
   nome : "Mario",
   cognome : "Mario",
   mail : "Mario",
   password : "Mario",
+  libri_noleggiati : [1,2,3,4,7],
   book_id : 7,
   autenticato : true,
   data_app : date,

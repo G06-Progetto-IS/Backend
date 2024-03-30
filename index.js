@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Libro = require('./models/utente');
 const Appuntamento = require('./models/appuntamento');
-//const invia = require('./invia');
+const invia = require('./invia');
 
 
 const port = process.env.PORT || 8080;
@@ -32,6 +32,7 @@ app.post('/appuntamento', async (req, res) => {
             cognome : req.body.cognome,
             mail : req.body.mail,
             password : req.body.password,
+            libri_noleggiati : req.body.libri_noleggiati,
             book_id : req.body.book_id,
             autenticato : req.body.autenticato,
             data_app : req.body.data_app,

@@ -8,6 +8,7 @@ const schema = new mongoose.Schema({
     password : {type : String, required : true},
 //    libri_in_noleggio : {type : Number, required : true},
 //    libri_nolegggiati : { type : Int8Array, required : true},
+    libri_noleggiati : {type : Array},
     book_id : {type : Number},
     autenticato : {type : Boolean, required : true},
     data_app : {type : Date, required : true},
