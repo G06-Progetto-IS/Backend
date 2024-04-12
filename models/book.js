@@ -7,9 +7,9 @@ const schema = new mongoose.Schema({
     Author_name : {type : String, required : true},
     Author_sur : {type : String, required : true},
     Genre : {type : String, required : true},
-    Is_available : {type : Boolean, required : true},
-    Grade : {type : Number, required : true},
-    scadenza : {type : Date}
+    Is_available : {type : Boolean, default: true},
+    Grade : {type : Number, default: null},
+    scadenza : {type : Date, default: null}
 })
 
 const Libro = mongoose.model("Libro", schema);

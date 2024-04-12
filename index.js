@@ -1,9 +1,9 @@
 const app = require('./server.js');
 const express = require('express');
 const mongoose = require('mongoose');
-const Libro = require('./models/utente');
-const Appuntamento = require('./models/appuntamento');
-const invia = require('./invia');
+//const Libro = require('./models/utente');
+//const Appuntamento = require('./models/appuntamento');
+//const invia = require('./invia');
 
 
 const port = process.env.PORT || 8080;
@@ -24,7 +24,7 @@ const listener = app.listen(process.env.PORT || 8080, () => {
 });
 
 // Endpoint API per l'invio di un singolo elemento di tipo libro a MongoDB
-app.post('/appuntamento', async (req, res) => {
+/*app.post('/appuntamento', async (req, res) => {
     try {
         const nuovoLibro = new Libro({
             utente_id : req.body.utente_id,
@@ -45,6 +45,6 @@ app.post('/appuntamento', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+});*/
 
 module.exports = app;

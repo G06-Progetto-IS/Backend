@@ -8,12 +8,12 @@ const schema = new mongoose.Schema({
     password : {type : String, required : true},
 //    libri_in_noleggio : {type : Number, required : true},
 //    libri_nolegggiati : { type : Int8Array, required : true},
-    libri_noleggiati : {type : Array},
-    book_id : {type : Number},
-    autenticato : {type : Boolean, required : true},
-    data_app : {type : Date, required : true},
-    tipo_app : {type : String, required : true},
-    stato_app : {type : Boolean, required : true}
+    libri_noleggiati : {type : Array, default: null},
+    book_id : {type : Number, default: null},
+    autenticato : {type : Boolean, default: null},
+    data_app : {type : Date, default: null},
+    tipo_app : {type : String, default: null},
+    stato_app : {type : Boolean, default: null}
 });
 
 const Utente = mongoose.model("Utente", schema);

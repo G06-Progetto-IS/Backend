@@ -1,9 +1,8 @@
 const appuntamento = require("../models/appuntamento")
 const prenotazione = require("../models/prenotazione")
-const stato_noleggi = require("../models/utente")
-const pipp = require("../models/book")
-const noleggi = require("../models/utente")
-const foo = require("../models/book")
+const utente = require("../models/utente")
+const libro = require("../models/book")
+const counter = require("../models/counter")
 
 
 const deleteApp = async (req, res) => {
@@ -29,9 +28,9 @@ const deletePren = async (req, res) => {
 }
 
 const getStato = async (req, res) => {
-    let data = await stato_noleggi.findOne ({book_id : req.query.book_id}).exec();
+    let data = await utente.findOne ({book_id : req.query.book_id}).exec();
     
-    let pippo = await pipp.findOne({book_id : req.query.book_id}).exec();
+    let pippo = await libro.findOne({book_id : req.query.book_id}).exec();
 
     const libro = {
         titolo : pippo.titolo,
@@ -42,7 +41,7 @@ const getStato = async (req, res) => {
     if (!data) {
         return res.status(404).json({success : false, message : "Noleggio non trovato"});
     } else {
-        await stato_noleggi.findOne({book_id: req.query.book_id});
+        await utente.findOne({book_id: req.query.book_id});
         
         return res.status(200).json({succes : true, libro});
     }
@@ -50,7 +49,7 @@ const getStato = async (req, res) => {
 
 const getBooks = async (req, res) => {
     try {
-        let data = await noleggi.findOne({ utente_id: req.query.utente_id }).exec();
+        let data = await utente.findOne({ utente_id: req.query.utente_id }).exec();
 
         if (!data) {
             return res.status(404).json({ success: false, message: "Utente non trovato" });
@@ -62,7 +61,7 @@ const getBooks = async (req, res) => {
         };
 
         await Promise.all(l.libri_noleggiati.map(async (element) => {
-            let faa = await foo.findOne({ 'book_id': element }).exec(); 
+            let faa = await libro.findOne({ 'book_id': element }).exec(); 
 
             var p = {
                 titolo: faa.titolo,
@@ -81,10 +80,50 @@ const getBooks = async (req, res) => {
     }
 }
 
+const signUp = async (req, res) => {
+    utente.findOne({mail: req.body.mail}, (err, data) => {
+        if(!data){
+            counter.findOneAndUpdate(
+                {id: "autoval"},
+                {"$inc": {"seq": 1}},
+                {new: true}, (err, cd) => {
+            
+                  let seqId;
+                  if(cd==null){
+                    const newVal = new counter({id: "autoval", seq: 1})
+                    newVal.save();
+                    seqId = 1
+                  }
+                  else{
+                    seqId = cd.seq
+                  }
+                  const newUtente = new utente({
+                    utente_id : seqId,
+                    nome : req.body.nome,
+                    cognome : req.body.cognome,
+                    mail : req.body.mail,
+                    password : req.body.password,
+                  })
+                  newUtente.save((err, data) => {
+                    if (err) return res.status(500).json({Error: err});
+                    return res.status(201).json(data);
+                })
+                }
+            )
+        }
+        else {
+            if (err) return res.status(500).json ({Error: err});
+            return res.status(409).json({success : false, message:"Utente già presente con questa mail!"});
+        }
+    })
+  }
+
+
 
 module.exports = {
    deleteApp, 
    deletePren,
    getStato,
-   getBooks
+   getBooks,
+   signUp
 };
