@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 //const Appuntamento = require('./models/appuntamento');
 //const invia = require('./invia');
 
+require('dotenv').config();
 
 const port = process.env.PORT || 8080;
 
