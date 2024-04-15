@@ -130,17 +130,59 @@ const getBooks = async (req, res) => {
     }
 }
 
-const Reserve = async(req, res) => {
-   let data =  utente.findOne({mail: req.query.mail}).exec()
-    if (!data){
-        return res.status(404).json({ success: false, message: "Utente non trovato" });
+const Reserve = async (req, res) => {
+    try {
+        // Attendere la promessa restituita da findOne()
+        let user = await utente.findOne({ mail: req.query.mail }).exec();
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Utente non trovato" });
+        }
+
+        // Eseguire updateOne() con i dati da aggiornare
+        await utente.updateOne({ mail: req.query.mail }, {
+            $set: {
+                data_app: req.body.data_app,
+                tipo_app: req.body.tipo_app
+            }
+        });
+
+        return res.status(200).json({ success: true, message: "Appuntamento riservato" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Errore interno del server" });
     }
-   utente.updateOne({mail: req.query.mail}),
-   {$set:{
-    data_app : req.body.data_app,
-    tipo_app : req.body.tipo_app
-   }}
 };
+
+const RentedBooks = async (req, res) => {
+    try {
+        // Attendere la promessa restituita da findOne()
+        let user = await utente.findOne({ mail: req.query.mail }).exec();
+        let book = await libro.findOne({book_id: req.body.book_id}).exec();
+
+        var t = {
+            libri_noleggiati: user.libri_noleggiati
+        }
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Utente non trovato" });
+        }else {
+            t.libri_noleggiati.push(book.book_id)
+        // Eseguire updateOne() con i dati da aggiornare
+        await utente.updateOne({ mail: req.query.mail }, {
+            $set: {
+                libri_noleggiati: t.libri_noleggiati,
+
+            }
+        });
+
+        return res.status(200).json({ success: true, message: "Libro Aggiunto" });
+    }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Errore interno del server" });
+    }
+};
+
 
 
 
@@ -152,5 +194,6 @@ module.exports = {
    getStato,
    getBooks,
    signUp,
-   Reserve
+   Reserve,
+   RentedBooks,
 };
