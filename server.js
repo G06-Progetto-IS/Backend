@@ -17,6 +17,7 @@ app.use('/deletePrenotazione', tokenChecker);
 app.use('/deleteAppuntamento', tokenChecker);
 app.use('/noleggio', tokenChecker);
 app.use('/arrayLibri', tokenChecker)
+app.use('/Reserve', require('./routes/patchReserve'))
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));

@@ -130,6 +130,18 @@ const getBooks = async (req, res) => {
     }
 }
 
+const Reserve = async(req, res) => {
+   let data =  utente.findOne({mail: req.query.mail}).exec()
+    if (!data){
+        return res.status(404).json({ success: false, message: "Utente non trovato" });
+    }
+   utente.updateOne({mail: req.query.mail}),
+   {$set:{
+    data_app : req.body.data_app,
+    tipo_app : req.body.tipo_app
+   }}
+};
+
 
 
 
@@ -139,5 +151,6 @@ module.exports = {
    deletePren,
    getStato,
    getBooks,
-   signUp
+   signUp,
+   Reserve
 };
