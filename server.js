@@ -13,10 +13,10 @@ const tokenChecker = require('./controllers/tokenChecker')
 
 //API utente
 app.use('/signUp', require('./routes/signUp'))
-app.use('/deletePrenotazione', require('./routes/deletePren'));
-app.use('/deleteAppuntamento', require('./routes/deleteApp'));
-app.use('/noleggio', require('./routes/getStato'));
-app.use('/arrayLibri', require('./routes/getBooks'))
+app.use('/deletePrenotazione', tokenChecker);
+app.use('/deleteAppuntamento', tokenChecker);
+app.use('/noleggio', tokenChecker);
+app.use('/arrayLibri', tokenChecker)
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));
