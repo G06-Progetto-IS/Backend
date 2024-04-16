@@ -73,8 +73,20 @@ const newLibro = async (req, res) => {
   }
 
   const Filter = async (req, res) => {
+
     try {
-        let data = await libro.find({ Genre: req.query.Genre }).exec();
+            let query = {};
+            if (req.query.titolo) {
+                query.titolo = req.query.titolo;
+            }
+            // Aggiungi la ricerca per author_sur se è fornito nella richiesta
+            if (req.query.Author_sur) {
+                query.Author_sur = req.query.Author_sur;
+            }
+            if (req.query.Genre) {
+                query.Genre = req.query.Genre;
+            }
+        let data = await libro.find(query).exec();
         if (data.length === 0) {
             return res.status(404).json({ success: false, message: "Nessun libro trovato" });
         } else {
