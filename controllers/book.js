@@ -20,12 +20,12 @@ const Ricerca_libro = async (req, res) => {
     }
     // Aggiungi la ricerca per author_sur se è fornito nella richiesta
     if (req.query.Author_sur) {
-        query.Author_sur = req.query.author_sur;
+        query.Author_sur = req.query.Author_sur;
     }
     if (req.query.Author_name) {
         query.Author_name = req.query.Author_name;;
     }
-    let data =  await libro.findOne (query).exec()
+    let data =  await libro.find (query).exec()
    
     if (!data) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
