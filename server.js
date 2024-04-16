@@ -19,7 +19,7 @@ app.use('/noleggio', tokenChecker);
 app.use('/arrayLibri', require('./routes/getBooks'))
 app.use('/Reserve', require('./routes/patchReserve'))
 app.use('/Rented', require('./routes/patchRent'))
-
+app.use('/Multa', require('./routes/patchMulta'))
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));

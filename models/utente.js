@@ -13,7 +13,8 @@ const schema = new mongoose.Schema({
     autenticato : {type : Boolean, default: null},
     data_app : {type : Date, default: null},
     tipo_app : {type : String, default: null},
-    stato_app : {type : Boolean, default: null}
+    stato_app : {type : Boolean, default: null},
+    multa : {type : Number, default: null}
 });
 
 const Utente = mongoose.model("Utente", schema);
