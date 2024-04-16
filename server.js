@@ -16,7 +16,7 @@ app.use('/signUp', require('./routes/signUp'))
 app.use('/deletePrenotazione', tokenChecker);
 app.use('/deleteAppuntamento', tokenChecker);
 app.use('/noleggio', tokenChecker);
-app.use('/arrayLibri', tokenChecker)
+app.use('/arrayLibri', require('./routes/getBooks'))
 app.use('/Reserve', require('./routes/patchReserve'))
 app.use('/Rented', require('./routes/patchRent'))
 
@@ -25,6 +25,8 @@ app.use('/Rented', require('./routes/patchRent'))
 app.use('/ricerca', require('./routes/getLibro'));
 app.use('/book', require('./routes/deleteLibro'));
 app.use('/newLibro', require('./routes/newLibro'));
+app.use('/filter', require('./routes/Filter'));
+
 
 //API authentication
 app.use('/login', require('./routes/login'));

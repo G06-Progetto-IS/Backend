@@ -168,11 +168,11 @@ const RentedBooks = async (req, res) => {
         }else {
             t.libri_noleggiati.push(book.book_id)
         // Eseguire updateOne() con i dati da aggiornare
-        await utente.updateOne({ mail: req.query.mail }, {
-            $set: {
-                libri_noleggiati: t.libri_noleggiati,
-
-            }
+            await utente.updateOne({ mail: req.query.mail }, {
+                $set: {
+                    libri_noleggiati: t.libri_noleggiati,
+                
+                }
         });
 
         return res.status(200).json({ success: true, message: "Libro Aggiunto" });

@@ -60,8 +60,33 @@ const newLibro = async (req, res) => {
     })
   }
 
+  const Filter = async (req, res) => {
+    try {
+        let data = await libro.find({ Genre: req.query.Genre }).exec();
+        if (data.length === 0) {
+            return res.status(404).json({ success: false, message: "Nessun libro trovato" });
+        } else {
+            // Map each book to required fields
+            const books = data.map(book => ({
+                titolo: book.titolo,
+                Author_name: book.Author_name,
+                Author_sur: book.Author_sur,
+                Genre: book.Genre,
+                Is_available: book.Is_available,
+                Grade: book.Grade
+            }));
+            return res.status(200).json({ success: true, libri: books });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Errore interno del server" });
+    }
+}
+
+
 module.exports = {
     Cancella_libro,
     Ricerca_libro,
-    newLibro
+    newLibro,
+    Filter
 };
