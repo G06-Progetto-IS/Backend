@@ -25,14 +25,20 @@ const Ricerca_libro = async (req, res) => {
     if (req.query.Author_name) {
         query.Author_name = req.query.Author_name;;
     }
-    let data =  await libro.findOne ({query}).exec()
+    let data =  await libro.findOne (query).exec()
    
     if (!data) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
     } else {
-        return res.status(200).send()
-    }
-}
+        const books = data.map(book => ({
+            titolo: book.titolo,
+            Author_name: book.Author_name,
+            Author_sur: book.Author_sur,
+            Is_available: book.Is_available,  
+        }));
+        return res.status(200).json({success : true, message : "Libro trovato",libri : books});
+    }};
+
 
 const newLibro = async (req, res) => {
     libro.findOne({mail: req.body.titolo }, (err, data) => {
