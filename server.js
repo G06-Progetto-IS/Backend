@@ -26,7 +26,7 @@ app.use('/ricerca', require('./routes/getLibro'));
 app.use('/book', require('./routes/deleteLibro'));
 app.use('/newLibro', require('./routes/newLibro'));
 app.use('/filter', require('./routes/Filter'));
-
+app.use('/disponibilita', require('./routes/patchDisponibilità'))
 
 //API authentication
 app.use('/login', require('./routes/login'));

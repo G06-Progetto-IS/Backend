@@ -13,7 +13,19 @@ const Cancella_libro = async (req, res) => {
 }
 
 const Ricerca_libro = async (req, res) => {
-    let data =  await libro.findOne ({titolo : req.query.titolo}) .exec()
+    let query = {};
+    // Aggiungi la ricerca per titolo se è fornito nella richiesta
+    if (req.query.titolo) {
+        query.titolo = req.query.titolo;
+    }
+    // Aggiungi la ricerca per author_sur se è fornito nella richiesta
+    if (req.query.Author_sur) {
+        query.Author_sur = req.query.author_sur;
+    }
+    if (req.query.Author_name) {
+        query.Author_name = req.query.Author_name;;
+    }
+    let data =  await libro.findOne ({query}).exec()
    
     if (!data) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
@@ -23,7 +35,7 @@ const Ricerca_libro = async (req, res) => {
 }
 
 const newLibro = async (req, res) => {
-    libro.findOne({mail: req.body.titolo}, (err, data) => {
+    libro.findOne({mail: req.body.titolo }, (err, data) => {
         if(!data){
             counter.findOneAndUpdate(
                 {id: "autoval"},
@@ -83,10 +95,34 @@ const newLibro = async (req, res) => {
     }
 }
 
+const updateDisponibilità = async (req, res) => {
+    try {
+        // Attendere la promessa restituita da findOne()
+        let user = await libro.findOne({ titolo: req.query.titolo }).exec();
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Libro non trovato" });
+        }
+
+        // Eseguire updateOne() con i dati da aggiornare
+        await libro.updateOne({ titolo: req.query.titolo }, {
+            $set: {
+              Is_available: req.body.Is_available
+            }
+        });
+
+        return res.status(200).json({ success: true, message: "Disponibilità aggiornata" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Errore interno del server" });
+    }
+};
+
 
 module.exports = {
     Cancella_libro,
     Ricerca_libro,
     newLibro,
-    Filter
+    Filter,
+    updateDisponibilità
 };
