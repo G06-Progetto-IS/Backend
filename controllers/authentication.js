@@ -20,6 +20,21 @@ const login = async function(req, res){
   return res.status(200).json({success: true, message : 'Welcome on your account, ' + user.mail + '!', token: tkn, utente_id: user.utente_id})
 }
 
+const logout = function(req, res) {
+  var tkn = req.headers['x-access-token'];
+  if (tkn){
+      var payload = {};
+      var options = {expiresIn: 5};
+      var tkn = jwt.sign(payload, 'EasyLib', options);
+      //dai al loggedUser il nuovo token!
+      return res.status(200).json({success: true, message: "You logged out!"});
+  } else {
+      return res.status(200).json({success: true, message: "You alreayd logged out!"});
+  }
+}
+
+
 module.exports = {
-  login
+  login,
+  logout
 };

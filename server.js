@@ -20,6 +20,7 @@ app.use('/arrayLibri', require('./routes/getBooks'))
 app.use('/Reserve', require('./routes/patchReserve'))
 app.use('/Rented', require('./routes/patchRent'))
 app.use('/Multa', require('./routes/patchMulta'))
+app.use('/logout', require('./routes/logout'))
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));
