@@ -43,7 +43,7 @@ const signUp = async (req, res) => {
 
                 newUtente.save((err, data) => {
                     if (err) return res.status(500).json({Error: err});
-                    return res.status(201).json(data);
+                    return res.status(201).json({success: true, message: "Utente creato con successo!", data});
                 })
                 }
             )
