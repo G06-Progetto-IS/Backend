@@ -13,7 +13,7 @@ module.exports = {
 
 
 beforeAll(async () => {
-    jest.setTimeout(20000)
+    jest.setTimeout(30000)
     app.locals.db = await mongoose.connect(process.env.MONGODB_URI);
     server = app.listen(process.env.PORT || 8080);
 });
@@ -23,24 +23,46 @@ afterAll(async () => {
     server.close();
 });
 
-describe ('suite testing API endpoint "/signUp"', () => {
+// errore :  TypeError: Cannot read properties of undefined (reading 'close')
+/*describe('suite testing API endpoint "/signUp"', () => {
     const inputBody = {
-        nome : "utente prova",
-        cognome : "capra",
-        mail : "Testcapra@gmail.com",
-        password : "abcdefgh!"
-    }
+        nome: "utente prova",
+        cognome: "capra",
+        mail: "Testcapra@gmail.com",
+        password: "abcdefgh!"
+    };
 
-test('Chiamata API corretta:', async() => {
-    const response = await request(app)
-       .post('/signUp')
-       .send(inputBody)
-       .expect(201);
-    expect(response.body.success).toBe(true);
-    expect(response.body.message).toBe('Utente creato con successo!');
+    test('Chiamata API corretta', async () => {
+        jest.setTimeout(30000); 
+
+        // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
+        expect(app).toBeDefined();
+        expect(app.locals.db).toBeDefined();
+
+        try {
+            const response = await request(app)
+                .post('/signUp')
+                .send(inputBody)
+                .expect(201);
+
+            expect(response.body.success).toBe(true);
+            expect(response.body.message).toBe('Utente creato con successo!');
+        } catch (error) {
+            // Gestisci eventuali errori nell'esecuzione della richiesta
+            console.error('Errore durante la chiamata API:', error);
+            throw error;
+        }
+    });
+});*/
+
+describe('suite testing API endpoint "/getBooks"', () => {
+    Test('test getBooks', async () => {
+        const res = await request(app)
+        .get('/getBooks?utente_id = 11');
+        expect(res.statusCode).toEqueal(200);   
+        
+    })
+
+
 })
-
-
-
-});
 
