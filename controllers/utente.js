@@ -1,4 +1,4 @@
-const appuntamento = require("../models/appuntamento")
+
 const prenotazione = require("../models/prenotazione")
 const utente = require("../models/utente")
 const libro = require("../models/book")
@@ -56,13 +56,13 @@ const signUp = async (req, res) => {
   }
 
 const deleteApp = async (req, res) => {
-    let data =  await appuntamento.findOne ({appuntamento_id : req.query.appuntamento_id}).exec()
+    let data =  await utente.findOne ({mail: req.query.mail}).exec()
 
     if (!data) {
         return res.status(404).json({success : false, message : "Appuntamento non trovato"})
     } else {
-        await appuntamento.deleteOne({appuntamento_id: req.query.appuntamento_id});
-        return res.status(200).send()
+        await utente.deleteOne({tipo_app: req.body.tipo_app});
+        return res.status(200).json({success : true, message : "Appuntamento eliminato"})
     }
 }
 

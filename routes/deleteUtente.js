@@ -3,10 +3,10 @@ const express = require("express")
 const multer = require("multer")
 const upload = multer()
 
-const routerNewLibro = express.Router();
+const routerLibro  = express.Router();
 const libroController = require("../controllers/admin");
 
-routerNewLibro.post('/?', upload.none(), libroController.newLibro);
+routerLibro.delete('/?', libroController.deleteUtente);
 
 
-module.exports = routerNewLibro; require
+module.exports = routerLibro;

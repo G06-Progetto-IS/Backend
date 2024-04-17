@@ -4,9 +4,9 @@ const multer = require("multer")
 const upload = multer()
 
 const routerApp  = express.Router();
-const AppController = require("../controllers/book");
+const AppController = require("../controllers/disponibilita");
 
 
-routerApp.patch('/?', upload.none(), AppController.updateDisponibilità);
+routerApp.patch('/?', upload.none(), AppController.updateDisponibilita);
 
 module.exports = routerApp;

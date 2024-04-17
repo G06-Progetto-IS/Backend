@@ -25,13 +25,17 @@ app.use('/logout', require('./routes/logout'))
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));
 app.use('/book', require('./routes/deleteLibro'));
-app.use('/newLibro', require('./routes/newLibro'));
 app.use('/filter', require('./routes/Filter'));
-app.use('/disponibilita', require('./routes/patchDisponibilità'))
+app.use('/disponibilita', require('./routes/patchDisponibilita'))
 
 //API authentication
 app.use('/login', require('./routes/login'));
 
+
+//API admin
+app.use('/getAll', require('./routes/getAllusers'));
+app.use('/newLibro', require('./routes/newLibro'));
+app.use('/deleteUtente', require('./routes/deleteUtente'));
 
 module.exports = app;
 

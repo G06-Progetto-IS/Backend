@@ -39,45 +39,6 @@ const Ricerca_libro = async (req, res) => {
         return res.status(200).json({success : true, message : "Libro trovato",libri : books});
     }};
 
-
-const newLibro = async (req, res) => {
-    libro.findOne({mail: req.body.titolo }, (err, data) => {
-        if(!data){
-            counter.findOneAndUpdate(
-                {id: "autoval"},
-                {"$inc": {"seq": 1}},
-                {new: true}, (err, cd) => {
-            
-                  let seqId;
-                  if(cd==null){
-                    const newVal = new counter({id: "autoval", seq: 1})
-                    newVal.save();
-                    seqId = 1
-                  }
-                  else{
-                    seqId = cd.seq
-                  }
-                  const newLibro = new libro({
-                    book_id : seqId,
-                    titolo : req.body.titolo,
-                    Author_name : req.body.Author_name,
-                    Author_sur : req.body.Author_sur,
-                    Genre : req.body.Genre
-                  })
-                  newLibro.save((err, data) => {
-                    if (err) return res.status(500).json({Error: err});
-                    return res.status(201).json(data);
-                })
-                }
-            )
-        }
-        else {
-            if (err) return res.status(500).json ({Error: err});
-            return res.status(409).json({success : false, message:"Libro già presente in archivio"});
-        }
-    })
-  }
-
   const Filter = async (req, res) => {
 
     try {
@@ -140,7 +101,6 @@ const updateDisponibilità = async (req, res) => {
 module.exports = {
     Cancella_libro,
     Ricerca_libro,
-    newLibro,
     Filter,
     updateDisponibilità
 };
