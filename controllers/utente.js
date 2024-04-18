@@ -109,21 +109,21 @@ const getBooks = async (req, res) => {
         var l = {
             libri_noleggiati: data.libri_noleggiati
         };
-
-        await Promise.all(l.libri_noleggiati.map(async (element) => {
-            let faa = await libro.findOne({ 'book_id': element }).exec(); 
-
+        for (let i = 0; i < l.libri_noleggiati.length; i++) {
+            let element = l.libri_noleggiati[i];
+            let faa = await libro.findOne({ 'book_id': element }).exec();
+        
             var p = {
                 titolo: faa.titolo,
                 Author_sur: faa.Author_sur,
                 scadenza: faa.scadenza
             };
-
+        
             libri.push(p);
             console.log(p);
-        }));
+        }
 
-        return res.status(200).json({ success: true, libri });
+        return res.status(200).json({ libri });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ success: false, message: "Errore del server" });
