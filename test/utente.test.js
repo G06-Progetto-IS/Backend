@@ -1,22 +1,13 @@
 const {default : mongoose} = require('mongoose');
 const request = require('supertest');
 require('dotenv').config();
-require('../models/utente')
+
 
 const app = require('../server');
 const jwt = require('jsonwebtoken');
 const { unchangedTextChangeRange } = require('typescript');
 let server = app.listen(process.env.PORT || 8080);
 
-
-
-function sortObjectProperties(obj) {
-    const sorted = {};
-    Object.keys(obj).sort().forEach(key => {
-        sorted[key] = obj[key];
-    });
-    return sorted;
-}
 
 module.exports = {
     setupFilesAfterEnv : ['./jest.setup.js']
@@ -26,7 +17,6 @@ module.exports = {
 beforeAll(async () => {
     jest.setTimeout(30000)
     app.locals.db = mongoose.connect(process.env.MONGODB_URI);
-    
 });
 
 
@@ -60,9 +50,9 @@ beforeAll(async () => {
             throw error;
         }
     });
-});
-*/
-describe('suite testing API endpoint "/getBooks"', () => {
+});*/
+
+/*describe('suite testing API endpoint "/getBooks"', () => {
     test('test getBooks', async () => {
         const libri =  [
             {
@@ -102,9 +92,62 @@ describe('suite testing API endpoint "/getBooks"', () => {
         .expect(200);
         expect(res.body).toEqual(outputBody);
     })
-    
-    
-})
+});*/
+
+describe('suite testing API endpoint "/ricerca"', () => {
+    test('test ricerca', async () => {
+        const res = await request(app)
+        .get('/ricerca?Author_sur=BA')
+        .expect(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe('Libro trovato')
+        //ricerca per titolo
+        /*
+        const outBody = {
+            'libri':[{
+                titolo:'HP thc',
+                Author_name:'AB',
+                Author_sur:'BA',
+                Is_available: true
+            }],
+            message : 'Libro trovato',
+            success : true
+        }
+        expect(res.body).toStrictEqual(outBody)*/
+
+        //ricerca per nome e cognome
+        const outBody = {
+            'libri':[{
+                titolo:'LA Sboobba',
+                Author_name:'AB',
+                Author_sur:'BA',
+                Is_available: true
+            },
+            {
+                titolo:'AVo',
+                Author_name:'AB',
+                Author_sur:'BA',
+                Is_available: true 
+            },
+            {
+                titolo:'HP thc',
+                Author_name:'AB',
+                Author_sur:'BA',
+                Is_available: true
+            },{
+                titolo:'HP cbd',
+                Author_name:'AB',
+                Author_sur:'BA',
+                Is_available: true
+            }
+            ],
+            message : 'Libro trovato',
+            success : true
+        }
+        expect(res.body).toStrictEqual(outBody);
+
+    })
+});
 
 
 afterAll(async () => {

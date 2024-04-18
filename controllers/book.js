@@ -30,12 +30,17 @@ const Ricerca_libro = async (req, res) => {
     if (!data) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
     } else {
-        const books = data.map(book => ({
-            titolo: book.titolo,
-            Author_name: book.Author_name,
-            Author_sur: book.Author_sur,
-            Is_available: book.Is_available,  
-        }));
+        const books = [];
+
+    for (const book of data) {
+        const { titolo, Author_name, Author_sur, Is_available } = book;
+        books.push({
+            titolo: titolo,
+            Author_name: Author_name,
+            Author_sur: Author_sur,
+            Is_available: Is_available
+        });
+    };
         return res.status(200).json({success : true, message : "Libro trovato",libri : books});
     }};
 
