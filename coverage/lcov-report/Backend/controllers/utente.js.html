@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.89% </span>
+                <span class="strong">26.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/94</span>
+                <span class='fraction'>25/94</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">19.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>5/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>4/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.21% </span>
+                <span class="strong">27.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/92</span>
+                <span class='fraction'>25/92</span>
             </div>
         
             
@@ -292,23 +292,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -316,19 +316,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -511,24 +511,24 @@ const counter = require("../models/counter")
 const aux = require("../auxiliares/check")
 &nbsp;
 &nbsp;
-const signUp = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >    utente.findOne({mail: req.body.mail}, <span class="fstat-no" title="function not covered" >(e</span>rr, data) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if(!data){</span>
-<span class="cstat-no" title="statement not covered" >            counter.findOneAndUpdate(</span>
+const signUp = async (req, res) =&gt; {
+    utente.findOne({mail: req.body.mail}, (err, data) =&gt; {
+        if(!data){
+            counter.findOneAndUpdate(
                 {id: "autoval"},
                 {"$inc": {"seq": 1}},
-                {new: true}, <span class="fstat-no" title="function not covered" >(e</span>rr, cd) =&gt; {
+                {new: true}, (err, cd) =&gt; {
             
                   let seqId;
-<span class="cstat-no" title="statement not covered" >                  if(cd==null){</span>
+                  <span class="missing-if-branch" title="if path not taken" >I</span>if(cd==null){
                     const newVal = <span class="cstat-no" title="statement not covered" >new counter({id: "autoval", seq: 1})</span>
 <span class="cstat-no" title="statement not covered" >                    newVal.save();</span>
 <span class="cstat-no" title="statement not covered" >                    seqId = 1</span>
                   }
                   else{
-<span class="cstat-no" title="statement not covered" >                    seqId = cd.seq</span>
+                    seqId = cd.seq
                   }
-                  const newUtente = <span class="cstat-no" title="statement not covered" >new utente({</span>
+                  const newUtente = new utente({
                     utente_id : seqId,
                     nome : req.body.nome,
                     cognome : req.body.cognome,
@@ -536,24 +536,24 @@ const signUp = <span class="fstat-no" title="function not covered" >as</span>ync
                     password : req.body.password,
                   })
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                if(!aux.validateEmail(newUtente.mail)){</span>
+                <span class="missing-if-branch" title="if path not taken" >I</span>if(!aux.validateEmail(newUtente.mail)){
 <span class="cstat-no" title="statement not covered" >                    res.status(400).json({ error: 'Email non valida' });</span>
 <span class="cstat-no" title="statement not covered" >                    return;</span>
                 }
-<span class="cstat-no" title="statement not covered" >                if(!aux.checkPw(newUtente.password)){ {</span>
+                <span class="missing-if-branch" title="if path not taken" >I</span>if(!aux.checkPw(newUtente.password)){ {
 <span class="cstat-no" title="statement not covered" >                    res.status(400).json({ error: 'Password non valida' });</span>
 <span class="cstat-no" title="statement not covered" >                    return;</span>
                 }
             }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                newUtente.save(<span class="fstat-no" title="function not covered" >(e</span>rr, data) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                    if (err) <span class="cstat-no" title="statement not covered" >return res.status(500).json({Error: err});</span></span>
-<span class="cstat-no" title="statement not covered" >                    return res.status(201).json({success: true, message: "Utente creato con successo!", data});</span>
+                newUtente.save((err, data) =&gt; {
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return res.status(500).json({Error: err});</span>
+                    return res.status(201).json({success: true, message: "Utente creato con successo!", data});
                 })
                 }
             )
         }
-        else {
+        else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >            if (err) <span class="cstat-no" title="statement not covered" >return res.status(500).json ({Error: err});</span></span>
 <span class="cstat-no" title="statement not covered" >            return res.status(409).json({success : false, message:"Utente già presente con questa mail!"});</span>
         }
@@ -730,7 +730,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-17T13:10:53.989Z
+                at 2024-04-18T11:31:56.149Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

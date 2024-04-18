@@ -1,6 +1,7 @@
 const {default : mongoose} = require('mongoose');
 const request = require('supertest');
 require('dotenv').config();
+require('../models/utente')
 
 const app = require('../server');
 const jwt = require('jsonwebtoken');
@@ -24,7 +25,7 @@ afterAll(async () => {
 });
 
 // errore :  TypeError: Cannot read properties of undefined (reading 'close')
-/*describe('suite testing API endpoint "/signUp"', () => {
+describe('suite testing API endpoint "/signUp"', () => {
     const inputBody = {
         nome: "utente prova",
         cognome: "capra",
@@ -53,8 +54,9 @@ afterAll(async () => {
             throw error;
         }
     });
-});*/
+});
 
+/*
 describe('suite testing API endpoint "/getBooks"', () => {
     Test('test getBooks', async () => {
         const res = await request(app)
@@ -65,4 +67,4 @@ describe('suite testing API endpoint "/getBooks"', () => {
 
 
 })
-
+*/

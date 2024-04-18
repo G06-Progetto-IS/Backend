@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1713359454010" clover="3.2.0">
-  <project timestamp="1713359454010" name="All files">
-    <metrics statements="374" coveredstatements="181" conditionals="90" coveredconditionals="0" methods="35" coveredmethods="0" elements="499" coveredelements="181" complexity="0" loc="374" ncloc="374" packages="5" files="26" classes="26"/>
+<coverage generated="1713439916214" clover="3.2.0">
+  <project timestamp="1713439916214" name="All files">
+    <metrics statements="375" coveredstatements="198" conditionals="90" coveredconditionals="8" methods="35" coveredmethods="6" elements="500" coveredelements="212" complexity="0" loc="375" ncloc="375" packages="5" files="26" classes="26"/>
     <package name="Backend">
-      <metrics statements="25" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="server.js" path="/Users/brandocorti/Desktop/Backend/Backend/server.js">
-        <metrics statements="25" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="26" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="server.js" path="/home/stefano/Desktop/Progetto/Backend/server.js">
+        <metrics statements="26" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
@@ -34,24 +35,24 @@
       </file>
     </package>
     <package name="Backend.auxiliares">
-      <metrics statements="10" coveredstatements="3" conditionals="11" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="check.js" path="/Users/brandocorti/Desktop/Backend/Backend/auxiliares/check.js">
-        <metrics statements="10" coveredstatements="3" conditionals="11" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="10" coveredstatements="8" conditionals="11" coveredconditionals="3" methods="2" coveredmethods="2"/>
+      <file name="check.js" path="/home/stefano/Desktop/Progetto/Backend/auxiliares/check.js">
+        <metrics statements="10" coveredstatements="8" conditionals="11" coveredconditionals="3" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="4" count="0" type="stmt"/>
-        <line num="7" count="0" type="cond" truecount="0" falsecount="9"/>
-        <line num="11" count="0" type="stmt"/>
+        <line num="7" count="1" type="cond" truecount="2" falsecount="7"/>
+        <line num="11" count="1" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
     </package>
     <package name="Backend.controllers">
-      <metrics statements="225" coveredstatements="40" conditionals="79" coveredconditionals="0" methods="32" coveredmethods="0"/>
-      <file name="admin.js" path="/Users/brandocorti/Desktop/Backend/Backend/controllers/admin.js">
+      <metrics statements="225" coveredstatements="51" conditionals="79" coveredconditionals="5" methods="32" coveredmethods="4"/>
+      <file name="admin.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/admin.js">
         <metrics statements="43" coveredstatements="8" conditionals="18" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -97,7 +98,7 @@
         <line num="93" count="0" type="stmt"/>
         <line num="99" count="1" type="stmt"/>
       </file>
-      <file name="authentication.js" path="/Users/brandocorti/Desktop/Backend/Backend/controllers/authentication.js">
+      <file name="authentication.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/authentication.js">
         <metrics statements="21" coveredstatements="5" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -121,7 +122,7 @@
         <line num="32" count="0" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
       </file>
-      <file name="book.js" path="/Users/brandocorti/Desktop/Backend/Backend/controllers/book.js">
+      <file name="book.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/book.js">
         <metrics statements="47" coveredstatements="7" conditionals="20" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -171,7 +172,7 @@
         <line num="96" count="0" type="stmt"/>
         <line num="101" count="1" type="stmt"/>
       </file>
-      <file name="disponibilita.js" path="/Users/brandocorti/Desktop/Backend/Backend/controllers/disponibilita.js">
+      <file name="disponibilita.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/disponibilita.js">
         <metrics statements="11" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -185,7 +186,7 @@
         <line num="22" count="0" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
       </file>
-      <file name="tokenChecker.js" path="/Users/brandocorti/Desktop/Backend/Backend/controllers/tokenChecker.js">
+      <file name="tokenChecker.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/tokenChecker.js">
         <metrics statements="11" coveredstatements="3" conditionals="7" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -199,32 +200,32 @@
         <line num="27" count="0" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
       </file>
-      <file name="utente.js" path="/Users/brandocorti/Desktop/Backend/Backend/controllers/utente.js">
-        <metrics statements="92" coveredstatements="14" conditionals="26" coveredconditionals="0" methods="12" coveredmethods="0"/>
+      <file name="utente.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/utente.js">
+        <metrics statements="92" coveredstatements="25" conditionals="26" coveredconditionals="5" methods="12" coveredmethods="4"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="19" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="34" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="38" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="39" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="46" count="0" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="46" count="1" type="stmt"/>
         <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="53" count="0" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
@@ -297,28 +298,28 @@
     </package>
     <package name="Backend.models">
       <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="book.js" path="/Users/brandocorti/Desktop/Backend/Backend/models/book.js">
+      <file name="book.js" path="/home/stefano/Desktop/Progetto/Backend/models/book.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
-      <file name="counter.js" path="/Users/brandocorti/Desktop/Backend/Backend/models/counter.js">
+      <file name="counter.js" path="/home/stefano/Desktop/Progetto/Backend/models/counter.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
       </file>
-      <file name="prenotazione.js" path="/Users/brandocorti/Desktop/Backend/Backend/models/prenotazione.js">
+      <file name="prenotazione.js" path="/home/stefano/Desktop/Progetto/Backend/models/prenotazione.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
       </file>
-      <file name="utente.js" path="/Users/brandocorti/Desktop/Backend/Backend/models/utente.js">
+      <file name="utente.js" path="/home/stefano/Desktop/Progetto/Backend/models/utente.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -328,7 +329,7 @@
     </package>
     <package name="Backend.routes">
       <metrics statements="98" coveredstatements="98" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Filter.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/Filter.js">
+      <file name="Filter.js" path="/home/stefano/Desktop/Progetto/Backend/routes/Filter.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -338,7 +339,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="deleteLibro.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/deleteLibro.js">
+      <file name="deleteLibro.js" path="/home/stefano/Desktop/Progetto/Backend/routes/deleteLibro.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -348,7 +349,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="deleteUtente.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/deleteUtente.js">
+      <file name="deleteUtente.js" path="/home/stefano/Desktop/Progetto/Backend/routes/deleteUtente.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -358,7 +359,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="getAllusers.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/getAllusers.js">
+      <file name="getAllusers.js" path="/home/stefano/Desktop/Progetto/Backend/routes/getAllusers.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -368,7 +369,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
-      <file name="getBooks.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/getBooks.js">
+      <file name="getBooks.js" path="/home/stefano/Desktop/Progetto/Backend/routes/getBooks.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -378,7 +379,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="getLibro.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/getLibro.js">
+      <file name="getLibro.js" path="/home/stefano/Desktop/Progetto/Backend/routes/getLibro.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -388,7 +389,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="login.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/login.js">
+      <file name="login.js" path="/home/stefano/Desktop/Progetto/Backend/routes/login.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -398,7 +399,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="logout.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/logout.js">
+      <file name="logout.js" path="/home/stefano/Desktop/Progetto/Backend/routes/logout.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -408,7 +409,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="newLibro.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/newLibro.js">
+      <file name="newLibro.js" path="/home/stefano/Desktop/Progetto/Backend/routes/newLibro.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -418,7 +419,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="patchDisponibilita.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/patchDisponibilita.js">
+      <file name="patchDisponibilita.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchDisponibilita.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -428,7 +429,7 @@
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="patchMulta.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/patchMulta.js">
+      <file name="patchMulta.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchMulta.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -438,7 +439,7 @@
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="patchRent.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/patchRent.js">
+      <file name="patchRent.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchRent.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -448,7 +449,7 @@
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="patchReserve.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/patchReserve.js">
+      <file name="patchReserve.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchReserve.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -458,7 +459,7 @@
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="signUp.js" path="/Users/brandocorti/Desktop/Backend/Backend/routes/signUp.js">
+      <file name="signUp.js" path="/home/stefano/Desktop/Progetto/Backend/routes/signUp.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>

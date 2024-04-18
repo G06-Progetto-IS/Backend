@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-
 // Frontend configuration
 app.use(express.static(path.join(__dirname, 'Frontend')));
 app.get('/', (req, res) => {
@@ -10,6 +9,7 @@ app.get('/', (req, res) => {
 });
 
 const tokenChecker = require('./controllers/tokenChecker')
+app.use(express.json())
 
 //API utente
 app.use('/signUp', require('./routes/signUp'))
