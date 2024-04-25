@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="search-column">
-          <input class="search-bar" type="text" placeholder="Search">
+          <input id="searchBar" type="text" onkeypress="handle(event)" placeholder="Search" class="search-bar">
         </div>
           <div class="link-column">
             <a href="homepage.html" class="home-link">Home</a>
@@ -113,7 +113,7 @@
           Archivio
         </button>
 
-        <script>
+        <script src="script.js">
           // Seleziona il bottone di archivio
           var loginButton = document.getElementById("archivioButton");
   
@@ -122,6 +122,14 @@
               // Reindirizza l'utente alla pagina archivio.html
               window.location.href = "archivio.html";
           });
+
+          var searchBar = document.getElementById("searchBar");
+          searchBar.addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+              event.preventDefault();
+              ricerca();
+          }
+        });
       </script>
   </body>
 </html>
