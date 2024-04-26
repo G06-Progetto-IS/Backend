@@ -91,48 +91,56 @@ function ricerca() {
   var input = document.getElementById("searchBar").value;
   
   // Funzione per effettuare una singola richiesta di ricerca
-  function ricercaPerParametro(parametro) {
-      var url = '/ricerca?' + parametro + '=' + input;
-      console.log(url);
-      return fetch(url)
+  async function ricercaPerParametro(parametro) {
+      var url = '../ricerca?' + parametro + '=' + input;
+      //console.log(url);
+      return fetch(url, {method : 'GET'})
           .then(response => response.json())
           .then(data => {
-              console.log(data);
+              //console.log(data);
               return data;
           });
   }
 
+  var books ={};
   // Effettua la ricerca per parametro=[titolo, nome, cognome]
   ricercaPerParametro('titolo')
-      .then(titolo => {
-        if (titolo) {
-          console.log("Libro trovato: " + titolo);
+      .then(res => {
+        if (res && res.libri.length > 0) {
+          console.log("Libro trovato: " + res);
+          books.body = res;
         } else {
           // Se il titolo non è stato trovato, esegui la ricerca per il nomed dell'autore
-          return ricercaPerParametro('Author_name');
+          console.log("Titolo non trovato.");
+          ricercaPerParametro('Author_name')
+          .then(res => {
+            // Se è stato trovato un risultato, mostra il nome dell'autore
+            if (res && res.libri.length > 0) {
+              console.log("Nome dell'autore trovato: " + res);
+              books.body = res;
+            } else {
+              // Altrimenti, effettua la ricerca per cognome
+              console.log("Nome autore non trovato")
+              ricercaPerParametro('Author_sur')
+              .then(res => {
+                  // Se è stato trovato un risultato, mostra il cognome dell'autore
+                  if (res && res.libri.length > 0) {
+                    console.log("Cognome dell'autore trovato: " + res);
+                    books.body = res;
+                  } else {
+                    // Se non ci sono risultati per nessun parametro, mostra un avviso
+                    console.log("Nessun risultato trovato.");
+                  }
+              })
+              .catch(error => {
+                console.error('Si è verificato un errore durante la ricerca:', error);
+              });
+            }
+          })
         }
       })
-      .then(nome => {
-        // Se è stato trovato un risultato, mostra il nome dell'autore
-        if (nome) {
-          console.log("Nome dell'autore trovato: " + nome);
-        } else {
-          // Altrimenti, effettua la ricerca per cognome
-          return ricercaPerParametro('Author_sur');
-        }
-      })
-      .then(cognome => {
-          // Se è stato trovato un risultato, mostra il cognome dell'autore
-          if (cognome) {
-            console.log("Cognome dell'autore trovato: " + cognome);
-          } else {
-            // Se non ci sono risultati per nessun parametro, mostra un avviso
-            console.log("Nessun risultato trovato.");
-          }
-      })
-      .catch(error => {
-        console.error('Si è verificato un errore durante la ricerca:', error);
-      });
+  console.log("Libri trovati: " , books);
+  return books;
 }
 
 
