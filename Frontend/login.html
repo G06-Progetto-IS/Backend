@@ -136,16 +136,14 @@
             }, 200);
 
             document.getElementById("registrazioneForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Impedisce il comportamento di default del form
-
-            // Esegui la funzione registrati
+            event.preventDefault(); 
+            
             registrati();
         });
 
         document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Impedisce il comportamento di default del form
+            event.preventDefault(); 
 
-            // Esegui la funzione login
             login();
         });
         </script>

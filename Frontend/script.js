@@ -1,9 +1,35 @@
-// Stores the logged in user 
+
+
+// INIZIO HANDLER EVENTI
+var archivioButton = document.getElementById("archivioButton");
+archivioButton.addEventListener("click", function() {
+  window.location.href = "archivio.html";
+});
+
+var searchBar = document.getElementById("searchBar");
+searchBar.addEventListener("keydown", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    ricerca();
+  }
+});
+
+var loginButton = document.getElementById("loginButton");
+loginButton.addEventListener("click", function() {
+  window.location.href = "login.html";
+})
+
+document.getElementById("formAppuntamento").addEventListener("submit", function(event) {
+  event.preventDefault();
+  appuntamento();
+});
+
+// FINE HANDLER EVENTI
+
+// INIZIO FUNZIONI
 var loggedUser = {};
 
-
 function registrati(){ 
-
   const nome = document.getElementById('nomeRegistrazione').value;
   const cognome = document.getElementById('cognomeRegistrazione').value;
   const mail = document.getElementById('mailRegistrazione').value;
@@ -70,7 +96,6 @@ function login(){
       loggedUser.nome = data.nome;
       loggedUser.cognome = data.cognome;
       loggedUser.id = data.id;
-      
       // Apre la pagina di homepage
       window.location.href="homepage.html"
     return;
@@ -110,7 +135,7 @@ function ricerca() {
           console.log("Libro trovato: " + res);
           books.body = res;
         } else {
-          // Se il titolo non è stato trovato, esegui la ricerca per il nomed dell'autore
+          // Se il titolo non è stato trovato, esegui la ricerca per il nome dell'autore
           console.log("Titolo non trovato.");
           ricercaPerParametro('Author_name')
           .then(res => {
@@ -143,17 +168,46 @@ function ricerca() {
   return books;
 }
 
+function appuntamento() {
+  const nome = document.getElementById('nomeAppuntamento').value;
+  const cognome = document.getElementById('cognomeAppuntamento').value;
+  const mail = document.getElementById('emailAppuntamento').value;
+  const data = document.getElementById('dateAppuntamento').value;
+  const ora = document.getElementById('timeAppuntamento').value;
+  const tipoAppuntamento = document.querySelector('input[name="fav_language"]:checked').value;
 
 
+  if(!tipoAppuntamento) {
+    alert("Seleziona un appuntamento!!")
+  }
+  // Costruzione dei dati nel formato corretto per lo schema MongoDB
+  let dati = {
+    nome: nome,
+    cognome: cognome,
+    mail: mail,
+    data_app: new Date(`${data}T${ora}`), // Combina data e ora
+    tipo_app: tipoAppuntamento
+  };
+  
+  console.log("dati: ", dati);
 
-// // Ricerca base, fornito sempre e solo il titolo del libro (non funziona con nome o cognome)
-// function ricerca() {
-//   const input = document.getElementById('searchBar').value;
- 
-//       //console.log(data)
-//       fetch(`../ricerca?titolo=` + input)
-//       .then(resp => resp.json())
-//       .then(data => console.log(`Risultati per input:`, data))
-//       .catch(error => console.error(error));
-// }
+  fetch('../Reserve?mail=' + mail, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dati)
+  })
+  .then((res) => res.json()) 
+  .then(function(data) { 
+    if(data.success){
+      alert("Appuntamento Prenotato");
+    }
+    else{
+      alert("Appuntamento non prenotato");
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+}
     

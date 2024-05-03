@@ -50,19 +50,6 @@
             <button class="login-button" id="loginButton">Login</button>
           </div>
         </div>
-
-        <script>
-          // Seleziona il bottone di login
-          var loginButton = document.getElementById("loginButton");
-  
-          // Aggiungi un evento di click al bottone di login
-          loginButton.addEventListener("click", function() {
-              // Reindirizza l'utente alla pagina login.html
-              window.location.href = "login.html";
-          });
-      </script>
-
-      <script src="sign.js"></script>
 <!--fine header-->
 
         <div class="background-container">
@@ -113,23 +100,6 @@
           Archivio
         </button>
 
-        <script src="script.js">
-          // Seleziona il bottone di archivio
-          var loginButton = document.getElementById("archivioButton");
-  
-          // Aggiungi un evento di click al bottone di archio
-          loginButton.addEventListener("click", function() {
-              // Reindirizza l'utente alla pagina archivio.html
-              window.location.href = "archivio.html";
-          });
-
-          var searchBar = document.getElementById("searchBar");
-          searchBar.addEventListener("keydown", function(event) {
-            if (event.keyCode === 13) {
-              event.preventDefault();
-              ricerca();
-          }
-        });
-      </script>
+        <script src="script.js"></script>
   </body>
 </html>
