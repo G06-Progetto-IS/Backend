@@ -13,14 +13,16 @@ app.use(express.json())
 
 //API utente
 app.use('/signUp', require('./routes/signUp'))
-app.use('/deletePrenotazione', tokenChecker);
-app.use('/deleteAppuntamento', tokenChecker);
+app.use('/deletePrenotazione', require('./routes/deletePren'));
+app.use('/deleteAppuntamento', require('./routes/deleteApp'));
 app.use('/noleggio', tokenChecker);
 app.use('/arrayLibri', require('./routes/getBooks'))
 app.use('/Reserve', require('./routes/patchReserve'))
 app.use('/Rented', require('./routes/patchRent'))
 app.use('/Multa', require('./routes/patchMulta'))
 app.use('/logout', require('./routes/logout'))
+app.use('/createApp', require('./routes/postApp'))
+app.use('/createPren', require('./routes/postPren'))
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));

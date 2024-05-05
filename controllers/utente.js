@@ -4,6 +4,7 @@ const utente = require("../models/utente")
 const libro = require("../models/book")
 const counter = require("../models/counter")
 const aux = require("../auxiliares/check")
+const appuntamento = require("../models/appuntamento")
 
 
 const signUp = async (req, res) => {
@@ -38,8 +39,8 @@ const signUp = async (req, res) => {
                 if(!aux.checkPw(newUtente.password)){ {
                     res.status(400).json({ error: 'Password non valida' });
                     return;
+                    }
                 }
-            }
 
                 newUtente.save((err, data) => {
                     if (err) return res.status(500).json({Error: err});
@@ -53,7 +54,83 @@ const signUp = async (req, res) => {
             return res.status(409).json({success : false, message:"Utente già presente con questa mail!"});
         }
     })
-  }
+}
+
+function compareDates(a){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    if(a<today){
+        return false;
+    }
+    return true;
+}
+
+const createApp = async(req, res) => {
+    let data_u = await utente.findOne ({mail: req.query.mail}).exec()
+    if (!data_u){
+        return res.status(404).json({success : false, message:"Utente non trovato"});
+    }
+    appuntamento.findOneAndUpdate(
+        {id : data_u.utente_id},
+        {new: true},(err,cd)=>{
+        const newApp = new appuntamento ({
+            utente_id: data_u.utente_id,
+            data : data_u.data_app,
+            tipo_app : data_u.tipo_app,
+            Stato : true
+        })
+
+        if (!compareDates(newApp.data)){
+            return res.status(400).json({success: false, message : "Data non valida"})
+        }
+        
+        newApp.save((err,data)=>{
+            if (err){
+                return res.status(500).json({success: false, message:"Errore del server"})
+            }
+            return res.status(200).json({success: true, message: "Appuntamento creato", data})
+        })
+        if (err){
+            return res.status(500).json({success: false, message:"Errore del server"})
+        } 
+    })
+}
+
+
+const createPren = async(req, res) => {
+    let data_u = await utente.findOne ({mail: req.body.mail}).exec()
+    let data_b = await libro.findOne({book_id : req.body.book_id}).exec()
+    if (!data_u){
+        return res.status(404).json({success : false, message:"Utente non trovato"});
+    }
+    if (!data_b){
+        return res.status(404).json({success: false, message: "Libro no trovato"})
+    }
+    prenotazione.findOneAndUpdate(
+        {id : data_u.utente_id},
+        {new: true},(err,cd)=>{
+        const newPren = new prenotazione ({
+            utente_id: data_u.utente_id,
+            book_id: data_b.book_id,
+            data: data_u.data_app
+        })
+
+        if (!compareDates(newPren.data)){
+            return res.status(400).json({success: false, message : "Data non valida"})
+        }
+        
+        newPren.save((err,data)=>{
+            if (err){
+                return res.status(500).json({success: false, message:"Errore del server"})
+            }
+            return res.status(200).json({success: true, message: "Prenotazione effettuata", data})
+        })
+    })
+}
+
 
 const deleteApp = async (req, res) => {
     let data =  await utente.findOne ({mail: req.query.mail}).exec()
@@ -131,20 +208,6 @@ const getBooks = async (req, res) => {
 }
 
 const Reserve = async (req, res) => {
-    
-    
-
-    function compareDates(a){
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
-        today = yyyy + '-' + mm + '-' + dd;
-        if(a<today){
-            return false;
-        }
-        return true;
-    }
 
     try {
         // Attendere la promessa restituita da findOne()
@@ -240,5 +303,7 @@ module.exports = {
    signUp,
    Reserve,
    RentedBooks,
-   Multa
+   Multa,
+   createPren,
+   createApp
 };
