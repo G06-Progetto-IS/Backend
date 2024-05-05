@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.25% </span>
+                <span class="strong">43.39% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/51</span>
+                <span class='fraction'>23/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">40.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/20</span>
+                <span class='fraction'>9/22</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38% </span>
+                <span class="strong">44.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/50</span>
+                <span class='fraction'>23/52</span>
             </div>
         
             
@@ -174,7 +174,10 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -189,35 +192,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -302,33 +308,36 @@ const Cancella_libro = <span class="fstat-no" title="function not covered" >as</
 const Ricerca_libro = async (req, res) =&gt; {
     let query = {};
     // Aggiungi la ricerca per titolo se è fornito nella richiesta
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.titolo) {
-<span class="cstat-no" title="statement not covered" >        query.titolo = req.query.titolo;</span>
+    if (req.query.titolo) {
+        query.titolo = req.query.titolo;
     }
     // Aggiungi la ricerca per author_sur se è fornito nella richiesta
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (req.query.Author_sur) {
+    if (req.query.Author_sur) {
         query.Author_sur = req.query.Author_sur;
     }
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (req.query.Author_name) {
-<span class="cstat-no" title="statement not covered" >        query.Author_name = req.query.Author_name;;</span>
+    if (req.query.Author_name) {
+        query.Author_name = req.query.Author_name;;
     }
-    let data =  await libro.find (query).exec()
+    let data =  await libro.find(query).exec()
    
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!data) {
 <span class="cstat-no" title="statement not covered" >        return res.status(404).json({success : false, message : "Libro non trovato"})</span>
     } else {
         const books = [];
 &nbsp;
-    for (const book of data) {
-        const { titolo, Author_name, Author_sur, Is_available } = book;
-        books.push({
-            titolo: titolo,
-            Author_name: Author_name,
-            Author_sur: Author_sur,
-            Is_available: Is_available
-        });
-    };
-        return res.status(200).json({success : true, message : "Libro trovato",libri : books});
+        for (const book of data) {
+            const { titolo, Author_name, Author_sur, Is_available } = book;
+            books.push({
+                titolo: titolo,
+                Author_name: Author_name,
+                Author_sur: Author_sur,
+                Is_available: Is_available
+            });
+        };
+        if (books.length === 0) {
+            return res.status(404).json({success : false, message : "Libro non trovato"})
+        } else {
+        return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
     }};
 &nbsp;
   const Filter = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
@@ -403,7 +412,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T04:05:08.757Z
+                at 2024-05-05T17:10:04.213Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

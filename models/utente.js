@@ -6,8 +6,6 @@ const schema = new mongoose.Schema({
     cognome : {type : String, required : true},
     mail : {type : String, required : true},
     password : {type : String, required : true},
-//    libri_in_noleggio : {type : Number, required : true},
-//    libri_nolegggiati : { type : Int8Array, required : true},
     libri_noleggiati : {type : Array, default: null},
     book_id : {type : Number, default: null},
     autenticato : {type : Boolean, default: null},

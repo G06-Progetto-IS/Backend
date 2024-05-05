@@ -131,6 +131,21 @@ const getBooks = async (req, res) => {
 }
 
 const Reserve = async (req, res) => {
+    
+    
+
+    function compareDates(a){
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        if(a<today){
+            return false;
+        }
+        return true;
+    }
+
     try {
         // Attendere la promessa restituita da findOne()
         let user = await utente.findOne({ mail: req.query.mail }).exec();
@@ -146,6 +161,9 @@ const Reserve = async (req, res) => {
                 tipo_app: req.body.tipo_app
             }
         });
+        if(!compareDates(req.body.data_app)){
+            return res.status(400).json({ success: false, message: "Data non valida" });
+        }
 
         return res.status(200).json({ success: true, message: "Appuntamento riservato" });
     } catch (error) {
@@ -159,13 +177,18 @@ const RentedBooks = async (req, res) => {
         // Attendere la promessa restituita da findOne()
         let user = await utente.findOne({ mail: req.query.mail }).exec();
         let book = await libro.findOne({book_id: req.body.book_id}).exec();
-
-        var t = {
-            libri_noleggiati: user.libri_noleggiati
+        var t ;
+        
+        if (!book){ 
+            return res.status(404).json({ success: false, message: "Libro non trovato" });
         }
+
         if (!user) {
             return res.status(404).json({ success: false, message: "Utente non trovato" });
         }else {
+            t = {
+                libri_noleggiati: user.libri_noleggiati
+            }
             t.libri_noleggiati.push(book.book_id)
         // Eseguire updateOne() con i dati da aggiornare
             await utente.updateOne({ mail: req.query.mail }, {
@@ -175,7 +198,7 @@ const RentedBooks = async (req, res) => {
                 }
         });
 
-        return res.status(200).json({ success: true, message: "Libro Aggiunto" });
+        return res.status(200).json({ success: true, message: "Libro aggiunto" });
     }
     } catch (error) {
         console.error(error);

@@ -36,6 +36,7 @@ app.use('/login', require('./routes/login'));
 app.use('/getAll', require('./routes/getAllusers'));
 app.use('/newLibro', require('./routes/newLibro'));
 app.use('/deleteUtente', require('./routes/deleteUtente'));
+app.use('/deleteLibro', require('./routes/deleteLibro'));
 
 module.exports = app;
 

@@ -25,23 +25,26 @@ const Ricerca_libro = async (req, res) => {
     if (req.query.Author_name) {
         query.Author_name = req.query.Author_name;;
     }
-    let data =  await libro.find (query).exec()
+    let data =  await libro.find(query).exec()
    
     if (!data) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
     } else {
         const books = [];
 
-    for (const book of data) {
-        const { titolo, Author_name, Author_sur, Is_available } = book;
-        books.push({
-            titolo: titolo,
-            Author_name: Author_name,
-            Author_sur: Author_sur,
-            Is_available: Is_available
-        });
-    };
-        return res.status(200).json({success : true, message : "Libro trovato",libri : books});
+        for (const book of data) {
+            const { titolo, Author_name, Author_sur, Is_available } = book;
+            books.push({
+                titolo: titolo,
+                Author_name: Author_name,
+                Author_sur: Author_sur,
+                Is_available: Is_available
+            });
+        };
+        if (books.length === 0) {
+            return res.status(404).json({success : false, message : "Libro non trovato"})
+        } else {
+        return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
     }};
 
   const Filter = async (req, res) => {
