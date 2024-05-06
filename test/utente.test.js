@@ -457,3 +457,106 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
     });
     
 });
+
+
+describe('suite testing api endpoint : "/createApp"',() => {
+
+    test('Chiamata API corretta', async () => {
+        const inputBody = {
+            utente_id: 12,
+            data_app : '2027-10-10T00:00:00.245Z',
+            tipo_app : 'Prenotazione',
+            Stato: true
+        }
+
+        const res = await request(app)
+        .post('/createApp?mail=ciar.latano@gmail.com')
+        .send(inputBody)
+        .expect(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe('Appuntamento creato');
+    });
+
+    test('Chiamata API mail non esistente', async () => {
+        const inputBody = {
+            utente_id: 12,
+            data_app : '2027-10-10T00:00:00.245Z',
+            tipo_app : 'Prenotazione',
+            Stato: true
+        }
+
+        const res = await request(app)
+        .post('/createApp?mail=nonesisto@gmail.com')
+        .send(inputBody)
+        .expect(404);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Utente non trovato');
+    });
+
+    test('Chiamata API data non valida', async () => {
+        const inputBody = {
+            utente_id: 12,
+            data_app : '2024-05-01T00:00:00.245Z',
+            tipo_app : 'Prenotazione',
+            Stato: true
+        }
+
+        const res = await request(app)
+        .post('/createApp?mail=ciar.latano@gmail.com')
+        .send(inputBody)
+        .expect(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Data non valida');
+    });
+
+
+}) 
+
+describe('suite testing api endpoint : "/createPren"',() => {
+
+    test('Chiamata API corretta', async () => {
+        const inputBody = {
+            utente_id: 12,
+            book_id: 27,
+            data_app: '2027-10-10T00:00:00.245Z'
+        }
+
+        const res = await request(app)
+        .post('/createPren?mail=ciar.latano@gmail.com')
+        .send(inputBody)
+        .expect(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe('Prenotazione effettuata');
+    });
+
+    test('Chiamata API mail non esistente', async () => {
+        const inputBody = {
+            utente_id: 12,
+            book_id: 27,
+            data_app: '2027-10-10T00:00:00.245Z'
+        }
+
+        const res = await request(app)
+        .post('/createPren?mail=nonesisto@gmail.com')
+        .send(inputBody)
+        .expect(404);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Utente non trovato');
+    });
+
+    test('Chiamata API corretta', async () => {
+        const inputBody = {
+            utente_id: 12,
+            book_id: 27,
+            data_app: '2023-10-10T00:00:00.245Z'
+        }
+
+        const res = await request(app)
+        .post('/createPren?mail=ciar.latano@gmail.com')
+        .send(inputBody)
+        .expect(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Data non valida');
+    });
+
+}) 
