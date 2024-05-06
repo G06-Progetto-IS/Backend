@@ -83,19 +83,14 @@ const createApp = async(req, res) => {
             Stato : true
         })
 
-        if (!compareDates(newApp.data)){
-            return res.status(400).json({success: false, message : "Data non valida"})
-        }
         
         newApp.save((err,data)=>{
             if (err){
                 return res.status(500).json({success: false, message:"Errore del server"})
+            } else {
+                return res.status(200).json({success: true, message: "Appuntamento creato", data})
             }
-            return res.status(200).json({success: true, message: "Appuntamento creato", data})
-        })
-        if (err){
-            return res.status(500).json({success: false, message:"Errore del server"})
-        } 
+        }) 
     })
 }
 
@@ -117,29 +112,26 @@ const createPren = async(req, res) => {
             book_id: data_b.book_id,
             data: data_u.data_app
         })
-
-        if (!compareDates(newPren.data)){
-            return res.status(400).json({success: false, message : "Data non valida"})
-        }
         
         newPren.save((err,data)=>{
             if (err){
                 return res.status(500).json({success: false, message:"Errore del server"})
+            } else {
+                return res.status(200).json({success: true, message: "Prenotazione effettuata", data})
             }
-            return res.status(200).json({success: true, message: "Prenotazione effettuata", data})
         })
     })
 }
 
 
 const deleteApp = async (req, res) => {
-    let data =  await utente.findOne ({mail: req.query.mail}).exec()
+    let data =  await utente.findOne ({mail: req.body.mail}).exec()
 
     if (!data) {
         return res.status(404).json({success : false, message : "Appuntamento non trovato"})
     } else {
-        await utente.deleteOne({tipo_app: req.body.tipo_app});
-        return res.status(200).json({success : true, message : "Appuntamento eliminato"})
+        await appuntamento.deleteOne({utente_id : data.utente_id});
+        return res.status(200).json({success : true, message : "Appuntamento cancellato con successo"})
     }
 }
 
@@ -149,8 +141,8 @@ const deletePren = async (req, res) => {
     if (!data) {
         return res.status(404).json({success : false, message : "Prenotazione non trovata"})
     } else {
-        await prenotazione.deleteOne({book_id: req.query.book_id});
-        return res.status(200).send()
+        await prenotazione.deleteOne({book_id: req.query.book_id}).exec();
+        return res.status(200).json({success: true, message:"Prenotazione cancellata con successo"})
     }
 }
 
@@ -202,7 +194,6 @@ const getBooks = async (req, res) => {
 
         return res.status(200).json({ libri });
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ success: false, message: "Errore del server" });
     }
 }
@@ -230,7 +221,6 @@ const Reserve = async (req, res) => {
 
         return res.status(200).json({ success: true, message: "Appuntamento riservato" });
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ success: false, message: "Errore interno del server" });
     }
 };
@@ -264,7 +254,6 @@ const RentedBooks = async (req, res) => {
         return res.status(200).json({ success: true, message: "Libro aggiunto" });
     }
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ success: false, message: "Errore interno del server" });
     }
 };

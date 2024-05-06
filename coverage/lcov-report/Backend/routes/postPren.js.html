@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Backend/routes/deleteLibro.js</title>
+    <title>Code coverage report for Backend/routes/postPren.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">Backend/routes</a> deleteLibro.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">Backend/routes</a> postPren.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -90,13 +90,13 @@
 const multer = require("multer")
 const upload = multer()
 &nbsp;
-const routerLibro  = express.Router();
-const libroController = require("../controllers/book");
+const routerPren = express.Router();
+const utenteController = require("../controllers/utente");
 &nbsp;
-routerLibro.delete('/?', libroController.Cancella_libro);
+routerPren.post('/', upload.none(), utenteController.createPren);
 &nbsp;
 &nbsp;
-module.exports = routerLibro;</pre></td></tr></table></pre>
+module.exports = routerPren;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

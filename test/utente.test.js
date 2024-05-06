@@ -59,7 +59,7 @@ describe('suite testing API endpoint "/signUp"', () => {
         }
     });*/
 
-    test('Chiamata API con mail già registrata', async() => {
+    test ('Chiamata API con mail già registrata', async() => {
         jest.setTimeout(30000); 
 
         // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
@@ -222,7 +222,7 @@ describe('suite testing API endpoint "/getBooks"', () => {
         .expect(200);
         expect(res.body).toEqual(outputBody);
     });
-});
+})
 
 
 describe('suite testing API endpoint "/ricerca"', () => {
@@ -458,55 +458,45 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
     
 });
 
+var dataValida = new Date();
+dataValida.setDate(dataValida.getDate() + 7);
+dataValida.setHours(dataValida.getHours() + 1);
+dataValida.setMonth(dataValida.getMonth() );
+dataValida.setFullYear(dataValida.getFullYear());
+
+var dataNonValida = new Date();
+dataNonValida.setDate(dataValida.getDate() - 1);
+dataNonValida.setHours(dataValida.getHours() + 1);
+dataNonValida.setMonth(dataValida.getMonth() );
+dataNonValida.setFullYear(dataValida.getFullYear());
 
 describe('suite testing api endpoint : "/createApp"',() => {
 
     test('Chiamata API corretta', async () => {
-        const inputBody = {
-            utente_id: 12,
-            data_app : '2027-10-10T00:00:00.245Z',
-            tipo_app : 'Prenotazione',
-            Stato: true
-        }
 
         const res = await request(app)
         .post('/createApp?mail=ciar.latano@gmail.com')
-        .send(inputBody)
         .expect(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Appuntamento creato');
     });
 
     test('Chiamata API mail non esistente', async () => {
-        const inputBody = {
-            utente_id: 12,
-            data_app : '2027-10-10T00:00:00.245Z',
-            tipo_app : 'Prenotazione',
-            Stato: true
-        }
 
         const res = await request(app)
         .post('/createApp?mail=nonesisto@gmail.com')
-        .send(inputBody)
         .expect(404);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Utente non trovato');
     });
 
-    test('Chiamata API data non valida', async () => {
-        const inputBody = {
-            utente_id: 12,
-            data_app : '2024-05-01T00:00:00.245Z',
-            tipo_app : 'Prenotazione',
-            Stato: true
-        }
+    test('Chiamata API data non scelta', async () => {
 
         const res = await request(app)
-        .post('/createApp?mail=ciar.latano@gmail.com')
-        .send(inputBody)
-        .expect(400);
+        .post('/createApp?mail=Test1@gmail.com')
+        .expect(500);
         expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe('Data non valida');
+        expect(res.body.message).toBe('Errore del server');
     });
 
 
@@ -516,13 +506,12 @@ describe('suite testing api endpoint : "/createPren"',() => {
 
     test('Chiamata API corretta', async () => {
         const inputBody = {
-            utente_id: 12,
-            book_id: 27,
-            data_app: '2027-10-10T00:00:00.245Z'
+            mail: 'ciar.latano@gmail.com',
+            book_id: 25,
         }
 
         const res = await request(app)
-        .post('/createPren?mail=ciar.latano@gmail.com')
+        .post('/createPren')
         .send(inputBody)
         .expect(200);
         expect(res.body.success).toBe(true);
@@ -531,32 +520,76 @@ describe('suite testing api endpoint : "/createPren"',() => {
 
     test('Chiamata API mail non esistente', async () => {
         const inputBody = {
-            utente_id: 12,
+            utente_mail: 'nonesisto@gmail.com',
             book_id: 27,
-            data_app: '2027-10-10T00:00:00.245Z'
         }
 
         const res = await request(app)
-        .post('/createPren?mail=nonesisto@gmail.com')
+        .post('/createPren')
         .send(inputBody)
         .expect(404);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Utente non trovato');
     });
 
-    test('Chiamata API corretta', async () => {
+    test('Chiamata API con utente senza data_app', async () => {
         const inputBody = {
-            utente_id: 12,
+            mail: 'Test2@gmail.com',
             book_id: 27,
-            data_app: '2023-10-10T00:00:00.245Z'
         }
 
         const res = await request(app)
-        .post('/createPren?mail=ciar.latano@gmail.com')
+        .post('/createPren')
         .send(inputBody)
-        .expect(400);
+        .expect(500);
         expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe('Data non valida');
+        expect(res.body.message).toBe('Errore del server');
     });
 
-}) 
+})
+
+describe('suite testing API endpoint: "/deletePrenotazione', () => {
+    test('Chiamata API corretta', async () => {
+        const res = await request(app)
+        .delete('/deletePrenotazione?book_id=25')
+        .expect(200);
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe('Prenotazione cancellata con successo');  
+    })
+
+    test('Chiamata API con libro non prenotato o inesistente', async () => {
+        const res = await request(app)
+        .delete('/deletePrenotazione?book_id=505')
+        .expect(404);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Prenotazione non trovata');  
+    })
+})
+
+describe('suite testing API endpoint: "/deleteAppuntamento', () => {
+    test('Chiamata API corretta', async () => {
+        const res = await request(app)
+        .delete('/deleteAppuntamento')
+        .expect(200)
+        .send(
+            {
+                mail : 'ciar.latano@gmail.com',
+            }
+        );
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe('Appuntamento cancellato con successo');  
+    })
+
+    test('Chiamata API con appuntamento non prenotato', async () => {
+        const res = await request(app)
+        .delete('/deleteAppuntamento')
+        .expect(404)
+        .send(
+            {
+                mail : 'Test3@gmail.com',
+            }
+        );
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Appuntamento non trovato');  
+    })
+})
