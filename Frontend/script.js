@@ -1,5 +1,3 @@
-
-
 // INIZIO HANDLER EVENTI
 var archivioButton = document.getElementById("archivioButton");
 archivioButton.addEventListener("click", function() {
@@ -104,12 +102,12 @@ function login(){
 }
 
 function handle(e){
-	input=document.getElementById("searchBar").value;
-    if(e.keyCode === 13){
-    	console.log("Input: " + input);
-      ricerca()
-    }
-	return false;
+  input = document.getElementById("searchBar").value;
+  if(e.keyCode === 13){
+      console.log("Input: " + input);
+      ricerca();
+  }
+  return false;
 }
 
 function ricerca() {
@@ -134,6 +132,7 @@ function ricerca() {
         if (res && res.libri.length > 0) {
           console.log("Libro trovato: " + res);
           books.body = res;
+          aggiungLibro(books.body)
         } else {
           // Se il titolo non è stato trovato, esegui la ricerca per il nome dell'autore
           console.log("Titolo non trovato.");
@@ -143,6 +142,7 @@ function ricerca() {
             if (res && res.libri.length > 0) {
               console.log("Nome dell'autore trovato: " + res);
               books.body = res;
+              aggiungLibro(books.body)
             } else {
               // Altrimenti, effettua la ricerca per cognome
               console.log("Nome autore non trovato")
@@ -152,6 +152,7 @@ function ricerca() {
                   if (res && res.libri.length > 0) {
                     console.log("Cognome dell'autore trovato: " + res);
                     books.body = res;
+                    aggiungLibro(books.body)
                   } else {
                     // Se non ci sono risultati per nessun parametro, mostra un avviso
                     console.log("Nessun risultato trovato.");
@@ -167,6 +168,56 @@ function ricerca() {
   console.log("Libri trovati: " , books);
   return books;
 }
+
+function aggiungLibro(books) {
+  var booksDiv = document.getElementById("bookList");
+  if (!booksDiv) {
+      console.error("Elemento 'bookList' non trovato.");
+      return; // Esci dalla funzione se 'bookList' non è stato trovato
+  }
+
+  booksDiv.innerHTML = "";
+  var bookDiv = document.createElement('div');
+  bookDiv.classList.add('book-section');
+
+  var bookContainer = document.createElement('div');
+  bookContainer.classList.add('book-container');
+
+  var copertinaContainer = document.createElement('div');
+  copertinaContainer.classList.add('copertina-container');
+
+  var titoloP = document.createElement('div');
+  titoloP.classList.add('titolo-libro');
+  titoloP.textContent = "di " + books.titolo;
+
+  var copertinaImg = document.createElement('img');
+  copertinaImg.classList.add('copertina-libro');
+  copertinaImg.src = "photos/" + books.titolo + ".jpeg";
+
+  copertinaContainer.appendChild(titoloP);
+  copertinaContainer.appendChild(copertinaImg);
+
+  var infoLibro = document.createElement('div');
+  infoLibro.classList.add('info-libro');
+
+  var autoreP = document.createElement('p');
+  autoreP.classList.add('autore');
+  autoreP.innerHTML = 'di <strong>' + books.Author_name + " " + books.Author_sur + '</strong>';
+
+  var prenotaButton = document.createElement('button');
+  prenotaButton.classList.add('bottone-prenota');
+  prenotaButton.textContent = "Prenota e ritira";
+
+  infoLibro.appendChild(autoreP);
+  infoLibro.appendChild(prenotaButton);
+
+  bookContainer.appendChild(copertinaContainer);
+  bookContainer.appendChild(infoLibro);
+
+  bookDiv.appendChild(bookContainer);
+  booksDiv.appendChild(bookDiv);
+}
+
 
 function appuntamento() {
   const nome = document.getElementById('nomeAppuntamento').value;
@@ -210,4 +261,5 @@ function appuntamento() {
   })
   .catch(error => console.error(error));
 }
+    
     
