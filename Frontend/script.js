@@ -110,112 +110,114 @@ function handle(e){
   return false;
 }
 
-function ricerca() {
+async function ricercaPerParametro(parametro) {
+  var url = '../ricerca?' + parametro + '=' + String(input);
+  console.log(url);
+  try {
+      const response = await fetch(url, {method : 'GET'});
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Error during search:', error);
+      throw error;
+  }
+}
+
+var books = {};
+async function ricerca() {
   var input = document.getElementById("searchBar").value;
-  
-  // Funzione per effettuare una singola richiesta di ricerca
-  async function ricercaPerParametro(parametro) {
-      var url = '../ricerca?' + parametro + '=' + String(input);
-      console.log(url);
-      return fetch(url, {method : 'GET'})
-          .then(response => response.json())
-          .then(data => {
-              //console.log(data);
-              return data;
-          });
+
+  try {
+      // Effettua la ricerca per parametro=[titolo, nome, cognome]
+      let res = await ricercaPerParametro('titolo');
+      console.log(res);
+      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
+          console.log("Libro trovato: ", res);
+          books = res;
+          aggiungLibro(res.libri);
+          return books;
+      }
+
+      console.log("Titolo non trovato.");
+
+      res = await ricercaPerParametro('Author_name');
+      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
+          console.log("Nome dell'autore trovato: ", res);
+          books = res;
+          aggiungLibro(res.libri);
+          return books;
+      }
+
+      console.log("Nome autore non trovato");
+
+      res = await ricercaPerParametro('Author_sur');
+      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
+          console.log("Cognome dell'autore trovato: ", res);
+          books = res;
+          aggiungLibro(res.libri);
+          return books;
+      }
+
+      console.log("Nessun risultato trovato.");
+  } catch (error) {
+      console.error('Errore durante la ricerca:', error);
   }
 
-  var books =[];
-  // Effettua la ricerca per parametro=[titolo, nome, cognome]
-  ricercaPerParametro('titolo')
-      .then(res => {
-        if (res && Array(res.libri).lenght>0) {
-          console.log("Libro trovato: " + res);
-          books=res
-          aggiungLibro(res.libri[0])
-        } else {
-          // Se il titolo non è stato trovato, esegui la ricerca per il nome dell'autore
-          console.log("Titolo non trovato.");
-          ricercaPerParametro('Author_name')
-          .then(res => {
-            // Se è stato trovato un risultato, mostra il nome dell'autore
-            if (res && Array(res.libri).length >0) {
-              console.log("Nome dell'autore trovato: " + res);
-              books=res;
-              aggiungLibro(res.libri[0])
-            } else {
-              // Altrimenti, effettua la ricerca per cognome
-              console.log("Nome autore non trovato")
-              ricercaPerParametro('Author_sur')
-              .then(res => {
-                  // Se è stato trovato un risultato, mostra il cognome dell'autore
-                  if (res && Array(res.libri).lenght >0) {
-                    console.log("Cognome dell'autore trovato: " + res);
-                    books=res;
-                    aggiungLibro(res.libri[0])
-                  } else {
-                    // Se non ci sono risultati per nessun parametro, mostra un avviso
-                    console.log("Nessun risultato trovato.");
-                  }
-              })
-              .catch(error => {
-                console.error('Si è verificato un errore durante la ricerca:', error);
-              });
-            }
-          })
-        }
-      })
-  console.log("Libri trovati" + books);
+  // If no books found, return an empty object
   return books;
 }
 
-function aggiungLibro(book) {
+function aggiungLibro(books) {
   var booksDiv = document.getElementById("bookList");
   if (!booksDiv) {
       console.error("Elemento 'bookList' non trovato.");
       return; // Esci dalla funzione se 'bookList' non è stato trovato
   }
-
   booksDiv.innerHTML = "";
-  var bookDiv = document.createElement('div');
-  bookDiv.classList.add('book-section');
+  if (Array.isArray(books)){
+    books.forEach(book => {
+    
+      var bookDiv = document.createElement('div');
+      bookDiv.classList.add('book-section');
 
-  var bookContainer = document.createElement('div');
-  bookContainer.classList.add('book-container');
+      var bookContainer = document.createElement('div');
+      bookContainer.classList.add('book-container');
 
-  var copertinaContainer = document.createElement('div');
-  copertinaContainer.classList.add('copertina-container');
+      var copertinaContainer = document.createElement('div');
+      copertinaContainer.classList.add('copertina-container');
 
-  var titoloP = document.createElement('div');
-  titoloP.classList.add('titolo-libro');
-  titoloP.textContent = "di " + book.titolo;
+      var titoloP = document.createElement('div');
+      titoloP.classList.add('titolo-libro');
+      titoloP.textContent = "di " + book.titolo;
 
-  var copertinaImg = document.createElement('img');
-  copertinaImg.classList.add('copertina-libro');
-  copertinaImg.src = "photos/" + book.titolo + ".jpeg";
+      var copertinaImg = document.createElement('img');
+      copertinaImg.classList.add('copertina-libro');
+      copertinaImg.src = "photos/" + book.titolo + ".jpeg";
 
-  copertinaContainer.appendChild(titoloP);
-  copertinaContainer.appendChild(copertinaImg);
+      copertinaContainer.appendChild(titoloP);
+      copertinaContainer.appendChild(copertinaImg);
 
-  var infoLibro = document.createElement('div');
-  infoLibro.classList.add('info-libro');
+      var infoLibro = document.createElement('div');
+      infoLibro.classList.add('info-libro');
 
-  var autoreP = document.createElement('p');
-  autoreP.classList.add('autore');
-  autoreP.innerHTML = 'di <strong>' + book.Author_name + " " + book.Author_sur + '</strong>';
+      var autoreP = document.createElement('p');
+      autoreP.classList.add('autore');
+      autoreP.innerHTML = 'di <strong>' + book.Author_name + " " + book.Author_sur + '</strong>';
 
-  var prenotaButton = document.createElement('button');
-  prenotaButton.classList.add('bottone-prenota');
-  prenotaButton.textContent = "Prenota e ritira";
+      var prenotaButton = document.createElement('button');
+      prenotaButton.classList.add('bottone-prenota');
+      prenotaButton.textContent = "Prenota e ritira";
 
-  infoLibro.appendChild(autoreP);
-  infoLibro.appendChild(prenotaButton);
+      infoLibro.appendChild(autoreP);
+      infoLibro.appendChild(prenotaButton);
 
-  bookContainer.appendChild(copertinaContainer);
-  bookContainer.appendChild(infoLibro);
+      bookContainer.appendChild(copertinaContainer);
+      bookContainer.appendChild(infoLibro);
 
-  bookDiv.appendChild(bookContainer);
-  booksDiv.appendChild(bookDiv);
+      bookDiv.appendChild(bookContainer);
+      booksDiv.appendChild(bookDiv);
+    });
+  }
 }
 
 
