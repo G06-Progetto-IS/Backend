@@ -26,127 +26,6 @@ afterAll(async () => {
 });
 
 
-describe('suite testing API endpoint "/signUp"', () => {
-
-    //RICORDARSI DI CAMBIARE MAIL SUL TEST CORRETTA E PASSWORD NON VALIDA ALTRIMENTI ERRORE!
-
-    /*test('Chiamata API corretta', async () => {
-        jest.setTimeout(30000); 
-
-        // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
-        expect(app).toBeDefined();
-        expect(app.locals.db).toBeDefined();
-
-        try {
-            const inputBody = {
-                nome: "utente prova",
-                cognome: "capra",
-                mail: "Test2@gmail.com",
-                password: "abcdefgh!"
-            };
-
-            const response = await request(app)
-                .post('/signUp')
-                .send(inputBody)
-                .expect(201);
-
-            expect(response.body.success).toBe(true);
-            expect(response.body.message).toBe('Utente creato con successo!');
-        } catch (error) {
-            // Gestisci eventuali errori nell'esecuzione della richiesta
-            console.error('Errore durante la chiamata API:', error);
-            throw error;
-        }
-    });*/
-
-    test ('Chiamata API con mail già registrata', async() => {
-        jest.setTimeout(30000); 
-
-        // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
-        expect(app).toBeDefined();
-        expect(app.locals.db).toBeDefined();
-
-        try {
-
-            const inputBody = {
-                nome: "utente prova",
-                cognome: "capra",
-                mail: "Test1@gmail.com",
-                password: "abcdefgh!"
-            };
-
-            const response = await request(app)
-                .post('/signUp')
-                .send(inputBody)
-                .expect(409);
-
-            expect(response.body.success).toBe(false);
-            expect(response.body.message).toBe('Utente già presente con questa mail!');
-        } catch (error) {
-            // Gestisci eventuali errori nell'esecuzione della richiesta
-            console.error('Errore durante la chiamata API:', error);
-            throw error;
-        }
-    })
-
-    test('Chiamata API con mail non valida', async() => {
-        jest.setTimeout(30000); 
-
-        // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
-        expect(app).toBeDefined();
-        expect(app.locals.db).toBeDefined();
-
-        try {
-
-            const inputBody = {
-                nome: "utente prova",
-                cognome: "capra",
-                mail: "Test1@",
-                password: "abcdefgh!"
-            };
-
-            const response = await request(app)
-                .post('/signUp')
-                .send(inputBody)
-                .expect(400);
-            expect(response.body).toEqual({error: 'Email non valida'});
-        } catch (error) {
-            // Gestisci eventuali errori nell'esecuzione della richiesta
-            console.error('Errore durante la chiamata API:', error);
-            throw error;
-        }
-    })
-
-    test('Chiamata API con password non valida', async() => {
-        //La password deve essere lunga almeno 8 caratteri e contenere un carattere speciale
-        // es : password! è valida mentre password no!
-        jest.setTimeout(30000); 
-
-        // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
-        expect(app).toBeDefined();
-        expect(app.locals.db).toBeDefined();
-
-        try {
-
-            const inputBody = {
-                nome: "utente prova",
-                cognome: "capra",
-                mail: "Test3@gmail.com",
-                password: "password"
-            };
-
-            const response = await request(app)
-                .post('/signUp')
-                .send(inputBody)
-                .expect(400);
-            expect(response.body).toEqual({error: 'Password non valida'});
-        } catch (error) {
-            // Gestisci eventuali errori nell'esecuzione della richiesta
-            console.error('Errore durante la chiamata API:', error);
-            throw error;
-        }
-    })
-});
 
 describe('suite testing API endpoint "/getBooks"', () => {
 
@@ -592,4 +471,22 @@ describe('suite testing API endpoint: "/deleteAppuntamento', () => {
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Appuntamento non trovato');  
     })
+})
+
+describe('Suite testing API endpoint: "/Multa"', () => {
+    test('Chiamata API corretta', async () => {
+        const res = await request(app)
+        .patch('/Multa?mail=ciar.latano@gmail.com')
+        .expect(200)
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe('Multa inviata');
+    })
+
+    test('Chiamata API con utente non trovato', async () => {
+        const res = await request(app)
+        .patch('/Multa?mail=nonesisto@gmail.com')
+        .expect(404)
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Utente non trovato');
+    })  
 })

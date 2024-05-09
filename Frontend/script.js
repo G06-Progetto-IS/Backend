@@ -188,7 +188,7 @@ function aggiungLibro(books) {
 
       var titoloP = document.createElement('div');
       titoloP.classList.add('titolo-libro');
-      titoloP.textContent = "di " + book.titolo;
+      titoloP.textContent = book.titolo;
 
       var copertinaImg = document.createElement('img');
       copertinaImg.classList.add('copertina-libro');
