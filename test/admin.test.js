@@ -158,7 +158,7 @@ describe('suite testing API endpoint "/getAll"', () => {
 })
 
 describe ('Suite testing API endpoint "/newLibro"', () => {
-    /*test('Chiamata API corretta - Nuovo Libro', async () => {
+    test('Chiamata API corretta - Nuovo Libro', async () => {
         const response = await request(app)
             .post('/newLibro')
             .send({
@@ -171,7 +171,7 @@ describe ('Suite testing API endpoint "/newLibro"', () => {
         expect(response.status).toBe(201);
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe('Libro aggiunto');
-    });*/
+    });
     
     test('Chiamata API corretta - Libro già presente', async () => {
         const response = await request(app)
@@ -196,5 +196,70 @@ describe ('Suite testing API endpoint "/deleteUtente"', () => {
         .expect(200);
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe('Utente eliminato');
+    })
+
+    test('Chiamata API con mail inesistente', async() => {
+        const response = await request(app)
+        .delete('/deleteUtente?mail=nonesisto@gmail.com')
+        .expect(404);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Utente non trovato');
+    })
+})
+
+describe ('Suite testing API endpoint "/deleteLibro"', () => {
+    test('Chiamata API corretta', async() => {
+        const response = await request(app)
+        .delete('/deleteLibro?titolo=I pilastri della terra')
+        .expect(200);
+    })
+
+    test('Chiamata API libro non presente', async() => {
+        const response = await request(app)
+        .delete('/deleteLibro?titolo=Il libro vuoto')
+        .expect(404);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Libro non trovato');
+    })
+})
+
+describe('Suite testing API endpoint: "/updateDisponibilità"', () => {
+    test('Chimata API corretta set a false', async() => {
+        const response = await request(app)
+        .patch('/disponibilita?titolo=Dune')
+        .send(
+            {
+                availability : false
+            }
+        )
+        .expect(200);
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Disponibilità aggiornata');
+    })
+
+    test('Chimata API corretta set a true', async() => {
+        const response = await request(app)
+        .patch('/disponibilita?titolo=Dune')
+        .send(
+            {
+                availability : true
+            }
+        )
+        .expect(200);
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Disponibilità aggiornata');
+    })
+
+    test('Chimata API libro non esistente', async() => {
+        const response = await request(app)
+        .patch('/disponibilita?titolo=Il libro vuoto')
+        .send(
+            {
+                availability : false
+            }
+        )
+        .expect(404);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Libro non trovato');
     })
 })

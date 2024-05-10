@@ -1,4 +1,4 @@
-libro = require("../models/book")
+const libro = require("../models/book")
 
 const updateDisponibilita = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ const updateDisponibilita = async (req, res) => {
       }
 
       // Eseguire updateOne() con i dati da aggiornare
-      await libro.updateOne({ titolo: req.query.titolo }, {
+      await libro.updateOne({ titolo: user.titolo }, {
           $set: {
             Is_available: req.body.Is_available
           }
