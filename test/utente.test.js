@@ -271,7 +271,6 @@ describe('suite testing API endpoint "/Reserve"', () => {
     });
 
     test('Chiamata API con data non valida', async () => {
-        console.log(yesterday_s_Date());
         const res= await request(app)
         .patch('/Reserve?mail=ciar.latano@gmail.com')
         .send({

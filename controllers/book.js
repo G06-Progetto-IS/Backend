@@ -48,23 +48,22 @@ const Ricerca_libro = async (req, res) => {
     }};
 
   const Filter = async (req, res) => {
-
     try {
-        let query = {};
+        var Query = {};
         if (req.query.titolo) {
-            query.titolo = req.query.titolo;
+            Query.titolo = req.query.titolo;
         }
         // Aggiungi la ricerca per author_sur se è fornito nella richiesta
         else if (req.query.Author_sur) {
-            query.Author_sur = req.query.Author_sur;
+            Query.Author_sur = req.query.Author_sur;
         }
         else if (req.query.Genre) {
-            query.Genre = req.query.Genre;
+            Query.Genre = req.query.Genre;
         }
         else {
             return res.status(400).json({ success: false, message: "Filtro non selezionato o errato" });
         }
-        let data = await libro.find(query).exec();
+        let data = await libro.find(Query).exec();
         if (data.length === 0) {
             return res.status(404).json({ success: false, message: "Nessun libro trovato" });
         } else {
@@ -84,12 +83,11 @@ const Ricerca_libro = async (req, res) => {
             return res.status(200).json({ success: true, libri: books });
         }
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ success: false, message: "Errore interno del server" });
+        return res.status(500)
     }
 }
 
-const updateDisponibilità = async (req, res) => {
+/*const updateDisponibilità = async (req, res) => {
     try {
         // Attendere la promessa restituita da findOne()
         let user = await libro.findOne({ titolo: req.query.titolo }).exec();
@@ -110,12 +108,12 @@ const updateDisponibilità = async (req, res) => {
         console.error(error);
         return res.status(500).json({ success: false, message: "Errore interno del server" });
     }
-};
+};*/
 
 
 module.exports = {
     Cancella_libro,
     Ricerca_libro,
-    Filter,
-    updateDisponibilità
+    Filter
+//    updateDisponibilità
 };

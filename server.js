@@ -15,7 +15,6 @@ app.use(express.json())
 app.use('/signUp', require('./routes/signUp'))
 app.use('/deletePrenotazione', require('./routes/deletePren'));
 app.use('/deleteAppuntamento', require('./routes/deleteApp'));
-app.use('/noleggio', tokenChecker);
 app.use('/arrayLibri', require('./routes/getBooks'))
 app.use('/Reserve', require('./routes/patchReserve'))
 app.use('/Rented', require('./routes/patchRent'))

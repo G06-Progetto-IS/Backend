@@ -70,7 +70,7 @@ const deleteUtente = async (req, res) => {
   }
 }
 
-const updateDisponibilità = async (req, res) => {
+/*const updateDisponibilità = async (req, res) => {
   try {
       // Attendere la promessa restituita da findOne()
       let user = await libro.findOne({ titolo: req.query.titolo }).exec();
@@ -91,7 +91,7 @@ const updateDisponibilità = async (req, res) => {
       console.error(error);
       return res.status(500).json({ success: false, message: "Errore interno del server" });
   }
-};
+};*/
 
 
 
@@ -99,5 +99,5 @@ module.exports = {
   getAllusers, 
   newLibro,
   deleteUtente,
-  updateDisponibilità
+//  updateDisponibilità
 }

@@ -42,7 +42,7 @@ describe('suite testing API endpoint "/signUp"', () => {
                 nome: "Ste",
                 cognome: "Gir",
                 mail: "ste.gir@gmail.com",
-                password: "abcdefgh!"
+                password: "abcdefgh!" 
             };
 
             const response = await request(app)

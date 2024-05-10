@@ -146,26 +146,6 @@ const deletePren = async (req, res) => {
     }
 }
 
-const getStato = async (req, res) => {
-    let data = await utente.findOne ({book_id : req.query.book_id}).exec();
-    
-    let pippo = await libro.findOne({book_id : req.query.book_id}).exec();
-
-    const libro = {
-        titolo : pippo.titolo,
-        Author_sur : pippo.Author_sur,
-        scadenza : pippo.scadenza
-    };
-
-    if (!data) {
-        return res.status(404).json({success : false, message : "Noleggio non trovato"});
-    } else {
-        await utente.findOne({book_id: req.query.book_id});
-        
-        return res.status(200).json({succes : true, libro});
-    }
-}
-
 const getBooks = async (req, res) => {
     try {
         let data = await utente.findOne({ utente_id: req.query.utente_id }).exec();
@@ -189,7 +169,6 @@ const getBooks = async (req, res) => {
             };
         
             libri.push(p);
-            console.log(p);
         }
 
         return res.status(200).json({ libri });
@@ -287,7 +266,6 @@ const Multa = async (req, res) => {
 module.exports = {
    deleteApp, 
    deletePren,
-   getStato,
    getBooks,
    signUp,
    Reserve,

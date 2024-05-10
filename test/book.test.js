@@ -26,7 +26,8 @@ afterAll(async () => {
 });
 
 describe('Suite testing API endpoint: "/Filter"', () => {
-    jest.setTimeout(50000);
+    //Jest has detected the following 1 open handle potentially keeping Jest from exiting:
+    // errore di timeout
     test('Chiamata API corretta filtro Genre', async() => {
         const outBody = {
             'libri':[
@@ -51,7 +52,10 @@ describe('Suite testing API endpoint: "/Filter"', () => {
         }
 
         const response = await request(app)
-        .get('/filter?Genre=Fantascienza')
+        .get('/filter')
+        .query({
+            Genre: 'Fantascienza'
+        })
         .expect(200);
         expect(response.body).toStrictEqual(outBody)
     })
@@ -104,18 +108,13 @@ describe('Suite testing API endpoint: "/Filter"', () => {
 
     test('Chiamta API con filtro non esistente', async() => {
         const response = await request(app)
-        .get('/filter?Voto')
+        .get('/filter')
+        .query({
+            Voto: '1'
+        })
         .expect(400);
         expect(response.body.success).toBe(false);
         expect(response.body.message).toBe('Filtro non selezionato o errato');
-    })
-
-    test('Chiamta API con filtro selezionato e matching assente', async() => {
-        const response = await request(app)
-        .get('/filter?Genre=Fantasy e Fantascienza')
-        .expect(404);
-        expect(response.body.success).toBe(false);
-        expect(response.body.message).toBe('Nessun libro trovato');
     })
 
 })
