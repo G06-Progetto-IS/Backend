@@ -194,9 +194,9 @@ const Reserve = async (req, res) => {
                 tipo_app: req.body.tipo_app
             }
         });
-        // if(!compareDates(req.body.data_app)){
-        //     return res.status(400).json({ success: false, message: "Data non valida" });
-        // }
+         if(!compareDates(req.body.data_app)){
+             return res.status(400).json({ success: false, message: "Data non valida" });
+        }
 
         return res.status(200).json({ success: true, message: "Appuntamento riservato" });
     } catch (error) {

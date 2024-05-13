@@ -38,28 +38,28 @@ describe('suite testing API endpoint "/getBooks"', () => {
         // Per ora i libri sono senza scadenza, TO DO : completati i test con scadenza  
         const libri =  [
             {
-                titolo: "LA Sboobba",
-                Author_sur: "BA",
+                titolo: "Il mastino dei Baskerville",
+                Author_sur: "Conan Doyle",
                 scadenza: null
             },
             {
-                titolo: "AVo",
-                Author_sur: "BA",
+                titolo: "Dieci piccoli indiani",
+                Author_sur: "Christie",
                 scadenza: null
             },
             {
-                titolo: "HP thc",
-                Author_sur: "BA",
+                titolo: "Il nome della rosa",
+                Author_sur: "Eco",
                 scadenza: null
             },
             {
-                titolo: "HP cbd",
-                Author_sur: "BA",
+                titolo: "Oceano mare",
+                Author_sur: "Baricco",
                 scadenza: null
             },
             {
-                titolo: "HABDJ",
-                Author_sur: "Nice Book",
+                titolo: "Il principe",
+                Author_sur: "Machiavelli",
                 scadenza: null
             }
         ];
@@ -111,26 +111,9 @@ describe('suite testing API endpoint "/ricerca"', () => {
         //ricerca per cognome
         const outBody = {
             'libri':[{
-                    titolo:'LA Sboobba',
-                    Author_name:'AB',
-                    Author_sur:'BA',
-                    Is_available: true
-                },
-                {
-                    titolo:'AVo',
-                    Author_name:'AB',
-                    Author_sur:'BA',
-                    Is_available: true 
-                },
-                {
-                    titolo:'HP thc',
-                    Author_name:'AB',
-                    Author_sur:'BA',
-                    Is_available: true
-                },{
-                    titolo:'HP cbd',
-                    Author_name:'AB',
-                    Author_sur:'BA',
+                    titolo:'Il mastino dei Baskerville',
+                    Author_name:'Arthur',
+                    Author_sur:'Conan Doyle',
                     Is_available: true
                 }
             ],
@@ -138,7 +121,7 @@ describe('suite testing API endpoint "/ricerca"', () => {
             success : true
         }
         const res = await request(app)
-        .get('/ricerca?Author_sur=BA')
+        .get('/ricerca?Author_sur=Conan Doyle')
         .expect(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Libro trovato')
@@ -149,26 +132,9 @@ describe('suite testing API endpoint "/ricerca"', () => {
     test('Chiamata API corretta con nome autore', async() => {
         const outBody = {
             'libri':[{
-                    titolo:'LA Sboobba',
-                    Author_name:'AB',
-                    Author_sur:'BA',
-                    Is_available: true
-                },
-                {
-                    titolo:'AVo',
-                    Author_name:'AB',
-                    Author_sur:'BA',
-                    Is_available: true 
-                },
-                {
-                    titolo:'HP thc',
-                    Author_name:'AB',
-                    Author_sur:'BA',
-                    Is_available: true
-                },{
-                    titolo:'HP cbd',
-                    Author_name:'AB',
-                    Author_sur:'BA',
+                    titolo:'Il mastino dei Baskerville',
+                    Author_name:'Arthur',
+                    Author_sur:'Conan Doyle',
                     Is_available: true
                 }
             ],
@@ -176,7 +142,7 @@ describe('suite testing API endpoint "/ricerca"', () => {
             success : true
         }
         const res = await request(app)
-        .get('/ricerca?Author_sur=BA')
+        .get('/ricerca?Author_name=Arthur')
         .expect(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Libro trovato')
@@ -186,16 +152,16 @@ describe('suite testing API endpoint "/ricerca"', () => {
     test('Chiamata API corretta con titolo libro', async() => {
         const outBody = {
             'libri' :[{
-                titolo:'LA Sboobba',
-                Author_name:'AB',
-                Author_sur:'BA',
+                titolo:'Il mastino dei Baskerville',
+                Author_name:'Arthur',
+                Author_sur:'Conan Doyle',
                 Is_available: true
             }],
             message : 'Libro trovato',
             success : true
         }
         const res = await request(app)
-        .get('/ricerca?titolo=LA Sboobba')
+        .get('/ricerca?titolo=Il mastino dei Baskerville')
         .expect(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Libro trovato');
