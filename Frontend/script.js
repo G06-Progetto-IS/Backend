@@ -21,7 +21,6 @@ document.getElementById("formAppuntamento").addEventListener("submit", function(
   event.preventDefault();
   appuntamento();
 });
-
 // FINE HANDLER EVENTI
 
 // INIZIO FUNZIONI
@@ -69,7 +68,7 @@ function registrati(){
   .catch(error => console.error(error)); // If there is any error you will catch them here
 }
 
-function login(){
+function login() {
   const mail = document.getElementById('mailLogin').value;
   const password = document.getElementById('passwordLogin').value;
 
@@ -77,26 +76,49 @@ function login(){
   if (!mail || !password) {
     alert("Si prega di compilare tutti i campi.");
     return;
-   }
-
-  console.log("dati: ", dati);
+  }
 
   fetch('../login', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({mail: mail, password: password}),
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({mail: mail, password: password}),
   })
   .then((resp) => resp.json()) 
   .then(function(data) { 
-      loggedUser.token = data.token;
-      loggedUser.nome = data.nome;
-      loggedUser.cognome = data.cognome;
-      loggedUser.id = data.id;
-      // Apre la pagina di homepage
-      window.location.href="homepage.html"
-    return;
+    // Controlla se il login è riuscito
+    if (data && data.token) {
+      loggedUser = data;
+      // Salva i dati utente nella localStorage
+      localStorage.setItem('loggedUser', JSON.stringify(data));
+      window.location.href = 'homepage.html';
+
+    } else {
+      alert("Credenziali non valide.");
+    }
+  })
+  .catch(error => console.error(error));
+}
+
+function logout() {
+  fetch('../logout', {
+    method: 'GET',
+    headers: {
+      'x-access-token': localStorage.getItem('token')
+    }
+  })
+  .then((resp) => resp.json()) 
+  .then(function(data) { 
+    if (data && data.success) {
+      // Rimuovi i dati utente dalla localStorage
+      localStorage.removeItem('loggedUser');
+
+      // reindirizza a homepage.html
+      window.location.href = 'homepage.html';
+    } else {
+      alert("Errore durante il logout.");
+    }
   })
   .catch(error => console.error(error));
 }
@@ -127,7 +149,7 @@ var books = {};
 async function ricerca() {
   var input = document.getElementById("searchBar").value;
 
-  try {
+  try {aggiungLibro
       // Effettua la ricerca per parametro=[titolo, nome, cognome]
       let res = await ricercaPerParametro('titolo');
       console.log(res);
@@ -209,17 +231,21 @@ function aggiungLibro(books) {
       prenotaButton.textContent = "Prenota e ritira";
 
       infoLibro.appendChild(autoreP);
-      infoLibro.appendChild(prenotaButton);
-
+      infoLibro.appendChild(prenotaButton);      
+      
       bookContainer.appendChild(copertinaContainer);
       bookContainer.appendChild(infoLibro);
 
       bookDiv.appendChild(bookContainer);
       booksDiv.appendChild(bookDiv);
+
+      // Aggiungi un event listener a ciascun bottone Prenota e ritira
+      prenotaButton.addEventListener("click", function(){
+        window.location.href = "appuntamento.html";
+      });
     });
   }
 }
-
 
 function appuntamento() {
   const nome = document.getElementById('nomeAppuntamento').value;
@@ -262,6 +288,57 @@ function appuntamento() {
     return;
   })
   .catch(error => console.error(error));
+};
+
+async function ricercaPerFiltro(parametro, input) {
+  var url = '../filter?' + parametro + '=' + String(input);
+  console.log(url);
+  try {
+      const response = await fetch(url, {method : 'GET'});
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Error during search:', error);
+      throw error;
+  }
 }
-    
-    
+var book = {}
+async function filtri() {
+  var input = document.querySelector('input[name="filtro"]:checked').value;
+
+  try {aggiungLibro
+      // Effettua la ricerca per parametro=[titolo, nome, cognome]
+      let res = await ricercaPerFiltro('titolo', input);
+      console.log(res);
+      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
+          console.log("Libro trovato: ", res);
+          aggiungLibro(res.libri);
+          return res;
+      }
+
+      console.log("Titolo non trovato.");
+
+      res = await ricercaPerFiltro('Genre', input);
+      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
+          console.log("Genere del libro trovato: ", res);
+          aggiungLibro(res.libri);
+          return res;
+      }
+
+      console.log("Nome autore non trovato");
+
+      res = await ricercaPerFiltro('Author_sur', input);
+      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
+          console.log("Cognome dell'autore trovato: ", res);
+          aggiungLibro(res.libri);
+          return res;
+      }
+
+      console.log("Nessun risultato trovato.");
+  } catch (error) {
+      console.error('Errore durante il filtro:', error);
+  }
+
+  // If no books found, return an empty object
+  return book;
+}

@@ -2,7 +2,7 @@
   "name": "code_EasyLib",
   "version": "1.0.0",
   "description": "Project for SE course",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest --coverage --detectOpenHandles",
     "start": "node index.js"

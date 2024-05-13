@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtri di ricerca</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 30000px;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+  }
+
+  .sidebar {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%; /* Altezza pari all'intera finestra */
+    overflow-y: auto; /* Scroll se necessario */
+  }
+
+  .filtro {
+    margin-bottom: 10px;
+  }
+
+  .risultati {
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+  /* Stili per le caselle di scelta multipla */
+  .scelta {
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="filtro">
+    <h3>Autore</h3>
+    <div class="scelta">
+      <input type="checkbox" id="autore1" name="autore" value="Stephen King">
+      <label for="autore1">Stephen King</label>
+    </div>
+    <div class="scelta">
+      <input type="checkbox" id="autore2" name="autore" value="J.K. Rowling">
+      <label for="autore2">J.K. Rowling</label>
+    </div>
+    <div class="scelta">
+      <input type="checkbox" id="autore3" name="autore" value="Agatha Christie">
+      <label for="autore3">Agatha Christie</label>
+    </div>
+  </div>
+
+  <div class="filtro">
+    <h3>Genere</h3>
+    <div class="scelta">
+      <input type="checkbox" id="genere1" name="genere" value="Fantasy">
+      <label for="genere1">Fantasy</label>
+    </div>
+    <div class="scelta">
+      <input type="checkbox" id="genere2" name="genere" value="Mistero">
+      <label for="genere2">Mistero</label>
+    </div>
+    <div class="scelta">
+      <input type="checkbox" id="genere3" name="genere" value="Horror">
+      <label for="genere3">Horror</label>
+    </div>
+  </div>
+</div>
+
+<div class="risultati">
+  <h1>Risultati della ricerca</h1>
+  <!-- Qui andranno i risultati della ricerca -->
+</div>
+
+</body>
+</html>
+
+

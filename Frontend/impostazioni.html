@@ -1,20 +1,62 @@
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <title>Contatti EasyLib</title>  
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/logo-section.css">
-    <link rel="stylesheet" href="styles/background.css">
-    <link rel="stylesheet" href="styles/general.css">
-    <link rel="stylesheet" href="styles/contatti.css">
-  </head>
-
-  <body>
-    <!-- inizio header -->
+<html lang="it">
+<head>
+  <title>Impostazioni EasyLib</title>  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/header.css">
+  <link rel="stylesheet" href="styles/logo-section.css">
+  <link rel="stylesheet" href="styles/background.css">
+  <link rel="stylesheet" href="styles/general.css">
+  <link rel="stylesheet" href="styles/book-section.css">
+  <style>
+    .sidebar {
+      position: fixed;
+      left: 20px;
+      bottom: 0px;
+      top: 100px;
+      background-color: white;
+      width: 280px;
+      z-index: 101;
+    }
+  
+    .titolo {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  
+    .elemento {
+      margin-bottom: 20px;
+      font-size: 16px;
+      text-decoration: underline;
+      position: relative; /* Aggiunto */
+      padding-right: 10px; /* Aggiunto */
+    }
+  
+    .sidebar::after {
+      content: "";
+      display: block;
+      width: 1px; /* Larghezza della linea verticale */
+      height: 100%; /* Altezza della linea verticale */
+      background-color: black; /* Colore della linea verticale */
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  
+    .elemento:hover {
+      cursor: pointer;
+    }
+  
+    .elemento:active {
+      opacity: 0.5;
+    }
+  </style>
+  
+</head>
+<body>
+<!-- inizio header -->
     <div class="header">
       <div class="left-section">
           La tua biblioteca a portata di click!!
@@ -71,26 +113,19 @@
 });
 </script>
 <!-- fine header -->
+<div class="sidebar">
+  <div class="elemento">Il mio account</div>
+  <div class="elemento">I miei noleggi</div>
+  <div class="elemento">Le mie donazioni</div>
+  <div class="elemento">i miei appuntamenti</div>
+  <div class="elemento">Lingua</div>
+  <div class="elemento">Pagamenti</div>
+</div>
 
-        <div class="contatti-container">
-          <p class="info-sede">
-            Sede EasyLib: Via Sommarive, 9, 38123, Povo, Trento (TN)
-          </p>
-          <div class="google-map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2319.676324156551!2d11.147678813137862!3d46.06800280435299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478276eabbc1a9f5%3A0xffcd60f164c3b0d!2sPolo%20Scientifico%20e%20Tecnologico%20Fabio%20Ferrari%2C%20Polo%20B%2C%20Via%20Sommarive%2C%209%2C%2038123%20Povo%20TN!5e0!3m2!1sen!2sit!4v1709050230301!5m2!1sen!2sit" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-          </iframe>
-          <p class="info-contatti">
-            Contatti
-          </p>
-          <p>
-            E-mail: helpdesk@easylib.com
-          </p>
-          <p>
-            Telefono: 04613458761
-          </p>
-        </div>
 
-        <script src="script.js"></script>
-  </body>
+<div class = "content">
+  
+</div>
+
+</body>
 </html>

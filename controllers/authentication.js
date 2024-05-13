@@ -17,7 +17,7 @@ const login = async function(req, res){
   var payload = {mail: user.mail, utente_id: user.utente_id};
   var options = {expiresIn: 23200};
   var tkn = jwt.sign(payload, 'EasyLib', options);
-  return res.status(200).json({success: true, message : 'Welcome on your account, ' + user.mail + '!', token: tkn, utente_id: user.utente_id})
+  return res.status(200).json({success: true, message : 'Welcome on your account, ' + user.mail + '!', token: tkn, mail: user.mail,  nome: user.nome, cognome: user.cognome})
 }
 
 const logout = function(req, res) {

@@ -55,3 +55,20 @@
 .login-button:active{
   opacity: 0.5;
 }
+
+.userFullName{
+  margin : 0px;
+  font-size: 12px;
+}
+
+.logout{
+  font-size: 10px;
+  margin: 0px;
+  text-decoration: underline;
+}
+.logout:hover{
+  cursor: pointer;
+}
+.logout:active{
+  opacity: 0.5;
+}
