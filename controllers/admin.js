@@ -55,7 +55,7 @@ const newLibro = async (req, res) => {
       const savedBook = await newLibro.save();
       return res.status(201).json({ success: true, message: 'Libro aggiunto', data: savedBook });
   } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ success : false , error: error.message });
   }
 };
 

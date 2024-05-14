@@ -102,7 +102,7 @@ const createPren = async(req, res) => {
         return res.status(404).json({success : false, message:"Utente non trovato"});
     }
     if (!data_b){
-        return res.status(404).json({success: false, message: "Libro no trovato"})
+        return res.status(404).json({success: false, message: "Libro non trovato"})
     }
     prenotazione.findOneAndUpdate(
         {id : data_u.utente_id},
@@ -217,16 +217,20 @@ const RentedBooks = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({ success: false, message: "Utente non trovato" });
-        }else {
+        }else if (user.n_libri >= 5){
+            return res.status(400).json({ success: false, message: "Hai raggiunto il limite di libri noleggiati" });
+        } 
+        else {
             t = {
-                libri_noleggiati: user.libri_noleggiati
+                libri_noleggiati: user.libri_noleggiati,
+                n_libri : user.n_libri
             }
             t.libri_noleggiati.push(book.book_id)
         // Eseguire updateOne() con i dati da aggiornare
             await utente.updateOne({ mail: req.query.mail }, {
                 $set: {
                     libri_noleggiati: t.libri_noleggiati,
-                
+                    n_libri : t.n_libri + 1
                 }
         });
 

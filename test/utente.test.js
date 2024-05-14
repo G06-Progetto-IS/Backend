@@ -101,6 +101,14 @@ describe('suite testing API endpoint "/getBooks"', () => {
         .expect(200);
         expect(res.body).toEqual(outputBody);
     });
+
+
+    test('Chiamata API con un errore interno', async () => {
+        const res = await request(app)
+        .get('/arrayLibri?utente_id=a')
+        .expect(500);
+        expect(res.body.message).toBe('Errore del server');
+    })
 })
 
 
@@ -191,6 +199,14 @@ describe('suite testing API endpoint "/ricerca"', () => {
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Libro non trovato');
     });
+
+    test('Chiamata API con nessun input', async() => {
+        const res=await request(app)
+        .get('/ricerca?')
+        .expect(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Nessun parametro inserito');
+    })
 });
 
 describe('suite testing API endpoint "/Reserve"', () => {
@@ -246,6 +262,18 @@ describe('suite testing API endpoint "/Reserve"', () => {
         .expect(400);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Data non valida');
+    });
+
+    test('Chiamata API con errore interno', async () => {
+        const res= await request(app)
+        .patch('/Reserve?mail=ciar.latano@gmail.com')
+        .send({
+            data_app : 'a',
+            tipo_app : 1
+        })
+        .expect(500);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Errore interno del server');
     });
 
 });
@@ -364,7 +392,7 @@ describe('suite testing api endpoint : "/createPren"',() => {
 
     test('Chiamata API mail non esistente', async () => {
         const inputBody = {
-            utente_mail: 'nonesisto@gmail.com',
+            mail: 'nonesisto@gmail.com',
             book_id: 27,
         }
 
@@ -375,6 +403,21 @@ describe('suite testing api endpoint : "/createPren"',() => {
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Utente non trovato');
     });
+
+    test('Chiamata API libro non trovato', async () => {
+        const inputBody = {
+            mail: 'ciar.latano@gmail.com',
+            book_id: -1,
+        }
+
+        const res = await request(app)
+        .post('/createPren')
+        .send(inputBody)
+        .expect(404);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Libro non trovato');
+    });
+
 
     test('Chiamata API con utente senza data_app', async () => {
         const inputBody = {
@@ -442,6 +485,11 @@ describe('Suite testing API endpoint: "/Multa"', () => {
     test('Chiamata API corretta', async () => {
         const res = await request(app)
         .patch('/Multa?mail=ciar.latano@gmail.com')
+        .send(
+            {
+                multa: 20
+            }
+        )
         .expect(200)
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Multa inviata');
@@ -454,4 +502,17 @@ describe('Suite testing API endpoint: "/Multa"', () => {
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Utente non trovato');
     })  
+
+    test('Chiamata API con utente non trovato', async () => {
+        const res = await request(app)
+        .patch('/Multa?mail=ciar.latano@gmail.com')
+        .send(
+            {
+                multa : 'multa'
+            }
+        )
+        .expect(500)
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Errore interno del server');
+    })
 })

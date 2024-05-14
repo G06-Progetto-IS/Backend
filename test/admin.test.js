@@ -187,6 +187,15 @@ describe ('Suite testing API endpoint "/newLibro"', () => {
         expect(response.body.success).toBe(false);
         expect(response.body.message).toBe('Libro già presente in archivio');
     });
+
+    test('Chiamata API errore', async () => {
+        const response = await request(app)
+            .post('/newLibro')
+            .send();
+    
+        expect(response.status).toBe(500);
+        expect(response.body.success).toBe(false);
+    });
 })
 
 describe ('Suite testing API endpoint "/deleteUtente"', () => {

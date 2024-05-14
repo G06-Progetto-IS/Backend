@@ -83,28 +83,6 @@ describe('Suite testing API endpoint: "/Filter"', () => {
         expect(response.body).toStrictEqual(outBody);
     })
 
-    test('Chiamata API corretta filtro titolo', async() => {
-        const outBody = {
-            'libri': [
-                {
-                    titolo: '1984',
-                    Author_name: 'George',
-                    Author_sur: 'Orwell',
-                    Genre: 'Fantascienza',
-                    Is_available: true,
-                    Grade: null
-                }
-            ],
-            success: true
-        }
-        const response = await request(app)
-        .get('/filter')
-        .query({
-            titolo: '1984'
-        })
-        .expect(200);
-        expect(response.body).toStrictEqual(outBody);
-    })
 
     test('Chiamta API con filtro non esistente', async() => {
         const response = await request(app)

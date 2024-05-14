@@ -19,33 +19,30 @@ const Ricerca_libro = async (req, res) => {
         query.titolo = req.query.titolo;
     }
     // Aggiungi la ricerca per author_sur se è fornito nella richiesta
-    if (req.query.Author_sur) {
+    else if (req.query.Author_sur) {
         query.Author_sur = req.query.Author_sur;
     }
-    if (req.query.Author_name) {
+    else if (req.query.Author_name) {
         query.Author_name = req.query.Author_name;;
-    }
+    }else {
+        return res.status(400).json({success : false, message : "Nessun parametro inserito"})
+    } 
     let data =  await libro.find(query).exec()
-   
-    if (!data) {
+    const books = [];
+    for (const book of data) {
+        const { titolo, Author_name, Author_sur, Is_available } = book;
+        books.push({
+            titolo: titolo,
+            Author_name: Author_name,
+            Author_sur: Author_sur,
+            Is_available: Is_available
+        });
+    };
+    if (books.length === 0) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
     } else {
-        const books = [];
-
-        for (const book of data) {
-            const { titolo, Author_name, Author_sur, Is_available } = book;
-            books.push({
-                titolo: titolo,
-                Author_name: Author_name,
-                Author_sur: Author_sur,
-                Is_available: Is_available
-            });
-        };
-        if (books.length === 0) {
-            return res.status(404).json({success : false, message : "Libro non trovato"})
-        } else {
-        return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
-    }};
+    return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
+    };
 
   const Filter = async (req, res) => {
     try {
