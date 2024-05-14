@@ -50,11 +50,8 @@ const Ricerca_libro = async (req, res) => {
   const Filter = async (req, res) => {
     try {
         var Query = {};
-        if (req.query.titolo) {
-            Query.titolo = req.query.titolo;
-        }
         // Aggiungi la ricerca per author_sur se è fornito nella richiesta
-        else if (req.query.Author_sur) {
+        if (req.query.Author_sur) {
             Query.Author_sur = req.query.Author_sur;
         }
         else if (req.query.Genre) {

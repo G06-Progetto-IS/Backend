@@ -52,7 +52,135 @@
     .elemento:active {
       opacity: 0.5;
     }
-  </style>
+
+    .content{
+      margin-left: 350px;
+      margin-top: 100px;
+    }
+
+    .switch {
+  position: relative;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.switch > span {
+  position: absolute;
+  top: 14px;
+  pointer-events: none;
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+  width: 50%;
+  text-align: center;
+}
+
+input.check-toggle-round-flat:checked ~ .off {
+  color: rgb(0, 177, 88);
+}
+
+input.check-toggle-round-flat:checked ~ .on {
+  color: #fff;
+}
+
+.switch > span.on {
+  left: 0;
+  padding-left: 2px;
+  color: rgb(0, 177, 88);
+}
+
+.switch > span.off {
+  right: 0;
+  padding-right: 4px;
+  color: #fff;
+}
+
+.check-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.check-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input.check-toggle-round-flat + label {
+  padding: 2px;
+  width: 97px;
+  height: 35px;
+  background-color: rgb(0, 177, 88);
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  -ms-border-radius: 60px;
+  -o-border-radius: 60px;
+  border-radius: 60px;
+}
+input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+input.check-toggle-round-flat + label:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  background-color: rgb(0, 177, 88);
+  -webkit--moz-border-radius: 60px;
+  -ms-border-radius: 60px;
+  -o-border-radius: 60px;
+  border-radius: 60px;
+}
+input.check-toggle-round-flat + label:after {
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: 48px;
+  background-color: #fff;
+  -webkit-border-radius: 52px;
+  -moz-border-radius: 52px;
+  -ms-border-radius: 52px;
+  -o-border-radius: 52px;
+  border-radius: 52px;
+  -webkit-transition: margin 0.2s;
+  -moz-transition: margin 0.2s;
+  -o-transition: margin 0.2s;
+  transition: margin 0.2s;
+  }
+
+  input.check-toggle-round-flat:checked + label {
+  }
+
+  input.check-toggle-round-flat:checked + label:after {
+    margin-left: 44px;
+  }
+
+  .conferma-lingua{
+  margin-top: 15px;
+  border-color: rgb(0, 177, 88);
+  color: black;
+  border: 2px solid rgb(0, 177, 88);
+  background-color: white;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.conferma-lingua:active{
+  opacity: 0.5;
+}
+    </style>
   
 </head>
 <body>
@@ -72,20 +200,21 @@
       </div>
     </div>
 
-  <div class="content-container">
-    <div class="logo-column">
-      <img class="logo" src="photos/logo.png">
-      <div class="nome-lib">
-        EasyLib
+    <div class="content-container">
+      <div class="logo-column">
+        <img class="logo" src="photos/logo.png">
+        <div class="nome-lib">
+          EasyLib
+        </div>
       </div>
-    </div>
-    <div class="search-column">
-      <input id="searchBar" type="text" onkeypress="handle(event)" placeholder="Search" class="search-bar">
-    </div>
+      <div class="search-column">
+        <input id="searchBar" type="text" onkeypress="handle(event)" placeholder="Search" class="search-bar">
+      </div>
       <div class="link-column">
         <a href="homepage.html" class="home-link">Home</a>
         <a href="servizi.html">Servizi</a>
-        <a>Impostazioni</a>
+        <a href="appuntamento.html">Appuntamento</a>
+        <a href = "impostazioni.html">Impostazioni</a>
         <a href="contatti.html">Contatti </a>
       </div>
       <div class="login-column" id="loginColumn">
@@ -96,36 +225,122 @@
         <p class="logout" id="logoutButton" onclick = "logout()">logout</p>
       </div>
     </div>
-</div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  // Recupera i dati utente dalla localStorage
-  const loggedUserJSON = localStorage.getItem('loggedUser');
-  if (loggedUserJSON) {
-    const loggedUser = JSON.parse(loggedUserJSON);
-    // Nasconde il pulsante di login
-    document.getElementById('loginColumn').style.display = 'none';
-    // Mostra le informazioni dell'utente e il pulsante di logout
-    document.getElementById('userInfo').style.display = 'block';
-    document.getElementById('userFullName').textContent = loggedUser.nome + ' ' + loggedUser.cognome;
-  }
-});
-</script>
+
 <!-- fine header -->
-<div class="sidebar">
-  <div class="elemento">Il mio account</div>
-  <div class="elemento">I miei noleggi</div>
-  <div class="elemento">Le mie donazioni</div>
-  <div class="elemento">i miei appuntamenti</div>
-  <div class="elemento">Lingua</div>
-  <div class="elemento">Pagamenti</div>
-</div>
+    <div class="sidebar">
+      <div class="elemento" id="lingua">Lingua</div>
+      <div id="loggedUser" style = "display: none">
+        <div class="elemento" id="noleggi">I miei noleggi</div>
+        <div class="elemento" id="donazioni">Le mie donazioni</div>
+        <div class="elemento" id="appuntamenti">I miei appuntamenti</div>
+        <div class="elemento" id="pagamenti">Pagamenti</div>
+      </div>
+    </div>
+
+    <div class = 'content'>
+      <div id="lingua-content" style="display: none">
+        <h2>Lingua</h2>
+        <p>Scegli la tua lingua preferita:</p>
+        <center>
+        <div class="switch">
+          <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
+          <label for="language-toggle"></label>
+          <span class="on">IT</span>
+          <span class="off">EN</span>
+          <button class = 'conferma-lingua'>Conferma</button>
+        </div>
+      </center>
+      </div>
+      <div id="noleggi-content" style="display: none">
+        <!-- Contenuto della sezione I miei noleggi -->
+        <h2>I miei noleggi</h2>
+        <p>Visualizza i tuoi noleggi attivi.</p>
+      </div>
+      <div id="donazioni-content" style="display: none">
+        <!-- Contenuto della sezione Le mie donazioni -->
+        <h2>Le mie donazioni</h2>
+        <p>Visualizza le tue donazioni effettuate.</p>
+      </div>
+      <div id="appuntamenti-content" style="display: none">
+        <!-- Contenuto della sezione I miei appuntamenti -->
+        <h2>I miei appuntamenti</h2>
+        <p>Visualizza i tuoi appuntamenti prenotati.</p>
+      </div>
+      <div id="pagamenti-content" style="display: none">
+        <!-- Contenuto della sezione Pagamenti -->
+        <h2>Pagamenti</h2>
+        <p>Effettua pagamenti e gestisci le tue transazioni.</p>
+      </div>
+    </div>
 
 
-<div class = "content">
-  
-</div>
 
+    <script>
+        // Funzione per aprire la sezione corretta quando viene premuto un elemento della barra laterale
+        function apriSezione(sezione) {
+          // Nascondi tutte le sezioni
+          var sezioni = document.querySelectorAll('.content > div');
+          sezioni.forEach(function(sezione) {
+            sezione.style.display = 'none';
+          });
+          // Mostra solo la sezione corretta
+          var sezioneCorretta = document.getElementById(sezione);
+          if (sezioneCorretta) {
+            sezioneCorretta.style.display = 'block';
+          }
+        }
+
+        // Ascoltatore di eventi per ogni elemento della barra laterale
+        var lingua = document.getElementById("lingua");
+        var noleggi = document.getElementById("noleggi");
+        var donazioni = document.getElementById("donazioni");
+        var appuntamenti = document.getElementById("appuntamenti");
+        var pagamenti = document.getElementById("pagamenti");
+
+        lingua.addEventListener("click", function() {
+          apriSezione("lingua-content");
+        });
+        noleggi.addEventListener("click", function() {
+          apriSezione("noleggi-content");
+        });
+        donazioni.addEventListener("click", function() {
+          apriSezione("donazioni-content");
+        });
+        appuntamenti.addEventListener("click", function() {
+          apriSezione("appuntamenti-content");
+        });
+        pagamenti.addEventListener("click", function() {
+          apriSezione("pagamenti-content");
+        });
+
+        // Inizialmente, nascondi tutte le sezioni
+        var sezioni = document.querySelectorAll('.content > div');
+        sezioni.forEach(function(sezione) {
+          sezione.style.display = 'none';
+        });
+
+        // Mostra la sezione lingua per default
+        apriSezione("lingua-content");
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // Recupera i dati utente dalla localStorage
+        const loggedUserJSON = localStorage.getItem('loggedUser');
+        if (loggedUserJSON) {
+          const loggedUser = JSON.parse(loggedUserJSON);
+          // Nasconde il pulsante di login
+          document.getElementById('loginColumn').style.display = 'none';
+          // Mostra le informazioni dell'utente e il pulsante di logout
+          document.getElementById('userInfo').style.display = 'block';
+          document.getElementById('userFullName').textContent = loggedUser.nome + ' ' + loggedUser.cognome;
+          document.getElementById('loggedUser').style.display = 'block';
+        }
+      });
+      var loginButton = document.getElementById("loginButton");
+      loginButton.addEventListener("click", function() {
+        window.location.href = "login.html";
+      })
+    </script>
 </body>
 </html>
+

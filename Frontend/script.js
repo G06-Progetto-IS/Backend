@@ -12,15 +12,15 @@ searchBar.addEventListener("keydown", function(event) {
   }
 });
 
-var loginButton = document.getElementById("loginButton");
-loginButton.addEventListener("click", function() {
-  window.location.href = "login.html";
-})
-
 document.getElementById("formAppuntamento").addEventListener("submit", function(event) {
   event.preventDefault();
   appuntamento();
 });
+
+function IsUserLoggedIn() {
+  const loggedUserJSON = localStorage.getItem('loggedUser');
+  return !!loggedUserJSON; // Restituisce true se l'utente è loggato, altrimenti false
+}
 // FINE HANDLER EVENTI
 
 // INIZIO FUNZIONI
@@ -156,7 +156,7 @@ async function ricerca() {
       if (res && Array.isArray(res.libri) && res.libri.length > 0) {
           console.log("Libro trovato: ", res);
           books = res;
-          aggiungLibro(res.libri);
+          aggiungLibro(res.libri, IsUserLoggedIn());
           return books;
       }
 
@@ -166,7 +166,7 @@ async function ricerca() {
       if (res && Array.isArray(res.libri) && res.libri.length > 0) {
           console.log("Nome dell'autore trovato: ", res);
           books = res;
-          aggiungLibro(res.libri);
+          aggiungLibro(res.libri, IsUserLoggedIn());
           return books;
       }
 
@@ -176,7 +176,7 @@ async function ricerca() {
       if (res && Array.isArray(res.libri) && res.libri.length > 0) {
           console.log("Cognome dell'autore trovato: ", res);
           books = res;
-          aggiungLibro(res.libri);
+          aggiungLibro(res.libri, IsUserLoggedIn());
           return books;
       }
 
@@ -189,7 +189,7 @@ async function ricerca() {
   return books;
 }
 
-function aggiungLibro(books) {
+function aggiungLibro(books, isLoggedIn) {
   var booksDiv = document.getElementById("bookList");
   if (!booksDiv) {
       console.error("Elemento 'bookList' non trovato.");
@@ -229,6 +229,8 @@ function aggiungLibro(books) {
       var prenotaButton = document.createElement('button');
       prenotaButton.classList.add('bottone-prenota');
       prenotaButton.textContent = "Prenota e ritira";
+      // Controllo se l'utente è loggato per mostrare il pulsante
+      prenotaButton.style.display = isLoggedIn ? "block" : "none";
 
       infoLibro.appendChild(autoreP);
       infoLibro.appendChild(prenotaButton);      
@@ -243,9 +245,11 @@ function aggiungLibro(books) {
       prenotaButton.addEventListener("click", function(){
         window.location.href = "appuntamento.html";
       });
+
     });
   }
 }
+
 
 function appuntamento() {
   const nome = document.getElementById('nomeAppuntamento').value;
@@ -308,29 +312,19 @@ async function filtri() {
 
   try {aggiungLibro
       // Effettua la ricerca per parametro=[titolo, nome, cognome]
-      let res = await ricercaPerFiltro('titolo', input);
-      console.log(res);
-      if (res && Array.isArray(res.libri) && res.libri.length > 0) {
-          console.log("Libro trovato: ", res);
-          aggiungLibro(res.libri);
-          return res;
-      }
-
-      console.log("Titolo non trovato.");
-
-      res = await ricercaPerFiltro('Genre', input);
+      let res = await ricercaPerFiltro('Genre', input);;
       if (res && Array.isArray(res.libri) && res.libri.length > 0) {
           console.log("Genere del libro trovato: ", res);
-          aggiungLibro(res.libri);
+          aggiungLibro(res.libri, IsUserLoggedIn());
           return res;
       }
 
-      console.log("Nome autore non trovato");
+      console.log("Genere libro non trovato");
 
       res = await ricercaPerFiltro('Author_sur', input);
       if (res && Array.isArray(res.libri) && res.libri.length > 0) {
           console.log("Cognome dell'autore trovato: ", res);
-          aggiungLibro(res.libri);
+          aggiungLibro(res.libri, IsUserLoggedIn());
           return res;
       }
 

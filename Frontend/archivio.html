@@ -44,7 +44,7 @@
         <a href="homepage.html" class="home-link">Home</a>
         <a href="servizi.html">Servizi</a>
         <a href = "appuntamento.html">Appuntamento</a>
-        <a>Impostazioni</a>
+        <a href = "impostazioni.html">Impostazioni</a>
         <a href="contatti.html">Contatti </a>
       </div>
       <div class="login-column" id="loginColumn">
@@ -61,19 +61,6 @@
     <!-- inizio sidebar -->
     <div class="sidebar">
       <div class="filtro">
-        <h3>Titolo</h3>
-        <div class="scelta">
-          <input type="radio" id="autore1" name="filtro" value="1984">
-          <label for="autore1">1984</label>
-        </div>
-        <div class="scelta">
-          <input type="radio" id="autore2" name="filtro" value="Il processo">
-          <label for="autore2">Il processo</label>
-        </div>
-        <div class="scelta">
-          <input type="radio" id="autore3" name="filtro" value="Il barone rampante">
-          <label for="autore3">Il barone rampante</label>
-        </div>
         <h3>Autore</h3>
         <div class="scelta">
           <input type="radio" id="autore1" name="filtro" value="Kafka">
@@ -117,9 +104,11 @@
           <div class="info-libro">
             <p class="autore"><strong>Michiko Aoyama</strong></p>
             <p class="casa-editrice">Casa Editrice: Garzanti</p>
-            <button class="bottone-prenota" id="prenotaButton0">
-              Prenota e ritira
-            </button>
+            <div id="loggedUser1" style = "display: none;">
+              <button class="bottone-prenota" id="prenotaButton3">
+                Prenota e ritira
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -135,9 +124,11 @@
           <div class="info-libro">
             <p class="autore"><strong>Georges Simenon</strong></p>
             <p class="casa-editrice">Casa Editrice: Adelphi</p>
-            <button class="bottone-prenota" id="prenotaButton1">
-              Prenota e ritira
-            </button>
+            <div id="loggedUser2" style = "display: none;">
+              <button class="bottone-prenota" id="prenotaButton3">
+                Prenota e ritira
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -153,9 +144,11 @@
           <div class="info-libro">
             <p class="autore"><strong>Roxane Gay</strong></p>
             <p class="casa-editrice">Casa Editrice: Capitán Swing</p>
-            <button class="bottone-prenota" id="prenotaButton2">
-              Prenota e ritira
-            </button>
+            <div id="loggedUser3" style = "display: none;">
+              <button class="bottone-prenota" id="prenotaButton3">
+                Prenota e ritira
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -171,9 +164,11 @@
           <div class="info-libro">
             <p class="autore"><strong>Sophie Mackintosh</strong></p>
             <p class="casa-editrice">Casa Editrice: Einaudi</p>
-            <button class="bottone-prenota" id="prenotaButton3">
-              Prenota e ritira
-            </button>
+            <div id="loggedUser4" style = "display: none;">
+              <button class="bottone-prenota" id="prenotaButton3">
+                Prenota e ritira
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -191,6 +186,7 @@
           window.location.href = "/appuntamento.html?id=" + (index + 1);
         });
       });
+
       document.addEventListener('DOMContentLoaded', function() {
         // Recupera i dati utente dalla localStorage
         const loggedUserJSON = localStorage.getItem('loggedUser');
@@ -201,8 +197,17 @@
           // Mostra le informazioni dell'utente e il pulsante di logout
           document.getElementById('userInfo').style.display = 'block';
           document.getElementById('userFullName').textContent = loggedUser.nome + ' ' + loggedUser.cognome;
+          document.getElementById('loggedUser1').style.display = 'block';
+          document.getElementById('loggedUser2').style.display = 'block';
+          document.getElementById('loggedUser3').style.display = 'block';
+          document.getElementById('loggedUser4').style.display = 'block';
         }
       });
+
+      var loginButton = document.getElementById("loginButton");
+      loginButton.addEventListener("click", function() {
+        window.location.href = "login.html";
+      })
     </script>
 
     <script src = "script.js"></script>

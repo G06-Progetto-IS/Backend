@@ -44,7 +44,7 @@
         <a href="homepage.html" class="home-link">Home</a>
         <a href="servizi.html">Servizi</a>
         <a href = "appuntamento.html">Appuntamento</a>
-        <a>Impostazioni</a>
+        <a href = "impostazioni.html">Impostazioni</a>
         <a href="contatti.html">Contatti </a>
       </div>
       <div class="login-column" id="loginColumn">
@@ -70,6 +70,12 @@
     document.getElementById('userFullName').textContent = loggedUser.nome + ' ' + loggedUser.cognome;
   }
 });
+
+  var loginButton = document.getElementById("loginButton");
+  loginButton.addEventListener("click", function() {
+    window.location.href = "login.html";
+  });
+</script>
 </script>
 <!-- fine header -->
         <div class="background-container">
