@@ -1,8 +1,9 @@
+// Modello per prenotare un appuntamento per restituire un libro
 const mongoose = require ("mongoose");
 
 const schema = new mongoose.Schema({
-    utente_id : {type: Number, required : true},
-    book_id : {type: Number, required: true},
+    mail : {type: String, required : true},
+    titolo : {type: String, required: true},
     data : {type: Date, required: true} 
 })
 
