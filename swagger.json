@@ -1,0 +1,158 @@
+{
+    "swagger":"2.0",
+    "info": {
+        "version": "1.0.0", 
+        "title": "EasyLib",
+        "description": "Documentazione API di EasyLib",
+        "license": {
+           "name": "",
+           "url": ""
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "utente",
+            "description": "API per il modello 'Utente'. Tutte le API per gestire le azioni relative agli utenti."
+        },
+        {
+            "name" : "authentication",
+            "description": "API per il modello 'authentication'. Tutte le API per gestire login e logout"
+        },
+        {
+            "name" : "admin",
+            "description": "API per il modello 'admin'. Tutte le API per il gestire le funzionalità di admin.."
+        },
+        {
+            "name" : "book",
+            "description": "API per il modello 'Book'. Tutte le API per gestire le azioni relative ai libri"
+        },
+        {
+            "name" : "disponibilita",
+            "description": "API per il modello 'disponibilita'. Tutte le API per gestire le azioni relative alla disponibilita dei libri."
+        },
+        {
+            "name" : "tokenChecker",
+            "description" : "API per il modello 'Tokenchecker'. Tutte le API per gestire i token"
+        }
+    ],
+    "schemes": ["http", "https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/SignUp" : {
+        "post" : {
+            "tags" : ["utente"],
+            "summary" : "Usata per registrare un nuovo utente.",
+            "responses" : {
+                "201": {
+                    "description" : "CREATED. Utente creato correttamente."
+                },
+                "400": {
+                    "description" : "BAD REQUEST. Errore in seguito alll'inserimento di un indirzzo email o una password non validi"
+                },"500": {
+                    "description" : "SERVER ERROR. Utente già presente in archivio."
+                }
+        },
+        "parameters" : [{
+            "in" : "body",
+            "name" : "Dati utente",
+            "description" : "Le informazioni sul nuovo utente da creare",
+            "schema" : {
+                "type" : "object",
+                "required" : ["utente_id", "nome", "cognome", "email", "password", "libri_noleggiati", "n_libri", "autenticato", "multa"],
+                "properties" : {
+                    "utente_id" : {
+                        "type": "number",
+                        "example" : 1
+                    },
+                    "nome" : {
+                        "type" : "string",
+                        "example" : "Francesco"
+                    },
+                    "cognome" : {
+                        "type" : "string",
+                        "example" : "Rossi"
+                    },
+                    "email" : {
+                        "type" : "string",
+                        "example" : "Fra.rossi@gmail.com"
+                    },
+                    "password" : {
+                        "type" : "string",
+                        "example" : "abc123!"
+                    }
+
+                }
+            }
+        }]
+
+    }
+    },
+    "/createApp" : {
+        "post" : {
+            "tags" : ["utente"],
+            "summary" : "usata per creare un nuovo appuntamento",
+            "responses" : {
+                "200" : {
+                    "description" : "OK. Appuntamento creato correttamente."
+                },
+                "404" : {
+                    "description" : "NOT FOUND. Utente non trovato."
+                },
+                "500" : {
+                    "description" : "SERVER ERROR. Errore del server."
+                }                
+        },
+        "parameters" : [
+            {
+
+            }
+        ]
+
+    }
+    },
+    "/createPren": {
+        "post" : {
+            "tags" : ["utente"],
+            "summary" : "usata per creare una nuova prenotazione",
+            "responses" :{
+                "200" : {
+                    "description" : "OK. Prenotazione creata correttamente."
+                },
+                "404" : {
+                    "description" : "NOT FOUND. Utente o libro  non trovato."
+                },
+                "500" : {
+                    "description" : "SERVER ERROR. Errore del server."
+                }  
+            }
+        }
+    },
+    "deleteApp{utente_id}" : {
+        "delete" : {
+            "tags" : ["Utente"],
+            "summary" : "Usata per eliminare un appuntamento identificato da uno specifico utente_id.",
+            "responses" : {
+                "200" : {
+                    "description" : "OK. Appuntamento eliminato correttamente."
+                },
+                "401" : {
+                    "description" : "UNAUTHORIZED. Token non fornito, impossibile autorizzare la richiesta."
+                },
+                "404" : {
+                    "description" : "NOT FOUND. Nessun appuntamento associato all'utente_id passato come parametro."
+                }
+            },
+            "parameters" : [
+                {
+                    "utente_id" : "utente_id",
+                    "in" : "path",
+                    "description" : "utente_id dell'appuntamento da eliminare."
+                }
+            ]
+        }
+        }
+}
+}
