@@ -95,4 +95,15 @@ describe('Suite testing API endpoint: "/Filter"', () => {
         expect(response.body.message).toBe('Filtro non selezionato o errato');
     })
 
+    test('Chiamta API con filtro non esistente', async() => {
+        const response = await request(app)
+        .get('/filter')
+        .query({
+            Genre: 'Caso'
+        })
+        .expect(404);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Nessun libro trovato');
+    })
+
 })

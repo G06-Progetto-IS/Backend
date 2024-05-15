@@ -232,7 +232,6 @@ input.check-toggle-round-flat + label:after {
       <div class="elemento" id="lingua">Lingua</div>
       <div id="loggedUser" style = "display: none">
         <div class="elemento" id="noleggi">I miei noleggi</div>
-        <div class="elemento" id="donazioni">Le mie donazioni</div>
         <div class="elemento" id="appuntamenti">I miei appuntamenti</div>
         <div class="elemento" id="pagamenti">Pagamenti</div>
       </div>
@@ -242,7 +241,7 @@ input.check-toggle-round-flat + label:after {
       <div id="lingua-content" style="display: none">
         <h2>Lingua</h2>
         <p>Scegli la tua lingua preferita:</p>
-        <center>
+      <center>
         <div class="switch">
           <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
           <label for="language-toggle"></label>
@@ -256,11 +255,6 @@ input.check-toggle-round-flat + label:after {
         <!-- Contenuto della sezione I miei noleggi -->
         <h2>I miei noleggi</h2>
         <p>Visualizza i tuoi noleggi attivi.</p>
-      </div>
-      <div id="donazioni-content" style="display: none">
-        <!-- Contenuto della sezione Le mie donazioni -->
-        <h2>Le mie donazioni</h2>
-        <p>Visualizza le tue donazioni effettuate.</p>
       </div>
       <div id="appuntamenti-content" style="display: none">
         <!-- Contenuto della sezione I miei appuntamenti -->
@@ -294,7 +288,6 @@ input.check-toggle-round-flat + label:after {
         // Ascoltatore di eventi per ogni elemento della barra laterale
         var lingua = document.getElementById("lingua");
         var noleggi = document.getElementById("noleggi");
-        var donazioni = document.getElementById("donazioni");
         var appuntamenti = document.getElementById("appuntamenti");
         var pagamenti = document.getElementById("pagamenti");
 

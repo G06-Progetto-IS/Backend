@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     mail : {type : String, required : true},
     password : {type : String, required : true},
     libri_noleggiati : {type : Array, default: null},
-    n_libri : {type : Number, default: null},
+    n_libri : {type : Number, default: 0},
     autenticato : {type : Boolean, default: null},
     data_app : {type : Date, default: null},
     tipo_app : {type : String, default: null},

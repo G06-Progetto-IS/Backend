@@ -8,7 +8,6 @@ const schema = new mongoose.Schema({
     Author_sur : {type : String, required : true},
     Genre : {type : String, required : true},
     Is_available : {type : Boolean, default: true},
-    Grade : {type : Number, default: null},
     scadenza : {type : Date, default: null}
 })
 

@@ -1,4 +1,3 @@
-
 const prenotazione = require("../models/prenotazione")
 const utente = require("../models/utente")
 const libro = require("../models/book")
@@ -145,7 +144,7 @@ const deletePren = async (req, res) => {
         return res.status(200).json({success: true, message:"Prenotazione cancellata con successo"})
     }
 }
-
+// Usare per mostrare i libri (sezione i miei noleggi)
 const getBooks = async (req, res) => {
     try {
         let data = await utente.findOne({ utente_id: req.query.utente_id }).exec();
@@ -204,12 +203,22 @@ const Reserve = async (req, res) => {
     }
 };
 
+// far partire dopo che si è prenotato un libro (pensa come far passare )
 const RentedBooks = async (req, res) => {
     try {
         // Attendere la promessa restituita da findOne()
         let user = await utente.findOne({ mail: req.query.mail }).exec();
-        let book = await libro.findOne({book_id: req.body.book_id}).exec();
+        let book = await libro.findOne({titolo: req.body.titolo}).exec();
         var t ;
+
+        var scadenzaNoleggio = new Date();
+        scadenzaNoleggio.setMonth(scadenzaNoleggio.getMonth() + 1);
+
+        var dd = String(scadenzaNoleggio.getDate()).padStart(2, '0');
+        var mm = String(scadenzaNoleggio.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = scadenzaNoleggio.getFullYear();
+
+        scadenzaNoleggio = yyyy + '-' + mm + '-' + dd;
         
         if (!book){ 
             return res.status(404).json({ success: false, message: "Libro non trovato" });
@@ -232,6 +241,12 @@ const RentedBooks = async (req, res) => {
                     libri_noleggiati: t.libri_noleggiati,
                     n_libri : t.n_libri + 1
                 }
+        });
+        await libro.updateOne({titolo: req.body.titolo}, {
+            $set: {
+                scadenza: scadenzaNoleggio,
+                Is_available: false
+            }
         });
 
         return res.status(200).json({ success: true, message: "Libro aggiunto" });

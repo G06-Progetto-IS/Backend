@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1715716821993" clover="3.2.0">
-  <project timestamp="1715716821993" name="All files">
-    <metrics statements="422" coveredstatements="395" conditionals="94" coveredconditionals="76" methods="33" coveredmethods="30" elements="549" coveredelements="501" complexity="0" loc="422" ncloc="422" packages="5" files="31" classes="31"/>
+<coverage generated="1715769681238" clover="3.2.0">
+  <project timestamp="1715769681238" name="All files">
+    <metrics statements="424" coveredstatements="397" conditionals="96" coveredconditionals="78" methods="33" coveredmethods="30" elements="553" coveredelements="505" complexity="0" loc="424" ncloc="424" packages="5" files="31" classes="31"/>
     <package name="Backend">
       <metrics statements="28" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="server.js" path="/home/stefano/Desktop/Progetto/Backend/server.js">
+      <file name="server.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/server.js">
         <metrics statements="28" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -38,7 +38,7 @@
     </package>
     <package name="Backend.auxiliares">
       <metrics statements="10" coveredstatements="9" conditionals="11" coveredconditionals="10" methods="2" coveredmethods="2"/>
-      <file name="check.js" path="/home/stefano/Desktop/Progetto/Backend/auxiliares/check.js">
+      <file name="check.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/auxiliares/check.js">
         <metrics statements="10" coveredstatements="9" conditionals="11" coveredconditionals="10" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -53,8 +53,8 @@
       </file>
     </package>
     <package name="Backend.controllers">
-      <metrics statements="238" coveredstatements="213" conditionals="83" coveredconditionals="66" methods="30" coveredmethods="28"/>
-      <file name="admin.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/admin.js">
+      <metrics statements="240" coveredstatements="215" conditionals="85" coveredconditionals="68" methods="30" coveredmethods="28"/>
+      <file name="admin.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/controllers/admin.js">
         <metrics statements="34" coveredstatements="28" conditionals="12" coveredconditionals="7" methods="5" coveredmethods="5"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -91,7 +91,7 @@
         <line num="69" count="1" type="stmt"/>
         <line num="98" count="4" type="stmt"/>
       </file>
-      <file name="authentication.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/authentication.js">
+      <file name="authentication.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/controllers/authentication.js">
         <metrics statements="21" coveredstatements="17" conditionals="6" coveredconditionals="5" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -115,8 +115,8 @@
         <line num="32" count="1" type="stmt"/>
         <line num="37" count="4" type="stmt"/>
       </file>
-      <file name="book.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/book.js">
-        <metrics statements="44" coveredstatements="42" conditionals="16" coveredconditionals="15" methods="3" coveredmethods="3"/>
+      <file name="book.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/controllers/book.js">
+        <metrics statements="44" coveredstatements="43" conditionals="16" coveredconditionals="16" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -143,16 +143,16 @@
         <line num="42" count="3" type="stmt"/>
         <line num="44" count="3" type="stmt"/>
         <line num="47" count="4" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="49" count="3" type="stmt"/>
-        <line num="51" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
+        <line num="51" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="52" count="1" type="stmt"/>
-        <line num="54" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="55" count="1" type="stmt"/>
+        <line num="54" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="2" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="61" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="62" count="0" type="stmt"/>
+        <line num="60" count="3" type="stmt"/>
+        <line num="61" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="1" type="stmt"/>
         <line num="64" count="2" type="stmt"/>
         <line num="65" count="2" type="stmt"/>
         <line num="66" count="3" type="stmt"/>
@@ -162,7 +162,7 @@
         <line num="80" count="0" type="stmt"/>
         <line num="108" count="4" type="stmt"/>
       </file>
-      <file name="disponibilita.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/disponibilita.js">
+      <file name="disponibilita.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/controllers/disponibilita.js">
         <metrics statements="11" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -176,7 +176,7 @@
         <line num="22" count="0" type="stmt"/>
         <line num="26" count="4" type="stmt"/>
       </file>
-      <file name="tokenChecker.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/tokenChecker.js">
+      <file name="tokenChecker.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/controllers/tokenChecker.js">
         <metrics statements="11" coveredstatements="3" conditionals="7" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -190,8 +190,8 @@
         <line num="27" count="0" type="stmt"/>
         <line num="33" count="4" type="stmt"/>
       </file>
-      <file name="utente.js" path="/home/stefano/Desktop/Progetto/Backend/controllers/utente.js">
-        <metrics statements="117" coveredstatements="114" conditionals="40" coveredconditionals="37" methods="17" coveredmethods="17"/>
+      <file name="utente.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/controllers/utente.js">
+        <metrics statements="119" coveredstatements="115" conditionals="42" coveredconditionals="38" methods="17" coveredmethods="17"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -294,54 +294,56 @@
         <line num="215" count="1" type="stmt"/>
         <line num="218" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="219" count="1" type="stmt"/>
-        <line num="221" count="1" type="stmt"/>
+        <line num="220" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="221" count="0" type="stmt"/>
         <line num="224" count="1" type="stmt"/>
-        <line num="226" count="1" type="stmt"/>
-        <line num="233" count="1" type="stmt"/>
-        <line num="236" count="1" type="stmt"/>
-        <line num="240" count="4" type="stmt"/>
-        <line num="241" count="3" type="stmt"/>
-        <line num="243" count="3" type="stmt"/>
-        <line num="245" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="246" count="1" type="stmt"/>
-        <line num="250" count="2" type="stmt"/>
-        <line num="256" count="1" type="stmt"/>
-        <line num="258" count="1" type="stmt"/>
-        <line num="259" count="1" type="stmt"/>
-        <line num="266" count="4" type="stmt"/>
+        <line num="228" count="1" type="stmt"/>
+        <line num="230" count="1" type="stmt"/>
+        <line num="237" count="1" type="stmt"/>
+        <line num="240" count="1" type="stmt"/>
+        <line num="244" count="4" type="stmt"/>
+        <line num="245" count="3" type="stmt"/>
+        <line num="247" count="3" type="stmt"/>
+        <line num="249" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="250" count="1" type="stmt"/>
+        <line num="254" count="2" type="stmt"/>
+        <line num="260" count="1" type="stmt"/>
+        <line num="262" count="1" type="stmt"/>
+        <line num="263" count="1" type="stmt"/>
+        <line num="270" count="4" type="stmt"/>
       </file>
     </package>
     <package name="Backend.models">
       <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="appuntamento.js" path="/home/stefano/Desktop/Progetto/Backend/models/appuntamento.js">
+      <file name="appuntamento.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/models/appuntamento.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
       </file>
-      <file name="book.js" path="/home/stefano/Desktop/Progetto/Backend/models/book.js">
+      <file name="book.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/models/book.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="15" count="4" type="stmt"/>
         <line num="16" count="4" type="stmt"/>
       </file>
-      <file name="counter.js" path="/home/stefano/Desktop/Progetto/Backend/models/counter.js">
+      <file name="counter.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/models/counter.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
       </file>
-      <file name="prenotazione.js" path="/home/stefano/Desktop/Progetto/Backend/models/prenotazione.js">
+      <file name="prenotazione.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/models/prenotazione.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
       </file>
-      <file name="utente.js" path="/home/stefano/Desktop/Progetto/Backend/models/utente.js">
+      <file name="utente.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/models/utente.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -351,7 +353,7 @@
     </package>
     <package name="Backend.routes">
       <metrics statements="126" coveredstatements="126" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Filter.js" path="/home/stefano/Desktop/Progetto/Backend/routes/Filter.js">
+      <file name="Filter.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/Filter.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -361,7 +363,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="deleteApp.js" path="/home/stefano/Desktop/Progetto/Backend/routes/deleteApp.js">
+      <file name="deleteApp.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/deleteApp.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -371,7 +373,7 @@
         <line num="10" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="deleteLibro.js" path="/home/stefano/Desktop/Progetto/Backend/routes/deleteLibro.js">
+      <file name="deleteLibro.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/deleteLibro.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -381,7 +383,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="deletePren.js" path="/home/stefano/Desktop/Progetto/Backend/routes/deletePren.js">
+      <file name="deletePren.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/deletePren.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -391,7 +393,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
       </file>
-      <file name="deleteUtente.js" path="/home/stefano/Desktop/Progetto/Backend/routes/deleteUtente.js">
+      <file name="deleteUtente.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/deleteUtente.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -401,7 +403,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="getAllusers.js" path="/home/stefano/Desktop/Progetto/Backend/routes/getAllusers.js">
+      <file name="getAllusers.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/getAllusers.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -411,7 +413,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
       </file>
-      <file name="getBooks.js" path="/home/stefano/Desktop/Progetto/Backend/routes/getBooks.js">
+      <file name="getBooks.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/getBooks.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -421,7 +423,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="getLibro.js" path="/home/stefano/Desktop/Progetto/Backend/routes/getLibro.js">
+      <file name="getLibro.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/getLibro.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -431,7 +433,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="login.js" path="/home/stefano/Desktop/Progetto/Backend/routes/login.js">
+      <file name="login.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/login.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -441,7 +443,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="logout.js" path="/home/stefano/Desktop/Progetto/Backend/routes/logout.js">
+      <file name="logout.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/logout.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -451,7 +453,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="newLibro.js" path="/home/stefano/Desktop/Progetto/Backend/routes/newLibro.js">
+      <file name="newLibro.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/newLibro.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -461,7 +463,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="patchDisponibilita.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchDisponibilita.js">
+      <file name="patchDisponibilita.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/patchDisponibilita.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -471,7 +473,7 @@
         <line num="10" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="patchMulta.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchMulta.js">
+      <file name="patchMulta.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/patchMulta.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -481,7 +483,7 @@
         <line num="10" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="patchRent.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchRent.js">
+      <file name="patchRent.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/patchRent.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -491,7 +493,7 @@
         <line num="10" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="patchReserve.js" path="/home/stefano/Desktop/Progetto/Backend/routes/patchReserve.js">
+      <file name="patchReserve.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/patchReserve.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -501,7 +503,7 @@
         <line num="10" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="postApp.js" path="/home/stefano/Desktop/Progetto/Backend/routes/postApp.js">
+      <file name="postApp.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/postApp.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -511,7 +513,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="postPren.js" path="/home/stefano/Desktop/Progetto/Backend/routes/postPren.js">
+      <file name="postPren.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/postPren.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -521,7 +523,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
-      <file name="signUp.js" path="/home/stefano/Desktop/Progetto/Backend/routes/signUp.js">
+      <file name="signUp.js" path="/Users/zakariaaoukaili/Desktop/SW-2023/Backend/routes/signUp.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
