@@ -59,40 +59,49 @@
 </div>
 <!-- fine header -->
 
-    <div class="formbold-main-wrapper">
-      <div class="formbold-form-wrapper">
-        <form class="formAppuntamento" id="formAppuntamento">
-          <div class="formbold-mb-5">
-            <label for="email" class="formbold-form-label"> Indirizzo Mail </label>
+<div class="formbold-main-wrapper">
+  <div class="formbold-form-wrapper">
+    <form class="formAppuntamento" id="formAppuntamento">
+      <div class="formbold-mb-5">
+        <label for="email" class="formbold-form-label"> Indirizzo Mail </label>
+        <input
+          type="email"
+          name="email"
+          id="emailAppuntamento"
+          placeholder="e-mail"
+          class="formbold-form-input"
+        />
+      </div>
+      <div class="flex flex-wrap formbold--mx-3">
+        <div class="w-full sm:w-half formbold-px-3">
+          <div class="formbold-mb-5 w-full">
+            <label for="date" class="formbold-form-label"> Data </label>
             <input
-              type="email"
-              name="email"
-              id="emailAppuntamento"
-              placeholder="e-mail"
+              type="date"
+              name="date"
+              id="dateAppuntamento"
               class="formbold-form-input"
             />
           </div>
-          <div class="flex flex-wrap formbold--mx-3">
-            <div class="w-full sm:w-half formbold-px-3">
-              <div class="formbold-mb-5 w-full">
-                <label for="date" class="formbold-form-label"> Data </label>
-                <input
-                  type="date"
-                  name="date"
-                  id="dateAppuntamento"
-                  class="formbold-form-input"
-                />
-              </div>
-            </div>
-            <div class="w-full sm:w-half formbold-px-3">
-            </div>
+        </div>
+        <div class="w-full sm:w-half formbold-px-3">
+          <div class="formbold-mb-5">
+            <label for="time" class="formbold-form-label"> Orario </label>
+            <input
+              type="time"
+              name="time"
+              id="timeAppuntamento"
+              class="formbold-form-input"
+            />
           </div>
-          <div>
-            <button class="formbold-btn">Conferma la prenotazione</button>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
+      <div>
+        <button class="formbold-btn">Conferma la prenotazione</button>
+      </div>
+    </form>
+  </div>
+</div>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -110,7 +119,7 @@
       
       document.getElementById("formAppuntamento").addEventListener("submit", function(event) {
         event.preventDefault(); 
-        appuntamento();
+        prenotazione();
       });
 
       var loginButton = document.getElementById("loginButton");

@@ -103,7 +103,8 @@
           </div>
           <div class="info-libro">
             <p class="autore"><strong>Michiko Aoyama</strong></p>
-            <p class="casa-editrice">Casa Editrice: Garzanti</p>
+            <p class="genere">Genere: Giallo</p>
+            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
             <div id="loggedUser1" style = "display: none;">
               <button class="bottone-prenota" id="prenotaButton3">
                 Prenota e ritira
@@ -123,7 +124,8 @@
           </div>
           <div class="info-libro">
             <p class="autore"><strong>Georges Simenon</strong></p>
-            <p class="casa-editrice">Casa Editrice: Adelphi</p>
+            <p class="genere">Genere: Giallo</p>
+            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
             <div id="loggedUser2" style = "display: none;">
               <button class="bottone-prenota" id="prenotaButton3">
                 Prenota e ritira
@@ -143,7 +145,8 @@
           </div>
           <div class="info-libro">
             <p class="autore"><strong>Roxane Gay</strong></p>
-            <p class="casa-editrice">Casa Editrice: Capitán Swing</p>
+            <p class="genere">Genere: Giallo</p>
+            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
             <div id="loggedUser3" style = "display: none;">
               <button class="bottone-prenota" id="prenotaButton3">
                 Prenota e ritira
@@ -163,7 +166,8 @@
           </div>
           <div class="info-libro">
             <p class="autore"><strong>Sophie Mackintosh</strong></p>
-            <p class="casa-editrice">Casa Editrice: Einaudi</p>
+            <p class="genere">Genere: Giallo</p>
+            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
             <div id="loggedUser4" style = "display: none;">
               <button class="bottone-prenota" id="prenotaButton3">
                 Prenota e ritira
@@ -172,8 +176,8 @@
           </div>
         </div>
       </div>
-      <!-- Qui verranno inseriti dinamicamente i libri trovati -->
     </div>
+     <!-- end item -->
     <!-- fine bookList -->
   
     <script>
@@ -183,7 +187,7 @@
       prenotaButtons.forEach(function(button, index) {
         button.addEventListener("click", function() {
           // Genera l'URL in base all'indice del pulsante e reindirizza l'utente
-          window.location.href = "/appuntamento.html?id=" + (index + 1);
+          window.location.href = "/appuntamentoLibro.html?id=" + (index + 1);
         });
       });
 

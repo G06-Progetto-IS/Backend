@@ -4,8 +4,9 @@ const libro = require("../models/book")
 const counter = require("../models/counter")
 const aux = require("../auxiliares/check")
 const appuntamento = require("../models/appuntamento")
+const { request } = require("express")
 
-
+// FATTA
 const signUp = async (req, res) => {
     utente.findOne({mail: req.body.mail}, (err, data) => {
         if(!data){
@@ -67,75 +68,76 @@ function compareDates(a){
     return true;
 }
 
+// FATTA
 const createApp = async(req, res) => {
-    let data_u = await utente.findOne ({mail: req.query.mail}).exec()
+    let data_u = await utente.findOne ({mail: req.body.mail}).exec()
     if (!data_u){
         return res.status(404).json({success : false, message:"Utente non trovato"});
     }
-    appuntamento.findOneAndUpdate(
-        {id : data_u.utente_id},
-        {new: true},(err,cd)=>{
-        const newApp = new appuntamento ({
-            utente_id: data_u.utente_id,
-            data : data_u.data_app,
-            tipo_app : data_u.tipo_app,
-            Stato : true
-        })
+    const newAppuntamento = new appuntamento({
+        mail: req.body.mail,
+        data: req.body.data,
+        tipo_app: req.body.tipo_app
+    })
 
-        
-        newApp.save((err,data)=>{
+    if(!compareDates(req.body.data_app)){
+        return res.status(400).json({ success: false, message: "Data non valida" });
+   }
+
+        newAppuntamento.save((err,data)=>{
             if (err){
                 return res.status(500).json({success: false, message:"Errore del server"})
             } else {
                 return res.status(200).json({success: true, message: "Appuntamento creato", data})
             }
         }) 
-    })
-}
+    }
 
-
+// FATTA
 const createPren = async(req, res) => {
     let data_u = await utente.findOne ({mail: req.body.mail}).exec()
-    let data_b = await libro.findOne({book_id : req.body.book_id}).exec()
+    let data_b = await libro.findOne({titolo : req.body.titolo}).exec()
     if (!data_u){
         return res.status(404).json({success : false, message:"Utente non trovato"});
     }
     if (!data_b){
         return res.status(404).json({success: false, message: "Libro non trovato"})
     }
-    prenotazione.findOneAndUpdate(
-        {id : data_u.utente_id},
-        {new: true},(err,cd)=>{
-        const newPren = new prenotazione ({
-            utente_id: data_u.utente_id,
-            book_id: data_b.book_id,
-            data: data_u.data_app
-        })
-        
-        newPren.save((err,data)=>{
-            if (err){
-                return res.status(500).json({success: false, message:"Errore del server"})
-            } else {
-                return res.status(200).json({success: true, message: "Prenotazione effettuata", data})
-            }
-        })
+    
+    const newPrenotazione = new prenotazione({
+        mail: req.body.mail,
+        titolo: req.body.titolo,
+        data: req.body.data
+    })
+
+    if(!compareDates(req.body.data)){
+        return res.status(400).json({ success: false, message: "Data non valida" });
+   }
+
+    newPrenotazione.save((err,data)=>{
+        if (err){
+            return res.status(500).json({success: false, message:"Errore del server"})
+        } else {
+            return res.status(200).json({success: true, message: "Prenotazione effettuata", data})
+        }
     })
 }
 
-
+// TODO
 const deleteApp = async (req, res) => {
-    let data =  await utente.findOne ({mail: req.body.mail}).exec()
+    let data =  await appuntamento.findOne ({mail: req.body.mail}).exec()
 
     if (!data) {
         return res.status(404).json({success : false, message : "Appuntamento non trovato"})
     } else {
-        await appuntamento.deleteOne({utente_id : data.utente_id});
+        await appuntamento.deleteOne({mail : data.mail});
         return res.status(200).json({success : true, message : "Appuntamento cancellato con successo"})
     }
 }
 
+//TODO
 const deletePren = async (req, res) => {
-    let data =  await prenotazione.findOne ({book_id : req.query.book_id}).exec()
+    let data =  await prenotazione.findOne ({mail : req.query.mail}).exec()
 
     if (!data) {
         return res.status(404).json({success : false, message : "Prenotazione non trovata"})
@@ -144,10 +146,11 @@ const deletePren = async (req, res) => {
         return res.status(200).json({success: true, message:"Prenotazione cancellata con successo"})
     }
 }
-// Usare per mostrare i libri (sezione i miei noleggi)
+
+// TODO: Usare per mostrare i libri (sezione i miei noleggi)
 const getBooks = async (req, res) => {
     try {
-        let data = await utente.findOne({ utente_id: req.query.utente_id }).exec();
+        let data = await utente.findOne({ mail: req.query.mail }).exec();
 
         if (!data) {
             return res.status(404).json({ success: false, message: "Utente non trovato" });
@@ -162,20 +165,24 @@ const getBooks = async (req, res) => {
             let faa = await libro.findOne({ 'book_id': element }).exec();
         
             var p = {
+                book_id: faa.book_id,
                 titolo: faa.titolo,
+                Author_name: faa.Author_name,
                 Author_sur: faa.Author_sur,
+                Genre: faa.Genre,
                 scadenza: faa.scadenza
             };
         
             libri.push(p);
         }
 
-        return res.status(200).json({ libri });
+        return res.status(200).json({libri });
     } catch (error) {
         return res.status(500).json({ success: false, message: "Errore del server" });
     }
 }
 
+/* Probabile che diventa inutile 
 const Reserve = async (req, res) => {
 
     try {
@@ -193,6 +200,7 @@ const Reserve = async (req, res) => {
                 tipo_app: req.body.tipo_app
             }
         });
+
          if(!compareDates(req.body.data_app)){
              return res.status(400).json({ success: false, message: "Data non valida" });
         }
@@ -202,12 +210,13 @@ const Reserve = async (req, res) => {
         return res.status(500).json({ success: false, message: "Errore interno del server" });
     }
 };
+*/
 
-// far partire dopo che si è prenotato un libro (pensa come far passare )
+// DONE
 const RentedBooks = async (req, res) => {
     try {
         // Attendere la promessa restituita da findOne()
-        let user = await utente.findOne({ mail: req.query.mail }).exec();
+        let user = await utente.findOne({ mail: req.body.mail }).exec();
         let book = await libro.findOne({titolo: req.body.titolo}).exec();
         var t ;
 
@@ -256,28 +265,19 @@ const RentedBooks = async (req, res) => {
     }
 };
 
-const Multa = async (req, res) => {
-    try {
-        // Attendere la promessa restituita da findOne()
-        let user = await utente.findOne({ mail: req.query.mail }).exec();
-
-        if (!user) {
-            return res.status(404).json({ success: false, message: "Utente non trovato" });
-        }
-
-        // Eseguire updateOne() con i dati da aggiornare
-        await utente.updateOne({ mail: req.query.mail }, {
-            $set: {
-              multa: req.body.multa
-            }
-        });
-
-        return res.status(200).json({ success: true, message: "Multa inviata" });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ success: false, message: "Errore interno del server" });
+const getMulta = async (req, res) => {
+    let user = await utente.findOne({mail: req.query.mail}).exec();
+    
+    if(!user){
+        return res.status(404).json({ success: false, message: "Utente non trovato" });
     }
-};
+    if(!user.multa){
+        return res.status(404).json({ success: false, message: "Utente non ha una multa" });
+    }
+    else{
+        return res.status(200).json({ success: true, message: "Multa trovata", multa: user.multa });
+    }
+}
 
 
 
@@ -287,9 +287,9 @@ module.exports = {
    deletePren,
    getBooks,
    signUp,
-   Reserve,
+   //Reserve,
    RentedBooks,
-   Multa,
    createPren,
-   createApp
+   createApp,
+   getMulta
 };

@@ -16,9 +16,9 @@ app.use('/signUp', require('./routes/signUp'))
 app.use('/deletePrenotazione', require('./routes/deletePren'));
 app.use('/deleteAppuntamento', require('./routes/deleteApp'));
 app.use('/arrayLibri', require('./routes/getBooks'))
-app.use('/Reserve', require('./routes/patchReserve'))
+//app.use('/Reserve', require('./routes/patchReserve'))
 app.use('/Rented', require('./routes/patchRent'))
-app.use('/Multa', require('./routes/patchMulta'))
+app.use('/getMulta', require('./routes/getMulta'))
 app.use('/logout', require('./routes/logout'))
 app.use('/createApp', require('./routes/postApp'))
 app.use('/createPren', require('./routes/postPren'))
@@ -38,6 +38,7 @@ app.use('/getAll', require('./routes/getAllusers'));
 app.use('/newLibro', require('./routes/newLibro'));
 app.use('/deleteUtente', require('./routes/deleteUtente'));
 app.use('/deleteLibro', require('./routes/deleteLibro'));
+app.use('/Multa', require('./routes/patchMulta'))
 
 module.exports = app;
 

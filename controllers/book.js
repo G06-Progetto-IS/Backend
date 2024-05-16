@@ -1,6 +1,7 @@
 const libro = require("../models/book")
 const counter = require("../models/counter")
 
+// A CHE SERVE??
 const Cancella_libro = async (req, res) => {
     let data =  await libro.findOne ({titolo : req.query.titolo}) .exec()
 
@@ -12,6 +13,7 @@ const Cancella_libro = async (req, res) => {
     }
 }
 
+// DONE
 const Ricerca_libro = async (req, res) => {
     let query = {};
     // Aggiungi la ricerca per titolo se è fornito nella richiesta
@@ -30,11 +32,13 @@ const Ricerca_libro = async (req, res) => {
     let data =  await libro.find(query).exec()
     const books = [];
     for (const book of data) {
-        const { titolo, Author_name, Author_sur, Is_available } = book;
+        const { book_id, titolo, Author_name, Author_sur, Genre, Is_available } = book;
         books.push({
+            book_id: book_id,
             titolo: titolo,
             Author_name: Author_name,
             Author_sur: Author_sur,
+            Genre: Genre,
             Is_available: Is_available
         });
     };
@@ -44,6 +48,7 @@ const Ricerca_libro = async (req, res) => {
     return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
     };
 
+    // DONE
   const Filter = async (req, res) => {
     try {
         var Query = {};

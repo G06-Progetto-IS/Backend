@@ -21,11 +21,21 @@ function IsUserLoggedIn() {
   const loggedUserJSON = localStorage.getItem('loggedUser');
   return !!loggedUserJSON; // Restituisce true se l'utente è loggato, altrimenti false
 }
+
+function handle(e){
+  input = document.getElementById("searchBar").value;
+  if(e.keyCode === 13){
+      console.log("Input: " + input);
+      ricerca();
+  }
+  return false;
+}
 // FINE HANDLER EVENTI
 
 // INIZIO FUNZIONI
 var loggedUser = {};
 
+// Funzione per creare un nuovo utente
 function registrati(){ 
   const nome = document.getElementById('nomeRegistrazione').value;
   const cognome = document.getElementById('cognomeRegistrazione').value;
@@ -68,6 +78,7 @@ function registrati(){
   .catch(error => console.error(error)); // If there is any error you will catch them here
 }
 
+// funzione per far loggare un utente inserite le credenziali
 function login() {
   const mail = document.getElementById('mailLogin').value;
   const password = document.getElementById('passwordLogin').value;
@@ -101,6 +112,7 @@ function login() {
   .catch(error => console.error(error));
 }
 
+// funzione per far fare il logout all'utente 
 function logout() {
   fetch('../logout', {
     method: 'GET',
@@ -123,15 +135,9 @@ function logout() {
   .catch(error => console.error(error));
 }
 
-function handle(e){
-  input = document.getElementById("searchBar").value;
-  if(e.keyCode === 13){
-      console.log("Input: " + input);
-      ricerca();
-  }
-  return false;
-}
-
+// Inizio funzioni per mostrare pagina risultati (ricerca, filtro)
+// ricercaPerParametro e ricercaPerFiltro servono a decidere quale parametro passare all'API
+var books = {};
 async function ricercaPerParametro(parametro) {
   var url = '../ricerca?' + parametro + '=' + String(input);
   console.log(url);
@@ -145,7 +151,19 @@ async function ricercaPerParametro(parametro) {
   }
 }
 
-var books = {};
+async function ricercaPerFiltro(parametro, input) {
+  var url = '../filter?' + parametro + '=' + String(input);
+  console.log(url);
+  try {
+      const response = await fetch(url, {method : 'GET'});
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Error during search:', error);
+      throw error;
+  }
+}
+
 async function ricerca() {
   var input = document.getElementById("searchBar").value;
 
@@ -189,124 +207,6 @@ async function ricerca() {
   return books;
 }
 
-function aggiungLibro(books, isLoggedIn) {
-  var booksDiv = document.getElementById("bookList");
-  if (!booksDiv) {
-      console.error("Elemento 'bookList' non trovato.");
-      return; // Esci dalla funzione se 'bookList' non è stato trovato
-  }
-  booksDiv.innerHTML = "";
-  if (Array.isArray(books)){
-    books.forEach(book => {
-    
-      var bookDiv = document.createElement('div');
-      bookDiv.classList.add('book-section');
-
-      var bookContainer = document.createElement('div');
-      bookContainer.classList.add('book-container');
-
-      var copertinaContainer = document.createElement('div');
-      copertinaContainer.classList.add('copertina-container');
-
-      var titoloP = document.createElement('div');
-      titoloP.classList.add('titolo-libro');
-      titoloP.textContent = book.titolo;
-
-      var copertinaImg = document.createElement('img');
-      copertinaImg.classList.add('copertina-libro');
-      copertinaImg.src = "photos/" + book.titolo + ".jpeg";
-
-      copertinaContainer.appendChild(titoloP);
-      copertinaContainer.appendChild(copertinaImg);
-
-      var infoLibro = document.createElement('div');
-      infoLibro.classList.add('info-libro');
-
-      var autoreP = document.createElement('p');
-      autoreP.classList.add('autore');
-      autoreP.innerHTML = 'di <strong>' + book.Author_name + " " + book.Author_sur + '</strong>';
-
-      var prenotaButton = document.createElement('button');
-      prenotaButton.classList.add('bottone-prenota');
-      prenotaButton.textContent = "Prenota e ritira";
-      // Controllo se l'utente è loggato per mostrare il pulsante
-      prenotaButton.style.display = isLoggedIn ? "block" : "none";
-
-      infoLibro.appendChild(autoreP);
-      infoLibro.appendChild(prenotaButton);      
-      
-      bookContainer.appendChild(copertinaContainer);
-      bookContainer.appendChild(infoLibro);
-
-      bookDiv.appendChild(bookContainer);
-      booksDiv.appendChild(bookDiv);
-
-      // Aggiungi un event listener a ciascun bottone Prenota e ritira
-      prenotaButton.addEventListener("click", function(){
-        window.location.href = "appuntamento.html";
-      });
-
-    });
-  }
-}
-
-
-function appuntamento() {
-  const nome = document.getElementById('nomeAppuntamento').value;
-  const cognome = document.getElementById('cognomeAppuntamento').value;
-  const mail = document.getElementById('emailAppuntamento').value;
-  const data = document.getElementById('dateAppuntamento').value;
-  const ora = document.getElementById('timeAppuntamento').value;
-  const tipoAppuntamento = document.querySelector('input[name="fav_language"]:checked').value;
-
-
-  if(!tipoAppuntamento) {
-    alert("Seleziona un appuntamento!!")
-  }
-  // Costruzione dei dati nel formato corretto per lo schema MongoDB
-  let dati = {
-    nome: nome,
-    cognome: cognome,
-    mail: mail,
-    data_app: new Date(`${data}T${ora}`), // Combina data e ora
-    tipo_app: tipoAppuntamento
-  };
-  
-  console.log("dati: ", dati);
-
-  fetch('../Reserve?mail=' + mail, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dati)
-  })
-  .then((res) => res.json()) 
-  .then(function(data) { 
-    if(data.success){
-      alert("Appuntamento Prenotato");
-    }
-    else{
-      alert("Appuntamento non prenotato");
-    }
-    return;
-  })
-  .catch(error => console.error(error));
-};
-
-async function ricercaPerFiltro(parametro, input) {
-  var url = '../filter?' + parametro + '=' + String(input);
-  console.log(url);
-  try {
-      const response = await fetch(url, {method : 'GET'});
-      const data = await response.json();
-      return data;
-  } catch (error) {
-      console.error('Error during search:', error);
-      throw error;
-  }
-}
-var book = {}
 async function filtri() {
   var input = document.querySelector('input[name="filtro"]:checked').value;
 
@@ -336,3 +236,282 @@ async function filtri() {
   // If no books found, return an empty object
   return book;
 }
+
+// Funzione per creare dinamicamente la pagina dei risulati
+function aggiungLibro(books, isLoggedIn) {
+  var booksDiv = document.getElementById("bookList");
+  if (!booksDiv) {
+      console.error("Elemento 'bookList' non trovato.");
+      return; // Esci dalla funzione se 'bookList' non è stato trovato
+  }
+  booksDiv.innerHTML = "";
+  if (Array.isArray(books)){
+    books.forEach(book => {
+    
+      var bookDiv = document.createElement('div');
+      bookDiv.classList.add('book-section');
+      bookDiv.setAttribute('book-id', book.book_id);
+
+      var bookContainer = document.createElement('div');
+      bookContainer.classList.add('book-container');
+
+      var copertinaContainer = document.createElement('div');
+      copertinaContainer.classList.add('copertina-container');
+
+      var titoloP = document.createElement('div');
+      titoloP.classList.add('titolo-libro');
+      titoloP.textContent = book.titolo;
+
+      var copertinaImg = document.createElement('img');
+      copertinaImg.classList.add('copertina-libro');
+      copertinaImg.src = "photos/" + book.titolo + ".jpeg";
+
+      copertinaContainer.appendChild(titoloP);
+      copertinaContainer.appendChild(copertinaImg);
+
+      var infoLibro = document.createElement('div');
+      infoLibro.classList.add('info-libro');
+
+      var autoreP = document.createElement('p');
+      autoreP.classList.add('autore');
+      autoreP.innerHTML = 'di <strong>' + book.Author_name + " " + book.Author_sur + '</strong>';
+
+      var genereP = document.createElement('p');
+      genereP.classList.add('genere');
+      genereP.textContent = "Genere: " + book.Genre;
+
+      var disponibilitaP = document.createElement('p'); // Aggiungi questa riga
+      disponibilitaP.classList.add('disponibilità'); // Aggiungi questa riga
+      disponibilitaP.innerHTML = '<span class="cerchio-verde"></span> Disponibile'; // Aggiungi questa riga
+
+      var prenotaButton = document.createElement('button');
+      prenotaButton.classList.add('bottone-prenota');
+      prenotaButton.textContent = "Prenota e ritira";
+      // Controllo se l'utente è loggato per mostrare il pulsante
+      prenotaButton.style.display = isLoggedIn ? "block" : "none";
+
+      infoLibro.appendChild(autoreP);
+      infoLibro.appendChild(genereP);
+      infoLibro.appendChild(disponibilitaP); // Aggiungi questa riga
+      infoLibro.appendChild(prenotaButton);      
+      
+      bookContainer.appendChild(copertinaContainer);
+      bookContainer.appendChild(infoLibro);
+
+      bookDiv.appendChild(bookContainer);
+      booksDiv.appendChild(bookDiv);
+
+      // Aggiungi un event listener a ciascun bottone Prenota e ritira
+      prenotaButton.addEventListener("click", function(){
+        // Costruisci l'URL con il titolo del libro come parametro
+        window.location.href = "appuntamentoLibro.html?titolo=" + encodeURIComponent(book.titolo);
+      });
+    });
+  }
+}
+
+
+// funzione che una volta prenotato l'appuntamento 'prenotazione' aggiorna disponibilità 
+// del libro noleggiato a false
+function noleggio(mailUtente, titoloLibro){
+
+  let dati = {
+    titolo: titoloLibro,
+    mail: mailUtente
+  };
+
+  fetch('../Rented', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dati)
+  })
+  .then((res) => res.json()) 
+  .then(function(data) { 
+      if(data.success){
+          console.log('Libro prenotato correttamente')
+      }
+      else{
+          console.log('Libro non prenotato');
+      }
+      return;
+  })
+  .catch(error => console.error(error));
+
+}
+
+// funzione per creare un appuntamento per ritirare un libro
+function prenotazione() {
+  // Recupera il titolo del libro dal parametro dell'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const titolo = urlParams.get('titolo');
+  if (!titolo) {
+      console.error("Titolo del libro non trovato nei parametri dell'URL.");
+      return;
+  }
+  
+  console.log('titolo: ', titolo);
+
+  // Recupera gli altri dati del form
+  const mail = document.getElementById('emailAppuntamento').value;
+  const data = document.getElementById('dateAppuntamento').value;
+  const ora = document.getElementById('timeAppuntamento').value;
+
+  // Costruzione dei dati nel formato corretto per lo schema MongoDB
+  let dati = {
+      titolo: titolo,
+      mail: mail,
+      data: new Date(`${data}T${ora}`)
+  };
+
+  console.log("dati: ", dati);
+
+  fetch('../createPren', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dati)
+  })
+  .then((res) => res.json()) 
+  .then(function(data) { 
+      if(data.success){
+        alert("Prenotazione effettuata");
+        noleggio(mail, titolo);
+      }
+      else{
+          alert("Prenotazione non effettuata");
+      }
+      return;
+  })
+  .catch(error => console.error(error));
+}
+
+
+// funzione per prenotare un appuntamento di tipo donazione o restituire un libro
+function appuntamento() {
+  const mail = document.getElementById('emailAppuntamento').value;
+  const data = document.getElementById('dateAppuntamento').value;
+  const ora = document.getElementById('timeAppuntamento').value;
+  const tipoAppuntamento = document.querySelector('input[name="fav_language"]:checked').value;
+
+  if(!tipoAppuntamento) {
+    alert("Seleziona un appuntamento!!")
+  }
+  // Costruzione dei dati nel formato corretto per lo schema MongoDB
+  let dati = {
+    mail: mail,
+    data: new Date(`${data}T${ora}`), // Combina data e ora
+    tipo_app: tipoAppuntamento
+  };
+  
+  console.log("dati: ", dati);
+
+  fetch('../createApp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dati)
+  })
+  .then((res) => res.json()) 
+  .then(function(data) { 
+    if(data.success){
+      alert("Appuntamento Prenotato");
+    }
+    else{
+      alert("Appuntamento non prenotato");
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+};
+
+// funzione per ottenere i miei noleggi
+function ottieniNoleggi(){
+  const loggedUserJSON = localStorage.getItem('loggedUser');
+  const loggedUser = JSON.parse(loggedUserJSON)
+  const mail = loggedUser.mail
+
+  console.log('mail: ', mail);
+
+  fetch('../arrayLibri?mail=' + mail)
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      console.log(data.libri);
+      iMieiNoleggi(data.libri)
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+};
+
+// funzione per creare dinamicamente la pagina i miei noleggi
+function iMieiNoleggi(books) {
+  console.log('books: ', books)
+  var booksDiv = document.getElementById("bookList");
+  if (!booksDiv) {
+      console.error("Elemento 'bookList' non trovato.");
+      return; // Esci dalla funzione se 'bookList' non è stato trovato
+  }
+  booksDiv.innerHTML = "";
+  if (Array.isArray(books) && books.length > 0) {
+    books.forEach(book => {
+    
+      var bookDiv = document.createElement('div');
+      bookDiv.classList.add('book-section');
+      bookDiv.setAttribute('book-id', book.book_id);
+
+      var bookContainer = document.createElement('div');
+      bookContainer.classList.add('book-container');
+
+      var copertinaContainer = document.createElement('div');
+      copertinaContainer.classList.add('copertina-container');
+
+      var titoloP = document.createElement('div');
+      titoloP.classList.add('titolo-libro');
+      titoloP.textContent = book.titolo;
+
+      var copertinaImg = document.createElement('img');
+      copertinaImg.classList.add('copertina-libro');
+      copertinaImg.src = "photos/" + book.titolo + ".jpeg";
+
+      copertinaContainer.appendChild(titoloP);
+      copertinaContainer.appendChild(copertinaImg);
+
+      var infoLibro = document.createElement('div');
+      infoLibro.classList.add('info-libro');
+
+      var autoreP = document.createElement('p');
+      autoreP.classList.add('autore');
+      autoreP.innerHTML = 'di <strong>' + book.Author_name + " " + book.Author_sur + '</strong>';
+
+      var genereP = document.createElement('p');
+      genereP.classList.add('genere');
+      genereP.textContent = "Genere: " + book.Genre;
+
+      var prenotaButton = document.createElement('button');
+      prenotaButton.classList.add('bottone-cancella');
+      prenotaButton.textContent = "Termina Prenotazione";
+
+      infoLibro.appendChild(autoreP);
+      infoLibro.appendChild(genereP);
+      infoLibro.appendChild(prenotaButton);      
+      
+      bookContainer.appendChild(copertinaContainer);
+      bookContainer.appendChild(infoLibro);
+
+      bookDiv.appendChild(bookContainer);
+      booksDiv.appendChild(bookDiv);
+
+      // Aggiungi un event listener a ciascun bottone Prenota e ritira
+      prenotaButton.addEventListener("click", function(){
+        // Costruisci l'URL con il titolo del libro come parametro
+        window.location.href = "appuntamentoLibro.html?titolo=" + encodeURIComponent(book.titolo);
+      });
+    });
+  }
+}
+

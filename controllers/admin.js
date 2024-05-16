@@ -2,6 +2,8 @@ const utente = require("../models/utente");
 const libro = require("../models/book")
 const counter = require("../models/counter");
 
+
+// TODO
 const getAllusers = async (req,res) => {
   utente.find({},(err,data)=>{
       if(data){
@@ -22,6 +24,7 @@ const getAllusers = async (req,res) => {
   })
 }
 
+// TODO
 const newLibro = async (req, res) => {
   try {
       const existingBook = await libro.findOne({ titolo: req.body.titolo });
@@ -59,6 +62,31 @@ const newLibro = async (req, res) => {
   }
 };
 
+// TODO: PARTE ADMIN
+const Multa = async (req, res) => {
+    try {
+        // Attendere la promessa restituita da findOne()
+        let user = await utente.findOne({ mail: req.query.mail }).exec();
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Utente non trovato" });
+        }
+
+        // Eseguire updateOne() con i dati da aggiornare
+        await utente.updateOne({ mail: req.query.mail }, {
+            $set: {
+              multa: req.body.multa
+            }
+        });
+
+        return res.status(200).json({ success: true, message: "Multa inviata" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Errore interno del server" });
+    }
+};
+
+// A CHE SERVE??
 const deleteUtente = async (req, res) => {
   let data =  await utente.findOne ({mail: req.query.mail}).exec()
 
@@ -74,5 +102,6 @@ const deleteUtente = async (req, res) => {
 module.exports = {
   getAllusers, 
   newLibro,
-  deleteUtente,
+  Multa,
+  deleteUtente
 }
