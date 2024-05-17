@@ -13,7 +13,7 @@ app.use(express.json())
 
 //API utente
 app.use('/signUp', require('./routes/signUp'))
-app.use('/deletePrenotazione', require('./routes/deletePren'));
+//app.use('/deletePrenotazione', require('./routes/deletePren'));
 app.use('/deleteAppuntamento', require('./routes/deleteApp'));
 app.use('/arrayLibri', require('./routes/getBooks'))
 //app.use('/Reserve', require('./routes/patchReserve'))
@@ -21,7 +21,8 @@ app.use('/Rented', require('./routes/patchRent'))
 app.use('/getMulta', require('./routes/getMulta'))
 app.use('/logout', require('./routes/logout'))
 app.use('/createApp', require('./routes/postApp'))
-app.use('/createPren', require('./routes/postPren'))
+//app.use('/createPren', require('./routes/postPren'))
+app.use('/getAppuntamento', require('./routes/getApp'))
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro'));
@@ -38,7 +39,7 @@ app.use('/getAll', require('./routes/getAllusers'));
 app.use('/newLibro', require('./routes/newLibro'));
 app.use('/deleteUtente', require('./routes/deleteUtente'));
 app.use('/deleteLibro', require('./routes/deleteLibro'));
-app.use('/Multa', require('./routes/patchMulta'))
+app.use('/Multa', require('./routes/postMulta'))
 
 module.exports = app;
 

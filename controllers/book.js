@@ -45,46 +45,47 @@ const Ricerca_libro = async (req, res) => {
     if (books.length === 0) {
         return res.status(404).json({success : false, message : "Libro non trovato"})
     } else {
-    return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
+        return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
     };
 
     // DONE
-  const Filter = async (req, res) => {
-    try {
-        var Query = {};
-        // Aggiungi la ricerca per author_sur se è fornito nella richiesta
-        if (req.query.Author_sur) {
-            Query.Author_sur = req.query.Author_sur;
-        }
-        else if (req.query.Genre) {
-            Query.Genre = req.query.Genre;
-        }
-        else {
-            return res.status(400).json({ success: false, message: "Filtro non selezionato o errato" });
-        }
-        let data = await libro.find(Query).exec();
-        if (data.length === 0) {
-            return res.status(404).json({ success: false, message: "Nessun libro trovato" });
-        } else {
-            const books = [];
-            for (let i = 0; i < data.length; i++) {
-                const book = data[i];
-                const bookObj = {
-                    titolo: book.titolo,
-                    Author_name: book.Author_name,
-                    Author_sur: book.Author_sur,
-                    Genre: book.Genre,
-                    Is_available: book.Is_available,
-                    Grade: book.Grade
-                };
-                books.push(bookObj);
+    const Filter = async (req, res) => {
+        try {
+            var Query = {};
+            // Aggiungi la ricerca per author_sur se è fornito nella richiesta
+            if (req.query.Author_sur) {
+                Query.Author_sur = req.query.Author_sur;
             }
-            return res.status(200).json({ success: true, libri: books });
+            else if (req.query.Genre) {
+                Query.Genre = req.query.Genre;
+            }
+            else {
+                return res.status(400).json({ success: false, message: "Filtro non selezionato o errato" });
+            }
+            let data = await libro.find(Query).exec();
+            if (data.length === 0) {
+                return res.status(404).json({ success: false, message: "Nessun libro trovato" });
+            } else {
+                const books = [];
+                for (let i = 0; i < data.length; i++) {
+                    const book = data[i];
+                    const bookObj = {
+                        book_id: book.book_id,
+                        titolo: book.titolo,
+                        Author_name: book.Author_name,
+                        Author_sur: book.Author_sur,
+                        Genre: book.Genre,
+                        Is_available: book.Is_available,
+                        Grade: book.Grade
+                    };
+                    books.push(bookObj);
+                }
+                return res.status(200).json({ success: true, libri: books });
+            }
+        } catch (error) {
+            return res.status(500)
         }
-    } catch (error) {
-        return res.status(500)
     }
-}
 
 
 module.exports = {

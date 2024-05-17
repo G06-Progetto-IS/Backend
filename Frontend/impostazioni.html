@@ -106,49 +106,14 @@
           <!-- Contenuto della sezione I miei appuntamenti -->
           <h2>I miei appuntamenti</h2>
           <p>Visualizza i tuoi appuntamenti.</p>
-          <div class="appuntamenti">
-            <h2>Appuntamenti di Testing</h2>
-            <ul>
-                <li>
-                    <span class="giorno">Lunedì 20 Maggio 2024</span>
-                    <span class="orario">10:00 - 11:00</span>
-                    <button class="cancella-appuntamento">Cancella appuntamento</button>
-                </li>
-                <li>
-                    <span class="giorno">Martedì 21 Maggio 2024</span>
-                    <span class="orario">15:00 - 16:00</span>
-                    <button class="cancella-appuntamento">Cancella appuntamento</button>
-                </li>
-                <li>
-                    <span class="giorno">Giovedì 23 Maggio 2024</span>
-                    <span class="orario">9:30 - 10:30</span>
-                    <button class="cancella-appuntamento">Cancella appuntamento</button>
-                </li>
-            </ul>
-          </div> 
+          <div id="appuntamentiList">
+          </div>
         </div>
         <div id="pagamenti-content">
           <!-- Contenuto della sezione Pagamenti -->
           <h2>Pagamenti</h2>
           <p>Effettua pagamenti e gestisci le tue transazioni.</p>
-          <div class="transazioni">
-              <ul>
-                  <li>
-                      <p class="data"><strong>Paga entro: </strong>15 Maggio 2024</p>
-                      <p class="descrizione"><strong>Motivazione: </strong>Libro non restituito in tempo</p>
-                      <span class="importo">€ 50,00</span>
-                  </li>
-                  <li>
-                      <p class="data"><strong>Paga entro: </strong>14 Maggio 2024</p>
-                      <p class="descrizione"><strong>Motivazione: </strong>Libro non restituito in tempo</p>
-                      <span class="importo">€ 35,99</span>
-                  </li>
-                  <li>
-                      <p class="data"><strong>Paga entro: </strong>12 Maggio 2024</p>
-                      <p class="descrizione"><strong>Motivazione: </strong>Libro non restituito in tempo</p>
-                      <span class="importo">€ 20,00</span>
-                  </li>
-              </ul>
+          <div id="pagamentiList">
           </div>
       </div>
       
@@ -202,9 +167,11 @@
         });
         appuntamenti.addEventListener("click", function() {
           apriSezione("appuntamenti-content");
+          fetchAppuntamenti();
         });
         pagamenti.addEventListener("click", function() {
           apriSezione("pagamenti-content");
+          fetchMulta()
         });
 
         // Inizialmente, nascondi tutte le sezioni

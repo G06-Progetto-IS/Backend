@@ -7,6 +7,6 @@ const routerApp  = express.Router();
 const AppController = require("../controllers/admin");
 
 
-routerApp.patch('/?', upload.none(), AppController.Multa);
+routerApp.post('/?', upload.none(), AppController.Multa);
 
 module.exports = routerApp;

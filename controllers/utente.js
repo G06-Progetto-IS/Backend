@@ -4,9 +4,10 @@ const libro = require("../models/book")
 const counter = require("../models/counter")
 const aux = require("../auxiliares/check")
 const appuntamento = require("../models/appuntamento")
+const multa  = require("../models/multa");
 const { request } = require("express")
 
-// FATTA
+// DONE
 const signUp = async (req, res) => {
     utente.findOne({mail: req.body.mail}, (err, data) => {
         if(!data){
@@ -68,7 +69,7 @@ function compareDates(a){
     return true;
 }
 
-// FATTA
+// DONE
 const createApp = async(req, res) => {
     let data_u = await utente.findOne ({mail: req.body.mail}).exec()
     if (!data_u){
@@ -93,7 +94,8 @@ const createApp = async(req, res) => {
         }) 
     }
 
-// FATTA
+/* Secondo me inutile avere due modelli, uno prenotazione e uno appuntamento!!
+// DONE
 const createPren = async(req, res) => {
     let data_u = await utente.findOne ({mail: req.body.mail}).exec()
     let data_b = await libro.findOne({titolo : req.body.titolo}).exec()
@@ -122,10 +124,11 @@ const createPren = async(req, res) => {
         }
     })
 }
+*/
 
-// TODO
+// DONE
 const deleteApp = async (req, res) => {
-    let data =  await appuntamento.findOne ({mail: req.body.mail}).exec()
+    let data =  await appuntamento.findOne ({mail: req.query.mail}).exec()
 
     if (!data) {
         return res.status(404).json({success : false, message : "Appuntamento non trovato"})
@@ -135,19 +138,21 @@ const deleteApp = async (req, res) => {
     }
 }
 
-//TODO
+/* Secondo me inutile avere due modelli, uno prenotazione e uno appuntamento!!
+// TODO
 const deletePren = async (req, res) => {
     let data =  await prenotazione.findOne ({mail : req.query.mail}).exec()
 
     if (!data) {
         return res.status(404).json({success : false, message : "Prenotazione non trovata"})
     } else {
-        await prenotazione.deleteOne({book_id: req.query.book_id}).exec();
+        await prenotazione.deleteOne({mail: req.query.mail}).exec();
         return res.status(200).json({success: true, message:"Prenotazione cancellata con successo"})
     }
 }
+*/
 
-// TODO: Usare per mostrare i libri (sezione i miei noleggi)
+// DONE
 const getBooks = async (req, res) => {
     try {
         let data = await utente.findOne({ mail: req.query.mail }).exec();
@@ -245,17 +250,17 @@ const RentedBooks = async (req, res) => {
             }
             t.libri_noleggiati.push(book.book_id)
         // Eseguire updateOne() con i dati da aggiornare
-            await utente.updateOne({ mail: req.query.mail }, {
+            await utente.updateOne({ mail: req.body.mail }, {
                 $set: {
                     libri_noleggiati: t.libri_noleggiati,
                     n_libri : t.n_libri + 1
                 }
         });
-        await libro.updateOne({titolo: req.body.titolo}, {
-            $set: {
-                scadenza: scadenzaNoleggio,
-                Is_available: false
-            }
+            await libro.updateOne({titolo: req.body.titolo}, {
+                $set: {
+                    scadenza: scadenzaNoleggio,
+                    Is_available: false
+                }
         });
 
         return res.status(200).json({ success: true, message: "Libro aggiunto" });
@@ -265,31 +270,54 @@ const RentedBooks = async (req, res) => {
     }
 };
 
+// DONE
 const getMulta = async (req, res) => {
-    let user = await utente.findOne({mail: req.query.mail}).exec();
+    let multe = await multa.find({mail: req.query.mail}).exec();
     
-    if(!user){
-        return res.status(404).json({ success: false, message: "Utente non trovato" });
-    }
-    if(!user.multa){
+    if(!multe){
         return res.status(404).json({ success: false, message: "Utente non ha una multa" });
     }
     else{
-        return res.status(200).json({ success: true, message: "Multa trovata", multa: user.multa });
+        return res.status(200).json({ success: true, message: "Multa trovata", multe});
     }
 }
 
+// DONE
+const getAppuntamenti = async (req, res) => {
+    let appointment = await appuntamento.find({mail: req.query.mail}).exec();
+    let prenotation = await prenotazione.find({mail: req.query.mail}).exec();
+    
+    if(!appointment || appointment.lenght===0 || !prenotation || prenotation.length===0){
+        return res.status(404).json({ success: false, message: "Utente non trovato" });
+    }
+    else{
+        return res.status(200).json({ success: true, message: "Appuntamento trovato", appointment });
+    }
+}
 
-
+/* Secondo me inutile avere due modelli, uno prenotazione e uno appuntamento!!
+const getPrenotazioni = async (req, res) => {
+    let prenotation = await prenotazione.find({mail: req.query.mail}).exec();
+    
+    if(!prenotation){
+        return res.status(404).json({ success: false, message: "Utente non trovato" });
+    }
+    else{
+        return res.status(200).json({ success: true, message: "Prenotazione trovata", prenotation });
+    }
+}
+*/
 
 module.exports = {
    deleteApp, 
-   deletePren,
+   //deletePren,
    getBooks,
    signUp,
    //Reserve,
    RentedBooks,
-   createPren,
+   //createPren,
    createApp,
-   getMulta
+   getMulta,
+   getAppuntamenti,
+   //getPrenotazioni
 };

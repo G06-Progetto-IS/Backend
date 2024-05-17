@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
     libri_noleggiati : {type : Array, default: null},
     n_libri : {type : Number, default: null},
     autenticato : {type : Boolean, default: null},
-    multa : {type : Number, default: null}
+    //multa : {type : Number, default: null}
 });
 
 const Utente = mongoose.model("Utente", schema);

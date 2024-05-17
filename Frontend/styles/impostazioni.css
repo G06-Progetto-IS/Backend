@@ -227,32 +227,29 @@ input.check-toggle-round-flat:checked + label:after {
   opacity: 0.5;
 }
 
-.appuntamenti, .transazioni {
+.appuntamenti, .pagamenti {
   margin-top: 20px;
 }
 
-.appuntamenti h2 {
+.appuntamenti h2, .pagamenti h2{
   font-size: 24px;
   color: #333;
 }
 
-.appuntamenti ul, .transazioni ul {
+.appuntamenti ul, .pagamenti ul {
   list-style: none;
   padding: 0;
 }
 
-.appuntamenti li, .transazioni li {
+.appuntamenti li, .pagamenti li {
   margin-bottom: 15px;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
 }
-.giorno{
-  font-weight: bold;
-}
 
-.orario, .importo {
+.orario, .importo, .giorno, .descrizioneAppuntamento, .descrizione {
   color: #555;
   margin-left: 5px;
 }
@@ -261,7 +258,7 @@ input.check-toggle-round-flat:checked + label:after {
   padding: 5px 10px;
   position: absolute;
   right: 20px;
-  top: 50%;
+  bottom: 16px;
   transform: translateY(-50%);
   border-color: #008fd6;
   color: #008fd6;

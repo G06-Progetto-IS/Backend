@@ -250,7 +250,6 @@ function aggiungLibro(books, isLoggedIn) {
     
       var bookDiv = document.createElement('div');
       bookDiv.classList.add('book-section');
-      bookDiv.setAttribute('book-id', book.book_id);
 
       var bookContainer = document.createElement('div');
       bookContainer.classList.add('book-container');
@@ -280,10 +279,16 @@ function aggiungLibro(books, isLoggedIn) {
       genereP.classList.add('genere');
       genereP.textContent = "Genere: " + book.Genre;
 
-      var disponibilitaP = document.createElement('p'); // Aggiungi questa riga
-      disponibilitaP.classList.add('disponibilità'); // Aggiungi questa riga
-      disponibilitaP.innerHTML = '<span class="cerchio-verde"></span> Disponibile'; // Aggiungi questa riga
-
+      var disponibilitaP = document.createElement('p'); 
+      disponibilitaP.classList.add('disponibilità'); 
+      if(book.Is_available){
+        disponibilitaP.innerHTML = '<span class="cerchio-verde"></span> Disponibile'; 
+      }
+      else{
+        disponibilitaP.innerHTML = '<span class="cerchio-rosso"></span> Non disponibile'; 
+      }
+      
+      
       var prenotaButton = document.createElement('button');
       prenotaButton.classList.add('bottone-prenota');
       prenotaButton.textContent = "Prenota e ritira";
@@ -292,8 +297,23 @@ function aggiungLibro(books, isLoggedIn) {
 
       infoLibro.appendChild(autoreP);
       infoLibro.appendChild(genereP);
-      infoLibro.appendChild(disponibilitaP); // Aggiungi questa riga
-      infoLibro.appendChild(prenotaButton);      
+      infoLibro.appendChild(disponibilitaP); 
+
+      // Aggiungi il pulsante solo se il libro è disponibile
+      if (book.Is_available && isLoggedIn) {
+        var prenotaButton = document.createElement('button');
+        prenotaButton.classList.add('bottone-prenota');
+        prenotaButton.textContent = "Prenota e ritira";
+
+        // Aggiungi un event listener al bottone Prenota e ritira
+        prenotaButton.addEventListener("click", function(){
+          // Costruisci l'URL con il titolo del libro come parametro
+          window.location.href = "appuntamentoLibro.html?titolo=" + encodeURIComponent(book.titolo) + "&book_id=" + encodeURIComponent(book.book_id);
+        });
+
+        infoLibro.appendChild(prenotaButton);
+      }
+          
       
       bookContainer.appendChild(copertinaContainer);
       bookContainer.appendChild(infoLibro);
@@ -304,7 +324,7 @@ function aggiungLibro(books, isLoggedIn) {
       // Aggiungi un event listener a ciascun bottone Prenota e ritira
       prenotaButton.addEventListener("click", function(){
         // Costruisci l'URL con il titolo del libro come parametro
-        window.location.href = "appuntamentoLibro.html?titolo=" + encodeURIComponent(book.titolo);
+        window.location.href = "appuntamentoLibro.html?titolo=" + encodeURIComponent(book.titolo) + "&book_id=" + encodeURIComponent(book.book_id);
       });
     });
   }
@@ -314,11 +334,16 @@ function aggiungLibro(books, isLoggedIn) {
 // funzione che una volta prenotato l'appuntamento 'prenotazione' aggiorna disponibilità 
 // del libro noleggiato a false
 function noleggio(mailUtente, titoloLibro){
+  // // Recupera il titolo del libro dal parametro dell'URL
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const book_id = urlParams.get('book_id');
 
   let dati = {
     titolo: titoloLibro,
-    mail: mailUtente
+    mail: mailUtente,
   };
+
+  console.log(dati);
 
   fetch('../Rented', {
     method: 'PATCH',
@@ -338,8 +363,7 @@ function noleggio(mailUtente, titoloLibro){
       return;
   })
   .catch(error => console.error(error));
-
-}
+};
 
 // funzione per creare un appuntamento per ritirare un libro
 function prenotazione() {
@@ -350,8 +374,6 @@ function prenotazione() {
       console.error("Titolo del libro non trovato nei parametri dell'URL.");
       return;
   }
-  
-  console.log('titolo: ', titolo);
 
   // Recupera gli altri dati del form
   const mail = document.getElementById('emailAppuntamento').value;
@@ -362,12 +384,13 @@ function prenotazione() {
   let dati = {
       titolo: titolo,
       mail: mail,
-      data: new Date(`${data}T${ora}`)
+      data: new Date(`${data}T${ora}`),
+      tipo_app: "Ritirare un libro: " + titolo,
   };
 
   console.log("dati: ", dati);
 
-  fetch('../createPren', {
+  fetch('../createApp', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json'
@@ -462,7 +485,6 @@ function iMieiNoleggi(books) {
     
       var bookDiv = document.createElement('div');
       bookDiv.classList.add('book-section');
-      bookDiv.setAttribute('book-id', book.book_id);
 
       var bookContainer = document.createElement('div');
       bookContainer.classList.add('book-container');
@@ -509,9 +531,176 @@ function iMieiNoleggi(books) {
       // Aggiungi un event listener a ciascun bottone Prenota e ritira
       prenotaButton.addEventListener("click", function(){
         // Costruisci l'URL con il titolo del libro come parametro
-        window.location.href = "appuntamentoLibro.html?titolo=" + encodeURIComponent(book.titolo);
+        window.location.href = "appuntamentoRestituisci.html?titolo=" + encodeURIComponent(book.titolo);
       });
     });
   }
 }
 
+function restituisci(){
+    const mail = document.getElementById('emailAppuntamento').value;
+    const data = document.getElementById('dateAppuntamento').value;
+    const ora = document.getElementById('timeAppuntamento').value;
+  
+    // Costruzione dei dati nel formato corretto per lo schema MongoDB
+    let dati = {
+      mail: mail,
+      data: new Date(`${data}T${ora}`), // Combina data e ora
+      tipo_app: 'Restituire un libro'
+    };
+    
+    console.log("dati: ", dati);
+  
+    fetch('../createApp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dati)
+    })
+    .then((res) => res.json()) 
+    .then(function(data) { 
+      if(data.success){
+        alert("Appuntamento Prenotato");
+      }
+      else{
+        alert("Appuntamento non prenotato");
+      }
+      return;
+    })
+    .catch(error => console.error(error));
+  };
+
+
+// funzione per ottenere gli appuntamenti di un utente
+function fetchAppuntamenti(){
+  const loggedUserJSON = localStorage.getItem('loggedUser');
+  const loggedUser = JSON.parse(loggedUserJSON)
+  const mail = loggedUser.mail
+
+  fetch('../getAppuntamento?mail=' + mail)
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      console.log(data.appointment);
+      renderAppuntamenti(data.appointment)
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+}
+
+// Funzione per formattare la data
+function formatDate(dateString) {
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+  const date = new Date(dateString);
+  return date.toLocaleDateString('it-IT', options);
+}
+
+// Funzione per creare sezione 'i miei appuntamenti'
+function renderAppuntamenti(appuntamenti) {
+  const appuntamentiDiv = document.getElementById('appuntamentiList');
+  if (!appuntamentiDiv) {
+    console.error("Elemento 'appuntamentiList' non trovato.");
+    return; // Esci dalla funzione se 'bookList' non è stato trovato
+}
+  appuntamentiDiv.innerHTML = "";
+  const divAppuntamenti = document.createElement('div');
+  divAppuntamenti.className = 'appuntamenti';
+
+  const ul = document.createElement('ul');
+
+  appuntamenti.forEach(appuntamenti => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <p class="giorno"><strong>Data: </strong>${formatDate(appuntamenti.data)}</p>
+      <p class="orario"><strong>Orario: </strong>${new Date(appuntamenti.data).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}</p>
+      <p class="descrizioneAppuntamento"><strong>Tipo Appuntamento: </strong> ${appuntamenti.tipo_app} </p>
+      <button class="cancella-appuntamento">Cancella appuntamento</button>
+    `;
+    ul.appendChild(li);
+  });
+
+  divAppuntamenti.appendChild(ul);
+
+  appuntamentiDiv.appendChild(divAppuntamenti);
+
+    // Aggiungi un event listener a ciascun bottone cancella appuntamento
+    var cancellaButtons = document.querySelectorAll('.cancella-appuntamento');
+    cancellaButtons.forEach(function(button) {
+    button.addEventListener("click", function(){
+        // Costruisci l'URL con il titolo del libro come parametro
+        deleteAppuntamenti();
+    });
+});
+}
+
+function deleteAppuntamenti(){
+  const loggedUserJSON = localStorage.getItem('loggedUser');
+  const loggedUser = JSON.parse(loggedUserJSON)
+  const mail = loggedUser.mail
+
+  console.log(mail)
+
+  fetch('../deleteAppuntamento?mail=' + mail, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      alert("Appuntamento eliminato")
+      window.location.reload();
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+};
+
+// funzione per ottenere le multe
+function fetchMulta(){
+  const loggedUserJSON = localStorage.getItem('loggedUser');
+  const loggedUser = JSON.parse(loggedUserJSON)
+  const mail = loggedUser.mail
+
+  fetch('../getMulta?mail=' + mail)
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      console.log(data.multe);
+      renderMulta(data.multe)
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+}
+
+// Funzione per creare sezione 'Multe'
+function renderMulta(multa) {
+  const multaDiv = document.getElementById('pagamentiList');
+  if (!multaDiv) {
+    console.error("Elemento 'multaList' non trovato.");
+    return; // Esci dalla funzione se 'bookList' non è stato trovato
+}
+  multaDiv.innerHTML = "";
+  const divMulta = document.createElement('div');
+  divMulta.className = 'pagamenti';
+
+  const ul = document.createElement('ul');
+
+  multa.forEach(multa => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <p class="giorno"><strong>Paga entro: </strong>${formatDate(multa.paga_entro)}</p>
+      <p class="descrizione"><strong>Motivazione: </strong>Libro non restituito in tempo </p>
+      <span class="importo">€ ${multa.importo}</span>
+    `;
+    ul.appendChild(li);
+  });
+
+  divMulta.appendChild(ul);
+
+  multaDiv.appendChild(divMulta);
+}
