@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Backend/models/counter.js</title>
+    <title>Code coverage report for Backend/models/multa.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">Backend/models</a> counter.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">Backend/models</a> multa.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -71,23 +71,29 @@
 <a name='L6'></a><a href='#L6'>6</a>
 <a name='L7'></a><a href='#L7'>7</a>
 <a name='L8'></a><a href='#L8'>8</a>
-<a name='L9'></a><a href='#L9'>9</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require ("mongoose");
+<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">// Modello multa utente
+const mongoose = require ("mongoose");
 &nbsp;
 const schema = new mongoose.Schema({
-  id: {type: String},
-  seq: {type: Number},
-});
+    mail: {type: String, required : true},
+    importo: {type: Number, required: true},
+    paga_entro: {type: Date, required: true},
+})
 &nbsp;
-const Counter = mongoose.model("Counter", schema);
-module.exports = Counter;</pre></td></tr></table></pre>
+const Multa = mongoose.model("Multa", schema);
+module.exports = Multa;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
