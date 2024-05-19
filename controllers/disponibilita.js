@@ -3,7 +3,6 @@ const utente = require("../models/utente");
 
 // TODO
 const updateDisponibilita = async (req, res) => {
-  try {
       // Attendere la promessa restituita da findOne()
       let book = await libro.findOne({ titolo: req.query.titolo }).exec();
       let user = await utente.findOne({ mail: req.query.mail }).exec();
@@ -42,13 +41,7 @@ const updateDisponibilita = async (req, res) => {
           libri_noleggiati: rimuoviElemento(user.libri_noleggiati, book.book_id)
         }
     });
-
-
-      return res.status(200).json({ success: true, message: "Disponibilità aggiornata"});
-  } catch (error) {
-      console.error(error);
-      return res.status(500).json({ success: false, message: "Errore interno del server" });
-  }
+    return res.status(200).json({ success: true, message: "Disponibilità aggiornata"});
 };
 
 module.exports = {

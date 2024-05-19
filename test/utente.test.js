@@ -67,7 +67,7 @@ describe('suite testing API endpoint "/getBooks"', () => {
                 Author_name: 'Autore',
                 Author_sur: 'Prova',
                 Genre: 'Dramma',
-                scadenza: '2024-06-18T00:00:00.000Z'
+                scadenza: '2024-06-19T00:00:00.000Z'
             }
         ];
         const outputBody = {libri};
@@ -379,7 +379,7 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
     test('Chiamata API corretta', async () => {
         const inputBody={
             mail : 'utenteprova@gmail.com',
-            titolo : 'Libro prova 4'
+            titolo : 'Libro prova 5'
         }
         const res= await request(app)
         .patch('/Rented')
@@ -388,6 +388,18 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Libro aggiunto');
     });
+
+    // Aggiunta per sincronizzazione test
+
+    test('Sincro disponibilità del test', async() => {
+        const res = await request(app)
+        .patch('/disponibilita')
+        .query({
+            titolo : 'Libro prova 5',
+            mail : 'utenteprova@gmail.com'
+        })
+        .expect(200);
+    })
 
     test('Chiamata API utente non esistente', async() => {
         const inputBody={
@@ -426,27 +438,46 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Libro non trovato');
     });
+
+    test('Chiamata api con noleggi massimi',async()=>{
+        const res= await request(app)
+        .patch('/Rented')
+        .send({
+            mail : 'utenteprova2@gmail.com',
+            titolo : 'Libro prova 10'
+        })
+        .expect(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Hai raggiunto il limite di libri noleggiati');
+    })
     
 });
-/*
+
 var dataValida = new Date();
-dataValida.setDate(dataValida.getDate() + 7);
+dataValida.setDate(dataValida.getDate() );
 dataValida.setHours(dataValida.getHours() + 1);
 dataValida.setMonth(dataValida.getMonth() );
 dataValida.setFullYear(dataValida.getFullYear());
 
 var dataNonValida = new Date();
-dataNonValida.setDate(dataValida.getDate() - 1);
+dataNonValida.setDate(dataValida.getDate()-1);
 dataNonValida.setHours(dataValida.getHours() + 1);
-dataNonValida.setMonth(dataValida.getMonth() );
+dataNonValida.setMonth(dataValida.getMonth() -1);
 dataNonValida.setFullYear(dataValida.getFullYear());
 
 describe('suite testing api endpoint : "/createApp"',() => {
 
     test('Chiamata API corretta', async () => {
 
+        const inputBody = ({
+            mail : 'utenteprova@gmail.com',
+            data : dataValida,
+            tipo_app : 'Ritiro'
+        })
+
         const res = await request(app)
-        .post('/createApp?mail=ciar.latano@gmail.com')
+        .post('/createApp')
+        .send(inputBody)
         .expect(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Appuntamento creato');
@@ -455,7 +486,10 @@ describe('suite testing api endpoint : "/createApp"',() => {
     test('Chiamata API mail non esistente', async () => {
 
         const res = await request(app)
-        .post('/createApp?mail=nonesisto@gmail.com')
+        .post('/createApp')
+        .send({
+            mail : 'nonesisto@gmail.com'
+        })
         .expect(404);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Utente non trovato');
@@ -463,15 +497,35 @@ describe('suite testing api endpoint : "/createApp"',() => {
 
     test('Chiamata API data non scelta', async () => {
 
+        const inputBody = ({
+            mail : 'utenteprova@gmail.com',
+            tipo_app : 'Ritiro'
+        })
+
         const res = await request(app)
-        .post('/createApp?mail=Test1@gmail.com')
+        .post('/createApp')
+        .send(inputBody)
         .expect(500);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Errore del server');
     });
 
+    test('Chiamata API data non valida', async () => {
+        const inputBody = ({
+            mail : 'utenteprova@gmail.com',
+            data : dataNonValida,
+            tipo_app : 'Ritiro'
+        })
 
-}) */
+        const res = await request(app)
+        .post('/createApp')
+        .send(inputBody)
+        .expect(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Data non valida');
+    })
+
+});
 
 /*describe('suite testing api endpoint : "/createPren"',() => {
 
@@ -534,7 +588,7 @@ describe('suite testing api endpoint : "/createApp"',() => {
 
 })*/
 
-describe('suite testing API endpoint: "/deletePrenotazione', () => {
+/*describe('suite testing API endpoint: "/deletePrenotazione', () => {
     test('Chiamata API corretta', async () => {
         const res = await request(app)
         .delete('/deletePrenotazione?book_id=25')
@@ -550,18 +604,18 @@ describe('suite testing API endpoint: "/deletePrenotazione', () => {
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Prenotazione non trovata');  
     })
-})
+})*/
 
-/*describe('suite testing API endpoint: "/deleteAppuntamento', () => {
+describe('suite testing API endpoint: "/deleteAppuntamento', () => {
     test('Chiamata API corretta', async () => {
         const res = await request(app)
         .delete('/deleteAppuntamento')
-        .expect(200)
-        .send(
+        .query(
             {
-                mail : 'ciar.latano@gmail.com',
+                mail : 'utenteprova@gmail.com',
             }
-        );
+        )
+        .expect(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe('Appuntamento cancellato con successo');  
     })
@@ -570,7 +624,7 @@ describe('suite testing API endpoint: "/deletePrenotazione', () => {
         const res = await request(app)
         .delete('/deleteAppuntamento')
         .expect(404)
-        .send(
+        .query(
             {
                 mail : 'Test3@gmail.com',
             }
@@ -578,40 +632,34 @@ describe('suite testing API endpoint: "/deletePrenotazione', () => {
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Appuntamento non trovato');  
     })
-})*/
+})
 
-/*describe('Suite testing API endpoint: "/Multa"', () => {
+describe('suite testing API endpoint: "/getApp', () => {
     test('Chiamata API corretta', async () => {
+
         const res = await request(app)
-        .patch('/Multa?mail=ciar.latano@gmail.com')
-        .send(
+        .get('/getAppuntamento')
+        .query(
             {
-                multa: 20
+                mail : 'utenteprova1@gmail.com',
             }
         )
-        .expect(200)
+        .expect(200);
         expect(res.body.success).toBe(true);
-        expect(res.body.message).toBe('Multa inviata');
+        expect(res.body.message).toBe('Appuntamento trovato');  
     })
 
-    test('Chiamata API con utente non trovato', async () => {
+    test('Chiamata API con appuntamento non prenotato', async () => {
+        jest.setTimeout(10000)
         const res = await request(app)
-        .patch('/Multa?mail=nonesisto@gmail.com')
-        .expect(404)
-        expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe('Utente non trovato');
-    })  
-
-    test('Chiamata API con utente non trovato', async () => {
-        const res = await request(app)
-        .patch('/Multa?mail=ciar.latano@gmail.com')
-        .send(
+        .get('/getAppuntamento')
+        .query(
             {
-                multa : 'multa'
+                mail : 'utenteprova@gmail.com',
             }
         )
-        .expect(500)
+        .expect(404);
         expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe('Errore interno del server');
+        expect(res.body.message).toBe('Appuntamento non trovato');  
     })
-})*/
+})

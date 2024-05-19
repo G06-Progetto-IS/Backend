@@ -18,10 +18,7 @@ const getAllusers = async (req,res) => {
             cognome: utente.cognome
         }));
         return res.status(200).json({ success: true, utente: utentes });
-            } else {
-          if(err) return res.status(500).json({Error: err});
-          return res.status(404).json({success: false, message : "Nessun utente presente"})
-      }
+        } 
   })
 }
 
@@ -68,13 +65,22 @@ const Multa = async (req, res) => {
     try {
         const user = await utente.findOne({mail: req.body.mail});
         if (!user) {
-            return res.status(404).json({ success: false, message: "Utente non trovato" });
+            return res.status(404).json({success: false, message: "Utente non trovato" });
         }
-  
+
+        var scadenzaMulta = new Date();
+        scadenzaMulta.setMonth(scadenzaMulta.getMonth() + 1);
+
+        var dd = String(scadenzaMulta.getDate()).padStart(2, '0');
+        var mm = String(scadenzaMulta.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = scadenzaMulta.getFullYear();
+
+        scadenzaMulta = yyyy + '-' + mm + '-' + dd;
+
         const newMulta = new multa({
             mail: req.body.mail,
             importo: req.body.importo,
-            paga_entro: req.body.paga_entro
+            paga_entro: scadenzaMulta
         });
   
         const savedMulta = await newMulta.save();

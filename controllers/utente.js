@@ -44,14 +44,13 @@ const signUp = async (req, res) => {
                 }
 
                 newUtente.save((err, data) => {
-                    if (err) return res.status(500).json({Error: err});
+                    if (err) return res.status(500).json({success : false, Error: err});
                     return res.status(201).json({success: true, message: "Utente creato con successo!", data});
                 })
                 }
             )
         }
         else {
-            if (err) return res.status(500).json ({Error: err});
             return res.status(409).json({success : false, message:"Utente già presente con questa mail!"});
         }
     })
@@ -59,14 +58,17 @@ const signUp = async (req, res) => {
 
 function compareDates(a){
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    today = yyyy + '-' + mm + '-' + dd;
-    if(a<today){
+
+    
+    var b; 
+    
+    b =new Date(a);
+
+    if(b < today){
         return false;
+    } else {
+        return true;
     }
-    return true;
 }
 
 // DONE
@@ -76,12 +78,12 @@ const createApp = async(req, res) => {
         return res.status(404).json({success : false, message:"Utente non trovato"});
     }
     const newAppuntamento = new appuntamento({
-        mail: req.body.mail,
+        mail: data_u.mail,
         data: req.body.data,
         tipo_app: req.body.tipo_app
     })
 
-    if(!compareDates(req.body.data_app)){
+    if(!compareDates(req.body.data)){
         return res.status(400).json({ success: false, message: "Data non valida" });
    }
 
@@ -274,7 +276,7 @@ const RentedBooks = async (req, res) => {
 const getMulta = async (req, res) => {
     let multe = await multa.find({mail: req.query.mail}).exec();
     
-    if(!multe){
+    if(multe.length === 0){
         return res.status(404).json({ success: false, message: "Utente non ha una multa" });
     }
     else{
@@ -286,9 +288,8 @@ const getMulta = async (req, res) => {
 const getAppuntamenti = async (req, res) => {
     let appointment = await appuntamento.find({mail: req.query.mail}).exec();
     let prenotation = await prenotazione.find({mail: req.query.mail}).exec();
-    
-    if(!appointment || appointment.lenght===0 || !prenotation || prenotation.length===0){
-        return res.status(404).json({ success: false, message: "Utente non trovato" });
+    if(!appointment ||appointment.length === 0){
+        return res.status(404).json({ success: false, message: "Appuntamento non trovato" });
     }
     else{
         return res.status(200).json({ success: true, message: "Appuntamento trovato", appointment });

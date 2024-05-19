@@ -6,6 +6,7 @@ require('dotenv').config();
 const app = require('../server');
 const jwt = require('jsonwebtoken');
 const { unchangedTextChangeRange } = require('typescript');
+const { error } = require('console');
 let server = app.listen(process.env.PORT || 8080);
 
 
@@ -146,6 +147,19 @@ describe('suite testing API endpoint "/signUp"', () => {
             throw error;
         }
     })
+
+    test('Chimata API con errore server', async() =>{
+        const inputBody = {
+            mail:'mail@mail.mail',
+            password:'Prova123!'
+        }
+
+        const res = await request(app)
+        .post('/signUp')
+        .send(inputBody)
+        .expect(500);
+        expect(res.body.success).toBe(false);
+    })
 });
 
 describe('suite testing API endpoint "/getAll"', () => {
@@ -232,43 +246,47 @@ describe ('Suite testing API endpoint "/deleteLibro"', () => {
     })
 })
 
-describe('Suite testing API endpoint: "/updateDisponibilità"', () => {
-    test('Chimata API corretta set a false', async() => {
+describe('Suite testing API endpoint "/disponibilita"', ()=>{
+    test('Chiamata API corretta', async() => {
+        //synchro test
+        const res = await request(app)
+        .patch('/Rented')
+        .query({
+            titolo : 'Libro prova 5',
+            mail : 'utenteprova1@gmail.com'
+        });
+
         const response = await request(app)
-        .patch('/disponibilita?titolo=Dune')
-        .send(
-            {
-                availability : false
-            }
-        )
+        .patch('/disponibilita')
+        .query({
+            titolo : 'Libro prova 5',
+            mail : 'utenteprova1@gmail.com'
+        })
         .expect(200);
         expect(response.body.success).toBe(true);
-        expect(response.body.message).toBe('Disponibilità aggiornata');
-    })
+    });
 
-    test('Chimata API corretta set a true', async() => {
+    test('Chiamata API libro non presente', async() => {
         const response = await request(app)
-        .patch('/disponibilita?titolo=Dune')
-        .send(
-            {
-                availability : true
-            }
-        )
-        .expect(200);
-        expect(response.body.success).toBe(true);
-        expect(response.body.message).toBe('Disponibilità aggiornata');
-    })
-
-    test('Chimata API libro non esistente', async() => {
-        const response = await request(app)
-        .patch('/disponibilita?titolo=Il libro vuoto')
-        .send(
-            {
-                availability : false
-            }
-        )
+        .patch('/disponibilita')
+        .query({
+            titolo : 'non esisto',
+            mail : 'utenteprova1@gmail.com'
+        })
         .expect(404);
         expect(response.body.success).toBe(false);
         expect(response.body.message).toBe('Libro non trovato');
+    })
+
+    test('Chiamata API utente non presente', async() => {
+        const response = await request(app)
+        .patch('/disponibilita')
+        .query({
+            titolo : 'Libro prova 5',
+            mail : 'nonesisto@gmail.com'
+        })
+        .expect(404);
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Utente non trovato');
     })
 })

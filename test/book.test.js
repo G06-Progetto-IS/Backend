@@ -32,20 +32,28 @@ describe('Suite testing API endpoint: "/Filter"', () => {
         const outBody = {
             'libri':[
                 {
+                    book_id : 261,
                     titolo: '1984',
                     Author_name: 'George',
                     Author_sur: 'Orwell',
                     Genre: 'Fantascienza',
-                    Is_available: true,
-                    Grade: null
+                    Is_available: true
                 },
                 {
+                    book_id : 280,
                     titolo: 'Dune',
                     Author_name: 'Frank',
                     Author_sur: 'Herbert',
                     Genre: 'Fantascienza',
-                    Is_available: true,
-                    Grade: null
+                    Is_available: false
+                },
+                {
+                    book_id : 832,
+                    titolo: 'Libro prova 2',
+                    Author_name: 'Autore',
+                    Author_sur: 'Prova',
+                    Genre: 'Fantascienza',
+                    Is_available: false
                 }
             ],
             success: true
@@ -62,14 +70,38 @@ describe('Suite testing API endpoint: "/Filter"', () => {
 
     test('Chiamata API corretta filtro Author_sur', async() => {
         const outBody = {
-            'libri': [
+            'libri':[
                 {
-                    titolo: '1984',
-                    Author_name: 'George',
-                    Author_sur: 'Orwell',
+                    book_id: 831,
+                    titolo: 'Libro prova 1',
+                    Author_name: 'Autore',
+                    Author_sur: 'Prova',
+                    Genre: 'Giallo',
+                    Is_available : false
+                },
+                {
+                    book_id: 832,
+                    titolo: 'Libro prova 2',
+                    Author_name: 'Autore',
+                    Author_sur: 'Prova',
                     Genre: 'Fantascienza',
-                    Is_available: true,
-                    Grade: null
+                    Is_available : false
+                },
+                {
+                    book_id: 833,
+                    titolo: 'Libro prova 3',
+                    Author_name: 'Autore',
+                    Author_sur: 'Prova',
+                    Genre: 'Storia',
+                    Is_available : false
+                },
+                {
+                    book_id: 834,
+                    titolo: 'Libro prova 4',
+                    Author_name: 'Autore',
+                    Author_sur: 'Prova',
+                    Genre: 'Dramma',
+                    Is_available : false
                 }
             ],
             success: true
@@ -77,7 +109,7 @@ describe('Suite testing API endpoint: "/Filter"', () => {
         const response = await request(app)
         .get('/filter')
         .query({
-            Author_sur: 'Orwell'
+            Author_sur: 'Prova'
         })
         .expect(200);
         expect(response.body).toStrictEqual(outBody);
