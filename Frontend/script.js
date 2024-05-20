@@ -101,10 +101,15 @@ function login() {
     // Controlla se il login è riuscito
     if (data && data.token) {
       loggedUser = data;
+      console.log(data.mail)
       // Salva i dati utente nella localStorage
       localStorage.setItem('loggedUser', JSON.stringify(data));
-      window.location.href = 'homepage.html';
-
+      if(data.mail === 'admin@easylib.com'){
+        window.location.href= 'homepageAdmin.html'
+      }
+      else{
+        window.location.href = 'homepage.html';
+      }
     } else {
       alert("Credenziali non valide.");
     }
@@ -703,4 +708,44 @@ function renderMulta(multa) {
   divMulta.appendChild(ul);
 
   multaDiv.appendChild(divMulta);
+}
+
+
+//funzione che ottiene tutti gli utenti
+// Funzione per creare sezione 'utenti' parte admin
+function renderUtenti(utenti) {
+  const utentiDiv = document.getElementById('utentiList');
+  if (!utentiDiv) {
+    console.error("Elemento 'utentiList' non trovato.");
+    return;
+}
+  utentiDiv.innerHTML = "";
+  const divUtenti = document.createElement('div');
+  divUtenti.className = 'utenti';
+
+  const ul = document.createElement('ul');
+
+  utenti.forEach(utenti => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <p class="nome"><strong>Nome: </strong>${utenti.nome}</p>
+      <p class="cognome"><strong>Cognome: </strong>${utenti.cognome}</p>
+      <p class="mail"><strong>Mail: </strong> ${utenti.mail} </p>
+      <button class="conferma-reso">Apri pagina utente</button>
+    `;
+    ul.appendChild(li);
+  });
+
+  divUtenti.appendChild(ul);
+
+  utentiDiv.appendChild(divUtenti);
+
+    // Aggiungi un event listener a ciascun bottone cancella appuntamento
+    var confermaButtons = document.querySelectorAll('.conferma-reso');
+    confermaButtons.forEach(function(button) {
+    button.addEventListener("click", function(){
+        // Costruisci l'URL con il titolo del libro come parametro
+        window.location.href = 'paginaUtenti.html';
+    });
+});
 }
