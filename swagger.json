@@ -153,6 +153,67 @@
                 }
             ]
         }
+        },
+        "/ArrayLibri/{mail}" : {
+            "get" : {
+                "tags" : [
+                    "Utente"
+                ],
+                "summary": "Usata per ottenere una precisa risorsa utente associata al preciso username passato.",
+                "responses" : {
+                    "200" : {
+                        "description" : "OK. Si ottiene i libri associati all'utente"
+                    },
+                    "404" : {
+                        "description" : "NOT FOUND. Nessun utente associato al parametro passato."
+                    },
+                    "500" : {
+                        "description" : "SERVER ERROR. Di varia natura."
+                    }
+                },
+                "parameters" : [
+                    {"name" : "mail",
+                    "in" : "path",
+                    "description" : "Mail dell'utente da ricercare."
+                    }
+                ]
+            }
+        },
+        "/getAll" : {
+            "get" : {
+                "tags" : ["Admin"],
+                "summary" : "Usata per ottenere tutti gli utenti presenti nel sistema.",
+                "responses" : {
+                    "200" : {
+                        "description" : "OK. Si ottengono correttamente tutti gli utenti nel sistema."
+                    },
+                    "404" : {
+                        "description" : "NOT FOUND. Nessun utente presente nel sistema."
+                    }
+                }
+            }
+        },
+        "/DeleteLibro/{titolo}" : {
+            "delete" : {
+                "tags" : ["Admin"],
+                "summary" : "Usata per cancellare un preciso libro, il cui titolo viene specificato come parametro.",
+                "responses" : {
+                    "200" : {
+                        "description" : "OK. Libro eliminato correttamente e nessun ritorno dalla API."
+                    },
+                    "404" : {
+                        "description" : "NOT FOUND. Nessun libro nel sistema con il titolo specificato."
+                    }
+                },
+                "parameters" : [
+                    {
+                        "name" : "titolo",
+                        "in" : "path",
+                        "description" : "Titolo del libro da eliminare."
+                    }
+                ]
+            }
         }
+
 }
 }
