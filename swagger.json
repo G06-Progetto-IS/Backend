@@ -3,116 +3,110 @@
     "info": {
         "version": "1.0.0", 
         "title": "EasyLib",
-        "description": "Documentazione API di EasyLib",
-        "license": {
-           "name": "",
-           "url": ""
-        }
+        "description": "Documentazione API di EasyLib"
     },
     "host": "localhost:3000",
-    "basePath": "/api",
-    "tags": [
-        {
-            "name": "utente",
-            "description": "API per il modello 'Utente'. Tutte le API per gestire le azioni relative agli utenti."
-        },
-        {
-            "name" : "authentication",
-            "description": "API per il modello 'authentication'. Tutte le API per gestire login e logout"
-        },
-        {
-            "name" : "admin",
-            "description": "API per il modello 'admin'. Tutte le API per il gestire le funzionalità di admin.."
-        },
-        {
-            "name" : "book",
-            "description": "API per il modello 'Book'. Tutte le API per gestire le azioni relative ai libri"
-        },
-        {
-            "name" : "disponibilita",
-            "description": "API per il modello 'disponibilita'. Tutte le API per gestire le azioni relative alla disponibilita dei libri."
-        },
-        {
-            "name" : "tokenChecker",
-            "description" : "API per il modello 'Tokenchecker'. Tutte le API per gestire i token"
-        }
-    ],
+    "basePath": "/",
     "schemes": ["http", "https"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"],
     "paths": {
         "/SignUp" : {
         "post" : {
             "tags" : ["utente"],
             "summary" : "Usata per registrare un nuovo utente.",
-            "responses" : {
-                "201": {
-                    "description" : "CREATED. Utente creato correttamente."
-                },
-                "400": {
-                    "description" : "BAD REQUEST. Errore in seguito alll'inserimento di un indirzzo email o una password non validi"
-                },"500": {
-                    "description" : "SERVER ERROR. Utente già presente in archivio."
-                }
-        },
-        "parameters" : [{
+            "parameters" : [{
+            "name" : "body",
             "in" : "body",
-            "name" : "Dati utente",
             "description" : "Le informazioni sul nuovo utente da creare",
             "schema" : {
-                "type" : "object",
-                "required" : ["utente_id", "nome", "cognome", "email", "password", "libri_noleggiati", "n_libri", "autenticato", "multa"],
-                "properties" : {
-                    "utente_id" : {
-                        "type": "number",
-                        "example" : 1
-                    },
-                    "nome" : {
-                        "type" : "string",
-                        "example" : "Francesco"
-                    },
-                    "cognome" : {
-                        "type" : "string",
-                        "example" : "Rossi"
-                    },
-                    "email" : {
-                        "type" : "string",
-                        "example" : "Fra.rossi@gmail.com"
-                    },
-                    "password" : {
-                        "type" : "string",
-                        "example" : "abc123!"
-                    }
-
-                }
+                "$ref" : "#/definitions/Utente"
             }
-        }]
-
+        }
+    ],
+        "responses" : {
+            "201": {
+                "description" : "CREATED. Utente creato correttamente."
+            },
+            "400": {
+                "description" : "BAD REQUEST. Errore in seguito alll'inserimento di un indirzzo email o una password non validi"
+            },"500": {
+                "description" : "SERVER ERROR. Utente già presente in archivio."
+            }
+        }
     }
     },
-    "/createApp" : {
-        "post" : {
-            "tags" : ["utente"],
-            "summary" : "usata per creare un nuovo appuntamento",
-            "responses" : {
-                "200" : {
-                    "description" : "OK. Appuntamento creato correttamente."
-                },
-                "404" : {
-                    "description" : "NOT FOUND. Utente non trovato."
-                },
-                "500" : {
-                    "description" : "SERVER ERROR. Errore del server."
-                }                
-        },
-        "parameters" : [
+    "/login": {
+        "post": {
+          "tags": ["Authentication"],
+          "summary": "Login dello'utente",
+          "parameters": [
             {
-
+              "name": "body",
+              "in": "body",
+              "description": "Informazioni dell'utente che effettua il login",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Utente"
+              }
             }
-        ]
-
-    }
-    },
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Login effettuato con successo",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string" }
+                }
+              }
+            },
+            "400": {
+              "description": "BAD REQUEST. Mail o password non corrette"
+            }
+          }
+        }
+      },
+      "/logout": {
+        "post": {
+          "tags": ["Authentication"],
+          "summary": "Logout dell'utente",
+          "responses": {
+            "200": {
+              "description": "OK. Logout eseguito correttamente"
+            }
+          }
+        }
+      },
+      "/createApp": {
+        "post": {
+          "tags": ["Utente"],
+          "summary": "Crea un appuntamento",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Dettagli dell'appuntamento",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Appuntamento"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Appuntamento creato "
+            },
+            "400": {
+              "description": "BAD REQUEST. Data non valida"
+            },
+            "404": {
+              "description": "NOT  FOUND. Utente non trovato"
+            },
+            "500": {
+              "description": "SERVER ERROR. Errore del server."
+            }
+          }
+        }
+      },
     "/createPren": {
         "post" : {
             "tags" : ["utente"],
@@ -130,90 +124,233 @@
             }
         }
     },
-    "deleteApp{utente_id}" : {
-        "delete" : {
-            "tags" : ["Utente"],
-            "summary" : "Usata per eliminare un appuntamento identificato da uno specifico utente_id.",
-            "responses" : {
-                "200" : {
-                    "description" : "OK. Appuntamento eliminato correttamente."
-                },
-                "401" : {
-                    "description" : "UNAUTHORIZED. Token non fornito, impossibile autorizzare la richiesta."
-                },
-                "404" : {
-                    "description" : "NOT FOUND. Nessun appuntamento associato all'utente_id passato come parametro."
-                }
+    "/deleteAppuntamento": {
+        "delete": {
+          "tags": ["Utente"],
+          "summary": "Cancella un appuntamento",
+          "parameters": [
+            {
+              "name": "mail",
+              "in": "query",
+              "description": "email dell'utente",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Appuntamento cancellato correttamente"
             },
-            "parameters" : [
+            "404": {
+              "description": "NOT FOUND. Appuntamento non trovato"
+            }
+          }
+        }
+      },
+      "/arrayLibri": {
+        "get": {
+          "tags": ["Utente"],
+          "summary": "Mostra i libri noleggiati da un utente",
+          "parameters": [
+            {
+              "name": "mail",
+              "in": "query",
+              "description": "Email dell'utente",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Lista dei libri",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Book"
+                }
+              }
+            },
+            "404": {
+              "description": "NOT FOUND. Lista non trovata"
+            }
+          }
+        }
+      },
+        "/getAll": {
+            "get": {
+                "tags": ["Admin"],
+                "summary": "Fetch utenti",
+                "responses": {
+                    "200": {
+                      "description": "OK. Lista di tutti gli  utenti",
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/Utente"
+                        }
+                      }
+                    },
+                    "404": {
+                      "description": "BAD REQUEST. Nessun utente trovato"
+                    }
+                }
+            }
+         },
+         "/ricerca": {
+            "get": {
+              "tags": ["Book"],
+              "summary": "Cerca un libro",
+              "parameters": [
                 {
-                    "utente_id" : "utente_id",
-                    "in" : "path",
-                    "description" : "utente_id dell'appuntamento da eliminare."
-                }
-            ]
-        }
-        },
-        "/ArrayLibri/{mail}" : {
-            "get" : {
-                "tags" : [
-                    "Utente"
-                ],
-                "summary": "Usata per ottenere una precisa risorsa utente associata al preciso username passato.",
-                "responses" : {
-                    "200" : {
-                        "description" : "OK. Si ottiene i libri associati all'utente"
-                    },
-                    "404" : {
-                        "description" : "NOT FOUND. Nessun utente associato al parametro passato."
-                    },
-                    "500" : {
-                        "description" : "SERVER ERROR. Di varia natura."
-                    }
+                  "name": "titolo",
+                  "in": "query",
+                  "description": "titolo del libro",
+                  "required": false,
+                  "type": "string"
                 },
-                "parameters" : [
-                    {"name" : "mail",
-                    "in" : "path",
-                    "description" : "Mail dell'utente da ricercare."
-                    }
-                ]
-            }
-        },
-        "/getAll" : {
-            "get" : {
-                "tags" : ["Admin"],
-                "summary" : "Usata per ottenere tutti gli utenti presenti nel sistema.",
-                "responses" : {
-                    "200" : {
-                        "description" : "OK. Si ottengono correttamente tutti gli utenti nel sistema."
-                    },
-                    "404" : {
-                        "description" : "NOT FOUND. Nessun utente presente nel sistema."
-                    }
-                }
-            }
-        },
-        "/DeleteLibro/{titolo}" : {
-            "delete" : {
-                "tags" : ["Admin"],
-                "summary" : "Usata per cancellare un preciso libro, il cui titolo viene specificato come parametro.",
-                "responses" : {
-                    "200" : {
-                        "description" : "OK. Libro eliminato correttamente e nessun ritorno dalla API."
-                    },
-                    "404" : {
-                        "description" : "NOT FOUND. Nessun libro nel sistema con il titolo specificato."
-                    }
+                {
+                  "name": "Author_sur",
+                  "in": "query",
+                  "description": "Cognome dell'autore",
+                  "required": false,
+                  "type": "string"
                 },
-                "parameters" : [
-                    {
-                        "name" : "titolo",
-                        "in" : "path",
-                        "description" : "Titolo del libro da eliminare."
+                {
+                  "name": "Author_name",
+                  "in": "query",
+                  "description": "Nome dell'autore",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK. Libri trovati",
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Book"
                     }
-                ]
+                  }
+                },
+                "400": {
+                  "description": "BAD REQUEST. Nessun parametro di ricerca inserito"
+                },
+                "404": {
+                  "description": "NOT FOUND. Nessun libro trovato"
+                }
+              }
             }
-        }
+          },
+        "/Cancella_Libro": {
+            "delete": {
+              "tags": ["Book"],
+              "summary": "Cancella un libro",
+              "parameters": [
+                {
+                  "name": "titolo",
+                  "in": "query",
+                  "description": "Titolo del libro",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK. Libro cancellato correttamente."
+                },
+                "404": {
+                  "description": "NOT FOUND. Libro non trovato"
+                }
+              }
+            }
+          }
+        },
+        "/Multa": {
+            "post": {
+              "tags": ["Admin"],
+              "summary": "Crea una multa per un utente",
+              "parameters": [
+                {
+                  "name": "body",
+                  "in": "body",
+                  "description": "Dettagli della multa",
+                  "required": true,
+                  "schema": {
+                    "$ref": "#/definitions/Multa"
+                  }
+                }
+              ],
+              "responses": {
+                "201": {
+                  "description": "CREATED. Multa creata corettamente"
+                },
+                "404": {
+                  "description": "NOT FOUND. Utente non trovato."
+                },
+                "500": {
+                  "description": "SERVER ERROR. Errore del server."
+                }
+              }
+            }
+        },       
 
-}
+ "definitions": {
+    "utente": {
+      "type": "object",
+      "properties": {
+        "utente_id": {"type" : "number", "example" : 5},
+        "nome" : {"type": "string", "example": "Mario"},
+        "cognome" : {"type": "string", "example": "Rossi"},
+        "mail" : {"type": "string", "example": "user@example.com"},
+        "password" : {"type": "string", "example": "password123"},
+        "libri_noleggiati" : {"type" : "array", "example": "null"},
+        "n_libri" : {"type" : "number", "example": 1}  
+      },
+      "required": ["utente_id", "nome" ,"cognome", "mail", "password"]
+    },
+ 
+    "Book": {
+      "type": "object",
+      "properties": {
+        "book_id": { "type": "number", "example": 7},
+        "titolo": { "type": "string", "example": "titolo libro" },
+        "Author_sur": { "type": "string", "example": "Cognome Autore" },
+        "Author_name": { "type": "string", "example": "Nome autore" },
+        "genre" : {"type" : "string", "example": "Giallo"},
+        "Is_available" : {"type": "boolean", "example": "true"},
+        "scadenza": {"type": "date", "format": "date-time", "example": "2023-05-21T10:00:00Z"}
+
+      },
+      "required": ["book_id", "titolo", "Author_sur", "Author_name", "genre", "Is_available"]
+    },
+    "Multa": {
+      "type": "object",
+      "properties": {
+        "mail": { "type": "string", "example": "user@example.com" },
+        "paga_entro": { "type": "string", "format": "date-time", "example": "2023-05-21T10:00:00Z" },
+        "importo": { "type": "number", "example": 30 }
+      },
+      "required": ["mail", "paga_entro", "importo"]
+    },
+    "prenotazione": {
+      "type": "object",
+      "properties": {
+        "mail": { "type": "string", "example": "user@example.com" },
+        "titolo": { "type": "string", "example": "Il barone rampante" },
+        "data": { "type": "string", "format": "date-time", "example": "2023-05-21T10:00:00Z" },
+        "tipo_app": { "type": "string", "example": "Donare un libro" }
+      },
+      "required": ["mail", "titolo"]
+    },
+    "Appuntamento": {
+      "type": "object",
+      "properties": {
+        "mail": { "type": "string", "example": "user@example.com" },
+        "data": { "type": "string", "format": "date-time", "example": "2023-05-21T10:00:00Z" },
+        "tipo_app": { "type": "string", "example": "Donare un libro" }
+      },
+      "required": ["mail", "data", "tipo_app"]
+    }
+  }
 }
