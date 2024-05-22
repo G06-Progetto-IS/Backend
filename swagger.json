@@ -107,23 +107,6 @@
           }
         }
       },
-    "/createPren": {
-        "post" : {
-            "tags" : ["utente"],
-            "summary" : "usata per creare una nuova prenotazione",
-            "responses" :{
-                "200" : {
-                    "description" : "OK. Prenotazione creata correttamente."
-                },
-                "404" : {
-                    "description" : "NOT FOUND. Utente o libro  non trovato."
-                },
-                "500" : {
-                    "description" : "SERVER ERROR. Errore del server."
-                }  
-            }
-        }
-    },
     "/deleteAppuntamento": {
         "delete": {
           "tags": ["Utente"],
