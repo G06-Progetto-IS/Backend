@@ -1,7 +1,7 @@
 const libro = require("../models/book")
 const utente = require("../models/utente");
 
-// TODO
+// TODO: ADMIN
 const updateDisponibilita = async (req, res) => {
       // Attendere la promessa restituita da findOne()
       let book = await libro.findOne({ titolo: req.query.titolo }).exec();
@@ -11,7 +11,7 @@ const updateDisponibilita = async (req, res) => {
           return res.status(404).json({ success: false, message: "Libro non trovato" });
       }
       if(!user) {
-          return res.status(404).json({ success: false, message: "Utente non trovato" });
+        return res.status(404).json({ success: false, message: "Utente non trovato" });
       }
 
       // Eseguire updateOne() con i dati da aggiornare

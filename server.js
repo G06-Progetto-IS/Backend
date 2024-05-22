@@ -8,7 +8,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'Frontend', 'homepage.html')); // Use path.join to generate the file path
 });
 
-const tokenChecker = require('./controllers/tokenChecker')
 app.use(express.json())
 
 //API utente

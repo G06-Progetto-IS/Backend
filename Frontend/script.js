@@ -416,7 +416,6 @@ function prenotazione() {
   .catch(error => console.error(error));
 }
 
-
 // funzione per prenotare un appuntamento di tipo donazione o restituire un libro
 function appuntamento() {
   const mail = document.getElementById('emailAppuntamento').value;
@@ -657,6 +656,7 @@ function deleteAppuntamenti(){
   .then(function(data){
     if(data){
       alert("Appuntamento eliminato")
+
       window.location.reload();
     }
     return;
@@ -711,41 +711,183 @@ function renderMulta(multa) {
 }
 
 
-//funzione che ottiene tutti gli utenti
+// funzione che ottiene tutti gli utenti
+function fetchUtenti(){
+  fetch('../getAll')
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      console.log(data);
+      renderUtenti(data.utente);
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+}
+
 // Funzione per creare sezione 'utenti' parte admin
 function renderUtenti(utenti) {
   const utentiDiv = document.getElementById('utentiList');
   if (!utentiDiv) {
     console.error("Elemento 'utentiList' non trovato.");
     return;
-}
+  }
   utentiDiv.innerHTML = "";
   const divUtenti = document.createElement('div');
   divUtenti.className = 'utenti';
 
   const ul = document.createElement('ul');
 
-  utenti.forEach(utenti => {
+  utenti.forEach(utente => {
     const li = document.createElement('li');
     li.innerHTML = `
-      <p class="nome"><strong>Nome: </strong>${utenti.nome}</p>
-      <p class="cognome"><strong>Cognome: </strong>${utenti.cognome}</p>
-      <p class="mail"><strong>Mail: </strong> ${utenti.mail} </p>
-      <button class="conferma-reso">Apri pagina utente</button>
+      <p class="nome"><strong>Nome: </strong>${utente.nome}</p>
+      <p class="cognome"><strong>Cognome: </strong>${utente.cognome}</p>
+      <p class="mail"><strong>Mail: </strong> ${utente.mail} </p>
+      <button class="conferma-reso" data-mail="${utente.mail}">Apri pagina utente</button>
     `;
     ul.appendChild(li);
   });
 
   divUtenti.appendChild(ul);
-
   utentiDiv.appendChild(divUtenti);
 
-    // Aggiungi un event listener a ciascun bottone cancella appuntamento
-    var confermaButtons = document.querySelectorAll('.conferma-reso');
-    confermaButtons.forEach(function(button) {
+  // Aggiungi un event listener a ciascun bottone 'conferma-reso'
+  const confermaButtons = document.querySelectorAll('.conferma-reso');
+  confermaButtons.forEach(function(button) {
     button.addEventListener("click", function(){
-        // Costruisci l'URL con il titolo del libro come parametro
-        window.location.href = 'paginaUtenti.html';
+      // Ottieni l'email dall'attributo data-mail
+      const userMail = this.getAttribute('data-mail');
+      // Costruisci l'URL con l'email come parametro
+      window.location.href = 'paginaUtente.html?mail=' + userMail;
     });
-});
+  });
+}
+
+
+// funzione che aggiorna la disponibilità di un libro a true
+function updateDisponibilita(mailUtente, titoloLibro){
+  let dati = {
+    mail: mailUtente,
+    titolo: titoloLibro
+  }
+
+  fetch('../Rented', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dati)
+  })
+  then((res) => res.json()) 
+  .then(function(data) { 
+      if(data.success){
+          console.log('disponibilità aggiornata')
+      }
+      else{
+          console.log('disponibilità non aggiornata');
+      }
+      return;
+  })
+  .catch(error => console.error(error));
+}
+
+
+// funzione per ottenere i miei noleggi
+function pippo(){
+  // Recupera il titolo del libro dal parametro dell'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const mail = urlParams.get('mail');
+  if (!mail) {
+    console.error("Mail dell'utente non trovato nei parametri dell'URL.");
+    return;
+  }
+
+  console.log('mail: ', mail);
+
+  fetch('../arrayLibri?mail=' + mail)
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      console.log(data.libri);
+      renderNoleggi(data.libri)
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+};
+
+
+// funzione che renderizza la pagina 'utenti'
+function renderNoleggi(books){
+  // Recupera la mail dell'utente dal parametro dell'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const mail = urlParams.get('mail');
+  if (!mail) {
+    console.error("Mail dell'utente non trovato nei parametri dell'URL.");
+    return;
+  }
+
+  console.log('books: ', books)
+  var booksDiv = document.getElementById("bookList");
+  if (!booksDiv) {
+    console.error("Elemento 'bookList' non trovato.");
+    return; // Esci dalla funzione se 'bookList' non è stato trovato
+  }
+  booksDiv.innerHTML = "";
+  if (Array.isArray(books) && books.length > 0) {
+    books.forEach(book => {
+    
+      var bookDiv = document.createElement('div');
+      bookDiv.classList.add('book-section');
+
+      var bookContainer = document.createElement('div');
+      bookContainer.classList.add('book-container');
+
+      var copertinaContainer = document.createElement('div');
+      copertinaContainer.classList.add('copertina-container');
+
+      var titoloP = document.createElement('div');
+      titoloP.classList.add('titolo-libro');
+      titoloP.textContent = book.titolo;
+
+      var copertinaImg = document.createElement('img');
+      copertinaImg.classList.add('copertina-libro');
+      copertinaImg.src = "photos/" + book.titolo + ".jpeg";
+
+      copertinaContainer.appendChild(titoloP);
+      copertinaContainer.appendChild(copertinaImg);
+
+      var infoLibro = document.createElement('div');
+      infoLibro.classList.add('info-libro');
+
+      var autoreP = document.createElement('p');
+      autoreP.classList.add('autore');
+      autoreP.innerHTML = 'di <strong>' + book.Author_name + " " + book.Author_sur + '</strong>';
+
+      var genereP = document.createElement('p');
+      genereP.classList.add('genere');
+      genereP.textContent = "Genere: " + book.Genre;
+
+      var confermaResoButton = document.createElement('button');
+      confermaResoButton.classList.add('bottone-cancella');
+      confermaResoButton.textContent = "Conferma reso";
+
+      infoLibro.appendChild(autoreP);
+      infoLibro.appendChild(genereP);
+      infoLibro.appendChild(confermaResoButton);      
+      
+      bookContainer.appendChild(copertinaContainer);
+      bookContainer.appendChild(infoLibro);
+
+      bookDiv.appendChild(bookContainer);
+      booksDiv.appendChild(bookDiv);
+
+      // Aggiungi un event listener a ciascun bottone Prenota e ritira
+      confermaResoButton.addEventListener("click", function(){
+        // Costruisci l'URL con il titolo del libro come parametro
+        updateDisponibilita(mail, book.titolo);
+      });
+    });
+  }
 }

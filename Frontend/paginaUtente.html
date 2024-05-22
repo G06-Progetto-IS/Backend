@@ -17,6 +17,7 @@ Sezione Archivio-->
     <link rel="stylesheet" href="styles/general.css">
     <link rel="stylesheet" href="styles/book-section.css">
     <link rel="stylesheet" href="styles/resoAdmin.css">
+    <link rel="stylesheet" href="styles/paginaUtente.css">
   </head>
 
   <body>
@@ -64,10 +65,9 @@ Sezione Archivio-->
 
 
 <!-- fine header -->
-<div id="utentiContent">
-  <div id="utentiList">
-</div>
-</div>
+
+  <div class="bookList" id="bookList">
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -81,6 +81,7 @@ Sezione Archivio-->
         document.getElementById('userInfo').style.display = 'block';
         document.getElementById('userFullName').textContent = loggedUser.nome;
       }
+      pippo();
     });
 
     var loginButton = document.getElementById("loginButton");

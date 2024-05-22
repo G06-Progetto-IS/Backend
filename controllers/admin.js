@@ -13,9 +13,10 @@ const getAllusers = async (req,res) => {
           }
            // Map each book to required fields
            const utentes = data.map(utente => ({
-            utente_id: utente.utente_id,
+            //utente_id: utente.utente_id,
             nome: utente.nome,
-            cognome: utente.cognome
+            cognome: utente.cognome,
+            mail: utente.mail
         }));
         return res.status(200).json({ success: true, utente: utentes });
         } 
