@@ -248,8 +248,7 @@
                 }
               }
             }
-          }
-        },
+          },
         "/Multa": {
             "post": {
               "tags": ["Admin"],
@@ -277,8 +276,8 @@
                 }
               }
             }
-        },       
-
+        }
+      },          
  "definitions": {
     "Utente": {
       "type": "object",
