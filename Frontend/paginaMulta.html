@@ -62,47 +62,27 @@
   <div class="formbold-form-wrapper">
     <form class="formAppuntamento" id="formAppuntamento">
       <div class="formbold-mb-5">
-        <label for="titolo" class="formbold-form-label"> Titolo del libro</label>
+        <label for="mailUtente" class="formbold-form-label"> Mail dell'utente</label>
         <input
           type="text"
-          name="titolo"
-          id="titoloLibro"
-          placeholder="Titolo del libro"
+          name="mail"
+          id="mailUtente"
+          placeholder="Mail"
           class="formbold-form-input"
         />
       </div>
       <div class="formbold-mb-5">
-        <label for="nomeAutore" class="formbold-form-label"> Nome dell'autore </label>
+        <label for="importoMulta" class="formbold-form-label"> Importo della multa </label>
         <input
           type="text"
-          name="nomeAutore"
-          id="nomeAutore"
-          placeholder="Nome dell'autore"
-          class="formbold-form-input"
-        />
-      </div>
-      <div class="formbold-mb-5">
-        <label for="cognomeAutore" class="formbold-form-label"> Cognome dell'autore </label>
-        <input
-          type="text"
-          name="cognome"
-          id="cognomeAutore"
-          placeholder="Cognome dell'autore"
-          class="formbold-form-input"
-        />
-      </div>
-      <div class="formbold-mb-5">
-        <label for="genereLibro" class="formbold-form-label"> Genere del libro </label>
-        <input
-          type="text"
-          name="genere"
-          id="genereLibro"
-          placeholder="Genere del libro"
+          name="importo"
+          id="importoMulta"
+          placeholder="Importo della multa"
           class="formbold-form-input"
         />
       </div>
       <div>
-        <button class="formbold-btn">Aggiungi libro</button>
+        <button class="formbold-btn">Conferma multa</button>
       </div>
     </form>
   </div>
@@ -129,7 +109,7 @@
 
       document.getElementById("formAppuntamento").addEventListener("submit", function(event) {
         event.preventDefault(); 
-        newLibro();
+        creaMulta();
       });
     </script>
     

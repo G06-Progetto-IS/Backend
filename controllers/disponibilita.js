@@ -1,7 +1,7 @@
 const libro = require("../models/book")
 const utente = require("../models/utente");
 
-// TODO: ADMIN
+// DONE
 const updateDisponibilita = async (req, res) => {
       // Attendere la promessa restituita da findOne()
       let book = await libro.findOne({ titolo: req.query.titolo }).exec();

@@ -140,20 +140,6 @@ const deleteApp = async (req, res) => {
     }
 }
 
-/* Secondo me inutile avere due modelli, uno prenotazione e uno appuntamento!!
-// TODO
-const deletePren = async (req, res) => {
-    let data =  await prenotazione.findOne ({mail : req.query.mail}).exec()
-
-    if (!data) {
-        return res.status(404).json({success : false, message : "Prenotazione non trovata"})
-    } else {
-        await prenotazione.deleteOne({mail: req.query.mail}).exec();
-        return res.status(200).json({success: true, message:"Prenotazione cancellata con successo"})
-    }
-}
-*/
-
 // DONE
 const getBooks = async (req, res) => {
     try {
@@ -188,36 +174,6 @@ const getBooks = async (req, res) => {
         return res.status(500).json({ success: false, message: "Errore del server" });
     }
 }
-
-/* Probabile che diventa inutile 
-const Reserve = async (req, res) => {
-
-    try {
-        // Attendere la promessa restituita da findOne()
-        let user = await utente.findOne({ mail: req.query.mail }).exec();
-
-        if (!user) {
-            return res.status(404).json({ success: false, message: "Utente non trovato" });
-        }
-
-        // Eseguire updateOne() con i dati da aggiornare
-        await utente.updateOne({ mail: req.query.mail }, {
-            $set: {
-                data_app: req.body.data_app,
-                tipo_app: req.body.tipo_app
-            }
-        });
-
-         if(!compareDates(req.body.data_app)){
-             return res.status(400).json({ success: false, message: "Data non valida" });
-        }
-
-        return res.status(200).json({ success: true, message: "Appuntamento riservato" });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Errore interno del server" });
-    }
-};
-*/
 
 // DONE
 const RentedBooks = async (req, res) => {
@@ -296,29 +252,12 @@ const getAppuntamenti = async (req, res) => {
     }
 }
 
-/* Secondo me inutile avere due modelli, uno prenotazione e uno appuntamento!!
-const getPrenotazioni = async (req, res) => {
-    let prenotation = await prenotazione.find({mail: req.query.mail}).exec();
-    
-    if(!prenotation){
-        return res.status(404).json({ success: false, message: "Utente non trovato" });
-    }
-    else{
-        return res.status(200).json({ success: true, message: "Prenotazione trovata", prenotation });
-    }
-}
-*/
-
 module.exports = {
    deleteApp, 
-   //deletePren,
    getBooks,
    signUp,
-   //Reserve,
    RentedBooks,
-   //createPren,
    createApp,
    getMulta,
    getAppuntamenti,
-   //getPrenotazioni
 };

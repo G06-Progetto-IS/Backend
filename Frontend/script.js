@@ -744,7 +744,8 @@ function renderUtenti(utenti) {
       <p class="nome"><strong>Nome: </strong>${utente.nome}</p>
       <p class="cognome"><strong>Cognome: </strong>${utente.cognome}</p>
       <p class="mail"><strong>Mail: </strong> ${utente.mail} </p>
-      <button class="conferma-reso" data-mail="${utente.mail}">Apri pagina utente</button>
+      <button class="conferma-reso" data-mail="${utente.mail}">Apri pagina noleggi</button>
+      <button class="bottone-multa" data-mail="${utente.mail}">Apri pagina multe</button>
     `;
     ul.appendChild(li);
   });
@@ -759,7 +760,17 @@ function renderUtenti(utenti) {
       // Ottieni l'email dall'attributo data-mail
       const userMail = this.getAttribute('data-mail');
       // Costruisci l'URL con l'email come parametro
-      window.location.href = 'paginaUtente.html?mail=' + userMail;
+      window.location.href = 'paginaNoleggi.html?mail=' + userMail;
+    });
+  });
+  // Aggiungi un event listener a ciascun bottone 'conferma-reso'
+  const multaButtons = document.querySelectorAll('.bottone-multa');
+  multaButtons.forEach(function(button) {
+    button.addEventListener("click", function(){
+      // Ottieni l'email dall'attributo data-mail
+      const userMail = this.getAttribute('data-mail');
+      // Costruisci l'URL con l'email come parametro
+      window.location.href = 'paginaMulta.html?mail=' + userMail;
     });
   });
 }
@@ -767,22 +778,21 @@ function renderUtenti(utenti) {
 
 // funzione che aggiorna la disponibilità di un libro a true
 function updateDisponibilita(mailUtente, titoloLibro){
-  let dati = {
-    mail: mailUtente,
-    titolo: titoloLibro
-  }
 
-  fetch('../Rented', {
+  console.log('mail: ', mailUtente);
+  console.log('titolo: ', titoloLibro);
+
+  fetch('../disponibilita?mail=' + mailUtente + '&titolo=' + titoloLibro , {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(dati)
+      }
   })
-  then((res) => res.json()) 
+  .then((res) => res.json()) 
   .then(function(data) { 
       if(data.success){
           console.log('disponibilità aggiornata')
+          window.location.reload();
       }
       else{
           console.log('disponibilità non aggiornata');
@@ -794,7 +804,7 @@ function updateDisponibilita(mailUtente, titoloLibro){
 
 
 // funzione per ottenere i miei noleggi
-function pippo(){
+function fetchNoleggi(){
   // Recupera il titolo del libro dal parametro dell'URL
   const urlParams = new URLSearchParams(window.location.search);
   const mail = urlParams.get('mail');
@@ -890,4 +900,70 @@ function renderNoleggi(books){
       });
     });
   }
+}
+
+function newLibro(){
+  const titolo = document.getElementById('titoloLibro').value;
+  const nome = document.getElementById('nomeAutore').value;
+  const cognome = document.getElementById('cognomeAutore').value;
+  const genere = document.getElementById('genereLibro').value;
+
+  dati = {
+    titolo: titolo,
+    Author_name: nome,
+    Author_sur: cognome,
+    Genre: genere
+  }
+
+  console.log(dati);
+
+  fetch('../newLibro', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dati)
+  })
+  .then((res) => res.json()) 
+  .then(function(data) { 
+      if(data.success){
+          console.log('Libro aggiunto al database')
+      }
+      else{
+          console.log('errore, nessun libro aggiunto al database');
+      }
+      return;
+  })
+  .catch(error => console.error(error));
+};
+
+function creaMulta(){
+  const mail = document.getElementById('mailUtente').value;
+  const importo = document.getElementById('importoMulta').value;
+
+  dati = {
+   mail: mail,
+   importo: importo
+  }
+
+  console.log(dati);
+
+  fetch('../Multa', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dati)
+  })
+  .then((res) => res.json()) 
+  .then(function(data) { 
+      if(data.success){
+          console.log('multa creata')
+      }
+      else{
+          console.log('errore, nessuna multa creata');
+      }
+      return;
+  })
+  .catch(error => console.error(error));
 }

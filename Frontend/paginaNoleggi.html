@@ -1,8 +1,3 @@
-
-  <!--Sezione Utenti dove può dare multe, confermare restituzione libri
-      Sezione Libri dove può aggiungere un libro
-      Sezione Archivio-->
-
 <!DOCTYPE html>
 
 <html>
@@ -17,6 +12,7 @@
     <link rel="stylesheet" href="styles/general.css">
     <link rel="stylesheet" href="styles/book-section.css">
     <link rel="stylesheet" href="styles/resoAdmin.css">
+    <link rel="stylesheet" href="styles/paginaNoleggi.css">
   </head>
 
   <body>
@@ -36,37 +32,37 @@
       </div>
     </div>
 
-    <div class="content-container">
-      <div class="logo-column">
-        <img class="logo" src="photos/logo.png">
-        <div class="nome-lib">
-          EasyLib
-        </div>
-      </div>
-      <div class="search-column">
-        <input id="searchBar" type="text" onkeypress="handle(event)" placeholder="Search" class="search-bar">
-      </div>
-        <div class="link-column">
-          <a href="homepageAdmin.html" class="home-link">Home</a>
-          <a href="archivioAdmin.html">Archivio</a>
-          <a href="donazione.html">Donazioni</a>
-          <a href="resoAdmin.html">Resi</a>
-        </div>
-        <div class="login-column" id="loginColumn">
-          <button class="login-button" id="loginButton" onclick="login()">Login</button>
-        </div>
-        <div class="user-info" id="userInfo" style = "display: none">
-          <p class = "userFullName" id="userFullName"></p>
-          <p class="logout" id="logoutButton" onclick = "logout()">logout</p>
-        </div>
+  <div class="content-container">
+    <div class="logo-column">
+      <img class="logo" src="photos/logo.png">
+      <div class="nome-lib">
+        EasyLib
       </div>
     </div>
+    <div class="search-column">
+      <input id="searchBar" type="text" onkeypress="handle(event)" placeholder="Search" class="search-bar">
+    </div>
+      <div class="link-column">
+        <a href="homepageAdmin.html" class="home-link">Home</a>
+        <a href="archivioAdmin.html">Archivio</a>
+        <a href="donazione.html">Donazioni</a>
+        <a href="paginaUtenti.html">Utenti</a>
+      </div>
+      <div class="login-column" id="loginColumn">
+        <button class="login-button" id="loginButton" onclick="login()">Login</button>
+      </div>
+      <div class="user-info" id="userInfo" style = "display: none">
+        <p class = "userFullName" id="userFullName"></p>
+        <p class="logout" id="logoutButton" onclick = "logout()">logout</p>
+      </div>
+    </div>
+</div>
+
 
 <!-- fine header -->
-    <div id="utentiContent">
-      <div id="utentiList">
-      </div>
-    </div>
+
+  <div class="bookList" id="bookList">
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -80,21 +76,15 @@
         document.getElementById('userInfo').style.display = 'block';
         document.getElementById('userFullName').textContent = loggedUser.nome;
       }
-      fetchUtenti();
+      fetchNoleggi();
     });
 
     var loginButton = document.getElementById("loginButton");
     loginButton.addEventListener("click", function() {
       window.location.href = "login.html";
     });
-
-    document.querySelectorAll(".conferma-reso").forEach(function(button) {
-      button.addEventListener("click", function() {
-        window.location.href = "paginaUtente.html";
-      });
-    });
-
   </script>
+
   <script src="script.js"></script>
 </body>
 </html>

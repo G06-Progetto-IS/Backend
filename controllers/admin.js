@@ -4,7 +4,7 @@ const counter = require("../models/counter");
 const multa = require("../models/multa");
 
 
-// TODO
+// DONE
 const getAllusers = async (req,res) => {
   utente.find({},(err,data)=>{
       if(data){
@@ -23,7 +23,7 @@ const getAllusers = async (req,res) => {
   })
 }
 
-// TODO
+// DONE
 const newLibro = async (req, res) => {
   try {
       const existingBook = await libro.findOne({ titolo: req.body.titolo });
@@ -61,7 +61,7 @@ const newLibro = async (req, res) => {
   }
 };
 
-// TODO: PARTE ADMIN
+// DONE
 const Multa = async (req, res) => {
     try {
         const user = await utente.findOne({mail: req.body.mail});
