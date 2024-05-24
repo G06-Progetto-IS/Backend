@@ -127,7 +127,7 @@ describe('Suite testing API endpoint: "/Filter"', () => {
         expect(response.body.message).toBe('Filtro non selezionato o errato');
     })
 
-    test('Chiamta API con filtro non esistente', async() => {
+    test('Chiamata API con filtro non esistente', async() => {
         const response = await request(app)
         .get('/filter')
         .query({

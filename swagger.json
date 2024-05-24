@@ -9,15 +9,16 @@
     "basePath": "/",
     "schemes": ["http", "https"],
     "paths": {
-        "/SignUp" : {
+        "/signUp" : {
           "post" : {
             "tags" : ["Utente"],
             "summary" : "Usata per registrare un nuovo utente.",
-            "parameters" : [{
-            "name" : "body",
-            "in" : "body",
-            "description" : "Le informazioni sul nuovo utente da creare",
-            "required" : true,
+            "parameters" : [
+              {
+                "name" : "body",
+                "in" : "body",
+                "description" : "Le informazioni sul nuovo utente da creare",
+                "required" : true,
             "schema" : {
                 "$ref" : "#/definitions/Utente"
             }
@@ -77,6 +78,34 @@
           }
         }
       },
+      "/Rented": {
+        "patch": {
+          "tags": ["Utente"],
+          "summary": "Aggiunge un libro al carrello dell'utente",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Titolo del libro da noleggiare",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Libro"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Libro aggiunto ai  noleggi"
+            },
+            "404": {
+              "description": "NOT  FOUND. Libro o utente non trovato"
+            },
+            "500": {
+              "description": "SERVER ERROR. Errore del server."
+            }
+          }
+        }
+      },
       "/createApp": {
         "post": {
           "tags": ["Utente"],
@@ -108,7 +137,100 @@
           }
         }
       },
-    "/deleteAppuntamento": {
+      "/newLibro": {
+        "post": {
+          "tags": ["Admin"],
+          "summary": "Crea un nuovo libro",
+          "parameters": [
+            {
+              "name": "titolo",
+              "in": "body",
+              "description": "titolo del libro",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Author_sur",
+              "in": "body",
+              "description": "Cognome dell'autore",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Author_name",
+              "in": "body",
+              "description": "Nome dell'autore",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name" : "genre",
+              "in" : "body",
+              "description" : "Genere del libro",
+              "required" : true,
+              "type" : "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "CREATED. Libro creato "
+            },
+            "409": {
+              "description": "CONFLICT. Libro gia presente nel Database"
+            },
+            "500": {
+              "description": "SERVER ERROR. Errore del server."
+            }
+          }
+        }
+      },
+      "/deleteUtente": {
+        "delete": {
+          "tags": ["Admin"],
+          "summary": "Elimina un utente",
+          "parameters": [
+            {
+              "name": "mail",
+              "in": "query",
+              "description": "email dell'utente",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Utente eliminato correttamente"
+            },
+            "404": {
+              "description": "NOT FOUND. Utente non trovato"
+            }
+          }
+        }
+      },
+      "/deleteLibro": {
+        "delete": {
+          "tags": ["Book"],
+          "summary": "Elimina un libro",
+          "parameters": [
+            {
+              "name": "titolo",
+              "in": "query",
+              "description": "Titolo del libro da eliminare",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Libro eliminato correttamente"
+            },
+            "404": {
+              "description": "NOT FOUND. Libro non trovato"
+            }
+          }
+        }
+      },
+      "/deleteAppuntamento": {
         "delete": {
           "tags": ["Utente"],
           "summary": "Cancella un appuntamento",
@@ -160,26 +282,26 @@
           }
         }
       },
-        "/getAll": {
-            "get": {
-                "tags": ["Admin"],
-                "summary": "Fetch utenti",
-                "responses": {
-                    "200": {
-                      "description": "OK. Lista di tutti gli  utenti",
-                      "schema": {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/Utente"
-                        }
+      "/getAll": {
+          "get": {
+              "tags": ["Admin"],
+              "summary": "Trova tutti gli utenti",
+              "responses": {
+                  "200": {
+                    "description": "OK. Lista di tutti gli  utenti",
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Utente"
                       }
-                    },
-                    "404": {
-                      "description": "BAD REQUEST. Nessun utente trovato"
                     }
-                }
-            }
-         },
+                  },
+                  "404": {
+                    "description": "BAD REQUEST. Nessun utente trovato"
+                  }
+              }
+          }
+       },
          "/ricerca": {
             "get": {
               "tags": ["Book"],
@@ -226,6 +348,39 @@
               }
             }
           },
+          "/filter": {
+            "get": {
+              "tags": ["Book"],
+              "summary": "Filtra un libro per autore o genere",
+              "parameters": [
+                {
+                  "name": "Author_sur",
+                  "in": "query",
+                  "description": "Cognome dell'autore da filtrare",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "name": "genre",
+                  "in": "query",
+                  "description": "Genere del libro da filtrare",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "OK. Filtro applicato correttamente"
+                },
+                "400": {
+                  "description": "BAD REQUEST. Filtro non selezionato o errato"
+                },
+                "404": {
+                  "description": "NOT FOUND. Nessun libro trovato"
+                }
+              }
+            }
+          },
         "/Cancella_Libro": {
             "delete": {
               "tags": ["Book"],
@@ -249,7 +404,7 @@
               }
             }
           },
-        "/Multa": {
+          "/Multa": {
             "post": {
               "tags": ["Admin"],
               "summary": "Crea una multa per un utente",
@@ -276,6 +431,28 @@
                 }
               }
             }
+        },
+        "getMulta": {
+          "get" :{
+            "tags" : ["Multa"],
+            "summary" : "Emette una multa per l'utente spcificato dalla sua mail",
+            "parameters": [
+              {
+                "name": "mail",
+                "in": "query",
+                "description": "Mail dell'utente a cui inviare la multa",
+                "required": true,
+                "type": "string"
+              }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Multa inviata correttamente"
+            },
+            "404": {
+              "description": "NOT FOUND. Utente non trovato"
+            }
+          }
         }
       },          
  "definitions": {
@@ -336,4 +513,5 @@
       "required": ["mail", "data", "tipo_app"]
     }
   }
+}
 }
