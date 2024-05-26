@@ -42,13 +42,19 @@
           "summary": "Login dell'utente",
           "parameters": [
             {
-              "name": "body",
+              "name": "mail",
               "in": "body",
-              "description": "Informazioni dell'utente che effettua il login",
+              "description": "Mail dell'utente registrato",
               "required": true,
-              "schema": {
-                "$ref": "#/definitions/Utente"
-              }
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "body",
+              "description": "Password dell'utente registrato",
+              "required": true,
+              "type": "string"
+
             }
           ],
           "responses": {
@@ -84,18 +90,26 @@
           "summary": "Aggiunge un libro al carrello dell'utente",
           "parameters": [
             {
-              "name": "body",
+              "name": "mail",
+              "in": "body",
+              "description": "Mail dell'utente che noleggia il libro",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "titolo",
               "in": "body",
               "description": "Titolo del libro da noleggiare",
               "required": true,
-              "schema": {
-                "$ref": "#/definitions/Libro"
-              }
+              "type": "string"
             }
           ],
           "responses": {
             "200": {
               "description": "OK. Libro aggiunto ai  noleggi"
+            },
+            "400":{
+              "description": "BAD REQUEST. Numero massimo di noleggi raggiunto"
             },
             "404": {
               "description": "NOT  FOUND. Libro o utente non trovato"
@@ -192,7 +206,7 @@
             {
               "name": "mail",
               "in": "query",
-              "description": "email dell'utente",
+              "description": "email dell'utente da eliminare",
               "required": true,
               "type": "string"
             }
@@ -249,6 +263,35 @@
             },
             "404": {
               "description": "NOT FOUND. Appuntamento non trovato"
+            }
+          }
+        }
+      },
+      "/getAppuntamento": {
+        "get": {
+          "tags": ["Utente"],
+          "summary": "Cerca gli appuntamenti di un utente",
+          "parameters": [
+            {
+              "name": "mail",
+              "in": "query",
+              "description": "mail dell'utente che vuole visionare i suoi appuntamenti",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Lista degli appuntamenti",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Appuntamento"
+                }
+              }
+            },
+            "404": {
+              "description": "NOT FOUND. Utente non trovato"
             }
           }
         }
@@ -451,6 +494,37 @@
             },
             "404": {
               "description": "NOT FOUND. Utente non trovato"
+            }
+          }
+        }
+      },
+      "/disponibilità": {
+        "patch": {
+          "tags": ["disponibilità"],
+          "summary": "Aggiorna la disponibilità di un libro",
+          "parameters": [
+            {
+              "name": "mail",
+              "in": "query",
+              "description": "Mail dell'utente che fa aggiornare la disponibilità",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "titolo",
+              "in": "query",
+              "description": "Titolo del libro di cui cambiare la disponibilità",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK. Disponibilità aggiornata"
+            },
+
+            "404": {
+              "description": "NOT  FOUND. Libro o utente non trovato"
             }
           }
         }

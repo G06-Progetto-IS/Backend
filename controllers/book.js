@@ -1,7 +1,7 @@
 const libro = require("../models/book")
 const counter = require("../models/counter")
 
-// A CHE SERVE??
+// A CHE SERVE??, Swagger DONE
 const Cancella_libro = async (req, res) => {
     let data =  await libro.findOne ({titolo : req.query.titolo}) .exec()
 
@@ -13,7 +13,7 @@ const Cancella_libro = async (req, res) => {
     }
 }
 
-// DONE
+// DONE, Swagger DONE
 const Ricerca_libro = async (req, res) => {
     let query = {};
     // Aggiungi la ricerca per titolo se è fornito nella richiesta
@@ -48,7 +48,7 @@ const Ricerca_libro = async (req, res) => {
         return res.status(200).json({success : true, message : "Libro trovato",libri : books});}
     };
 
-    // DONE
+    // DONE, Swagger DONE
     const Filter = async (req, res) => {
         try {
             var Query = {};

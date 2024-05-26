@@ -23,7 +23,7 @@ const getAllusers = async (req,res) => {
   })
 }
 
-// DONE
+// DONE, Swagger DONE
 const newLibro = async (req, res) => {
   try {
       const existingBook = await libro.findOne({ titolo: req.body.titolo });
@@ -61,7 +61,7 @@ const newLibro = async (req, res) => {
   }
 };
 
-// DONE
+// DONE, Swagger DONE
 const Multa = async (req, res) => {
     try {
         const user = await utente.findOne({mail: req.body.mail});
@@ -92,7 +92,7 @@ const Multa = async (req, res) => {
   };
 
 
-// A CHE SERVE??
+// A CHE SERVE??, Swagger DONE
 const deleteUtente = async (req, res) => {
   let data =  await utente.findOne ({mail: req.query.mail}).exec()
 

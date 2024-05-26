@@ -2,7 +2,7 @@ const utente = require("../models/utente");
 const jwt = require('jsonwebtoken');
 
 
-// DONE
+// DONE, Swagger DONE
 const login = async function(req, res){
   let user = await utente.findOne({ mail : req.body.mail}).exec()
 
@@ -20,7 +20,7 @@ const login = async function(req, res){
   return res.status(200).json({success: true, message : 'Welcome on your account, ' + user.mail + '!', token: tkn, mail: user.mail,  nome: user.nome, cognome: user.cognome})
 }
 
-// DONE
+// DONE, Swagger DONE
 const logout = function(req, res) {
   var tkn = req.headers['x-access-token'];
   if (tkn){

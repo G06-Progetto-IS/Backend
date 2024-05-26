@@ -16,18 +16,18 @@ app.use('/signUp', require('./routes/signUp')) //Swagger
 app.use('/deleteAppuntamento', require('./routes/deleteApp')); //Swagger
 app.use('/arrayLibri', require('./routes/getBooks')) //Swagger
 //app.use('/Reserve', require('./routes/patchReserve'))
-app.use('/Rented', require('./routes/patchRent'))
+app.use('/Rented', require('./routes/patchRent')) //Swagger
 app.use('/getMulta', require('./routes/getMulta')) //Swagger
 app.use('/logout', require('./routes/logout')) //Swagger
 app.use('/createApp', require('./routes/postApp')) //Swagger
 //app.use('/createPren', require('./routes/postPren'))
-app.use('/getAppuntamento', require('./routes/getApp'))
+app.use('/getAppuntamento', require('./routes/getApp')) //Swagger
 
 // API libro
 app.use('/ricerca', require('./routes/getLibro')); //Swagger
 app.use('/book', require('./routes/deleteLibro')); //Swagger
 app.use('/filter', require('./routes/Filter')); //Swagger
-app.use('/disponibilita', require('./routes/patchDisponibilita'))
+app.use('/disponibilita', require('./routes/patchDisponibilita')) //Swagger
 
 //API authentication
 app.use('/login', require('./routes/login')); //Swagger

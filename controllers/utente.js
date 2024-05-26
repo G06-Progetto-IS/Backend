@@ -7,7 +7,7 @@ const appuntamento = require("../models/appuntamento")
 const multa  = require("../models/multa");
 const { request } = require("express")
 
-// DONE
+// DONE, Swagger DONE
 const signUp = async (req, res) => {
     utente.findOne({mail: req.body.mail}, (err, data) => {
         if(!data){
@@ -128,7 +128,7 @@ const createPren = async(req, res) => {
 }
 */
 
-// DONE
+// DONE, Swagger DONE
 const deleteApp = async (req, res) => {
     let data =  await appuntamento.findOne ({mail: req.query.mail}).exec()
 
@@ -175,7 +175,7 @@ const getBooks = async (req, res) => {
     }
 }
 
-// DONE
+// DONE, Swagger DONE
 const RentedBooks = async (req, res) => {
     try {
         // Attendere la promessa restituita da findOne()
@@ -228,7 +228,7 @@ const RentedBooks = async (req, res) => {
     }
 };
 
-// DONE
+// DONE, Swagger DONE
 const getMulta = async (req, res) => {
     let multe = await multa.find({mail: req.query.mail}).exec();
     
@@ -240,7 +240,7 @@ const getMulta = async (req, res) => {
     }
 }
 
-// DONE
+// DONE, Swagger DONE
 const getAppuntamenti = async (req, res) => {
     let appointment = await appuntamento.find({mail: req.query.mail}).exec();
     let prenotation = await prenotazione.find({mail: req.query.mail}).exec();
