@@ -967,3 +967,16 @@ function creaMulta(){
   })
   .catch(error => console.error(error));
 }
+
+function fetchBooks(){
+  fetch('../getAllBooks')
+  .then((res) => res.json())
+  .then(function(data){
+    if(data){
+      console.log(data);
+      aggiungLibro(data.libri, IsUserLoggedIn());
+    }
+    return;
+  })
+  .catch(error => console.error(error));
+}

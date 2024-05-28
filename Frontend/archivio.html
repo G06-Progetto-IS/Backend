@@ -74,6 +74,42 @@
           <input type="radio" id="autore3" name="filtro" value="Pirandello">
           <label for="autore3">Pirandello</label>
         </div>
+        <div class="scelta">
+          <input type="radio" id="autore4" name="filtro" value="Doyle">
+          <label for="autore4">Doyle</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore5" name="filtro" value="Christie">
+          <label for="autore5">Christie</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore6" name="filtro" value="Eco">
+          <label for="autore6">Eco</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore7" name="filtro" value="Baricco">
+          <label for="autore7">Baricco</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore8" name="filtro" value="Macchiavelli">
+          <label for="autore8">Macchiavelli</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore9" name="filtro" value="Orwell">
+          <label for="autore9">Orwell</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore10" name="filtro" value="De Cervante">
+          <label for="autore10">De Cervantes</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore11" name="filtro" value="Shakespeare">
+          <label for="autore11">Shakespeare</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="autore12" name="filtro" value="Herbert">
+          <label for="autore12">Herbert</label>
+        </div>
         <h3>Genere</h3>
         <div class="scelta">
           <input type="radio" id="genere1" name="filtro" value="Romanzo">
@@ -86,6 +122,18 @@
         <div class="scelta">
           <input type="radio" id="genere3" name="filtro" value="Tragedia">
           <label for="genere3">Tragedia</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="genere4" name="filtro" value="Giallo">
+          <label for="genere4">Giallo</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="genere5" name="filtro" value="Storia">
+          <label for="genere5">Storia</label>
+        </div>
+        <div class="scelta">
+          <input type="radio" id="genere6" name="filtro" value="Satira">
+          <label for="genere6">Satira</label>
         </div>
       </div>
       <button class="conferma-filtri" id = "confermaFiltri" onclick="filtri()">Conferma Filtri</button> 
@@ -206,6 +254,8 @@
           document.getElementById('loggedUser3').style.display = 'block';
           document.getElementById('loggedUser4').style.display = 'block';
         }
+
+        fetchBooks();
       });
 
       var loginButton = document.getElementById("loginButton");
