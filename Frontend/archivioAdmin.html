@@ -92,91 +92,7 @@
     <!-- fine sidebar -->
   
     <!-- inizio bookList -->
-    <div id="bookList">
-      <!-- start item -->
-      <div class="book-section">
-        <div class="book-container">
-          <div class="copertina-libro-container">
-            <p class="titolo-libro">Finchè non aprirai quel libro</p>
-            <img src="photos/copertina-1.jpeg" class="copertina-libro">
-          </div>
-          <div class="info-libro">
-            <p class="autore"><strong>Michiko Aoyama</strong></p>
-            <p class="genere">Genere: Giallo</p>
-            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
-            <div id="loggedUser1" style = "display: none;">
-              <button class="bottone-prenota" id="prenotaButton3">
-                Prenota e ritira
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end item -->
-  
-      <!-- start item -->
-      <div class="book-section">
-        <div class="book-container">
-          <div class="copertina-libro-container">
-            <p class="titolo-libro">Lo scialle di Marie Dudon e altri racconti</p>
-            <img src="photos/copertina-6.jpeg" class="copertina-libro">
-          </div>
-          <div class="info-libro">
-            <p class="autore"><strong>Georges Simenon</strong></p>
-            <p class="genere">Genere: Giallo</p>
-            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
-            <div id="loggedUser2" style = "display: none;">
-              <button class="bottone-prenota" id="prenotaButton3">
-                Prenota e ritira
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end item -->
-  
-      <!-- start item -->
-      <div class="book-section">
-        <div class="book-container">
-          <div class="copertina-libro-container">
-            <p class="titolo-libro">Mala feminista</p>
-            <img src="photos/copertina-7.jpeg" class="copertina-libro">
-          </div>
-          <div class="info-libro">
-            <p class="autore"><strong>Roxane Gay</strong></p>
-            <p class="genere">Genere: Giallo</p>
-            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
-            <div id="loggedUser3" style = "display: none;">
-              <button class="bottone-prenota" id="prenotaButton3">
-                Prenota e ritira
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end item -->
-  
-      <!-- start item -->
-      <div class="book-section">
-        <div class="book-container">
-          <div class="copertina-libro-container">
-            <p class="titolo-libro">Biglietto blu</p>
-            <img src="photos/copertina-4.jpeg" class="copertina-libro">
-          </div>
-          <div class="info-libro">
-            <p class="autore"><strong>Sophie Mackintosh</strong></p>
-            <p class="genere">Genere: Giallo</p>
-            <p class="disponibilità"><span class="cerchio-verde"></span> Disponibile</p>
-            <div id="loggedUser4" style = "display: none;">
-              <button class="bottone-prenota" id="prenotaButton3">
-                Prenota e ritira
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-     <!-- end item -->
+    <div id="bookList"></div>
     <!-- fine bookList -->
   
     <script>
@@ -205,6 +121,7 @@
           document.getElementById('loggedUser3').style.display = 'block';
           document.getElementById('loggedUser4').style.display = 'block';
         }
+        fetchBooks();
       });
 
       var loginButton = document.getElementById("loginButton");
