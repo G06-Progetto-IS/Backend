@@ -84,6 +84,9 @@
         "responses": {
           "200": {
             "description": "OK. Logout eseguito correttamente"
+          },
+          "400": {
+            "description": "BAD REQUEST. Hai già fatto il logout"
           }
         }
       }
@@ -493,9 +496,12 @@
           "schema": {
             "type": "object",
             "properties": {
-              "mail": { "type": "string" }
+              "mail": { "type": "string" 
             },
-            "required": ["mail"]
+              "importo": {"type": "number"
+            }
+            },
+            "required": ["mail", "importo"]
           }
         }
       ],
@@ -541,8 +547,28 @@
         }
       }
     }
+  },
+  "/getAllBooks": {
+    "get": {
+      "tags": ["Book"],
+      "summary": "Trova tutti i libri",
+      "responses": {
+        "200": {
+          "description": "OK. Lista di tutti i libri",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        },
+        "404": {
+          "description": "BAD REQUEST. Nessun libro trovato"
+        }
+      }
+    }
   }
-},  
+},
   "definitions": {
     "Utente": {
       "type": "object",
@@ -582,26 +608,6 @@
         "importo": { "type": "number", "example": 35 }
       },
       "required": ["mail", "data", "importo"]
-    }
-  },
-  "/getAllBooks": {
-    "get": {
-      "tags": ["Book"],
-      "summary": "Trova tutti i libri",
-      "responses": {
-        "200": {
-          "description": "OK. Lista di tutti i libri",
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/Libri"
-            }
-          }
-        },
-        "404": {
-          "description": "BAD REQUEST. Nessun libro trovato"
-        }
-      }
     }
   }
 }

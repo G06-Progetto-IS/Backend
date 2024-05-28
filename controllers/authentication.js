@@ -30,7 +30,7 @@ const logout = function(req, res) {
       //dai al loggedUser il nuovo token!
       return res.status(200).json({success: true, message: "You logged out!"});
   } else {
-      return res.status(200).json({success: true, message: "You alreayd logged out!"});
+      return res.status(400).json({success: true, message: "You alreayd logged out!"});
   }
 }
 
