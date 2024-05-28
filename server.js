@@ -24,6 +24,7 @@ app.use('/createApp', require('./routes/postApp')) //Swagger
 app.use('/getAppuntamento', require('./routes/getApp')) //Swagger
 
 // API libro
+app.use('/getAllBooks', require('./routes/getAllBooks')); //Swagger
 app.use('/ricerca', require('./routes/getLibro')); //Swagger
 app.use('/book', require('./routes/deleteLibro')); //Swagger
 app.use('/filter', require('./routes/Filter')); //Swagger

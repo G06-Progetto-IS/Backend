@@ -1,7 +1,26 @@
 const libro = require("../models/book")
 const counter = require("../models/counter")
 
-// A CHE SERVE??, Swagger DONE
+const getAllBooks = async (req,res) => {
+    libro.find({},(err,data)=>{
+        if(data){
+            if(data.length === 0){
+                return res.status(404).json({success: false, message : "Nessun utente presente"})
+            }
+             // Map each book to required fields
+             const books = data.map(libro => ({
+              titolo : libro.titolo,
+              Author_name : libro.Author_name,
+              Author_sur : libro.Author_sur,
+              Genre : libro.Genre,
+              Is_available : libro.Is_available
+          }));
+          return res.status(200).json({ success: true, libri: books });
+          } 
+    })
+  }
+
+
 const Cancella_libro = async (req, res) => {
     let data =  await libro.findOne ({titolo : req.query.titolo}) .exec()
 
@@ -89,6 +108,7 @@ const Ricerca_libro = async (req, res) => {
 
 
 module.exports = {
+    getAllBooks,
     Cancella_libro,
     Ricerca_libro,
     Filter
