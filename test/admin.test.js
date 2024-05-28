@@ -118,7 +118,37 @@ describe('suite testing API endpoint "/signUp"', () => {
         }
     })
 
-    test('Chiamata API con password non valida', async() => {
+    test('Chiamata API con password non valida < 8', async() => {
+        //La password deve essere lunga almeno 8 caratteri e contenere un carattere speciale
+        // es : password! è valida mentre password no!
+        jest.setTimeout(30000); 
+
+        // Assicurati che il server sia in ascolto e la connessione al database sia stabilita
+        expect(app).toBeDefined();
+        expect(app.locals.db).toBeDefined();
+
+        try {
+
+            const inputBody = {
+                nome: "utente prova",
+                cognome: "capra",
+                mail: "Test3@gmail.com",
+                password: "passwor"
+            };
+
+            const response = await request(app)
+                .post('/signUp')
+                .send(inputBody)
+                .expect(400);
+            expect(response.body).toEqual({error: 'Password non valida'});
+        } catch (error) {
+            // Gestisci eventuali errori nell'esecuzione della richiesta
+            console.error('Errore durante la chiamata API:', error);
+            throw error;
+        }
+    })
+
+    test('Chiamata API con password non valida senza caratter speciale', async() => {
         //La password deve essere lunga almeno 8 caratteri e contenere un carattere speciale
         // es : password! è valida mentre password no!
         jest.setTimeout(30000); 
