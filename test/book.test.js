@@ -25,6 +25,15 @@ afterAll(async () => {
     server.close();
 });
 
+describe('Suite testing API endpoint : "/getAllBooks"',()=>{
+    test('Chiamata API corretta', async() => {
+        const response = await request(app)
+        .get('/getAllBooks')
+        .expect(200);
+        expect(response.body.success).toBe(true);
+    })
+})
+
 describe('Suite testing API endpoint: "/Filter"', () => {
     //Jest has detected the following 1 open handle potentially keeping Jest from exiting:
     // errore di timeout
