@@ -583,5 +583,25 @@
       },
       "required": ["mail", "data", "importo"]
     }
+  },
+  "/getAllBooks": {
+    "get": {
+      "tags": ["Book"],
+      "summary": "Trova tutti i libri",
+      "responses": {
+        "200": {
+          "description": "OK. Lista di tutti i libri",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Libri"
+            }
+          }
+        },
+        "404": {
+          "description": "BAD REQUEST. Nessun libro trovato"
+        }
+      }
+    }
   }
 }
