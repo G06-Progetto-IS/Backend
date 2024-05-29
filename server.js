@@ -30,7 +30,7 @@ app.use('/getAppuntamento', require('./routes/getApp'))
 // API libro
 app.use('/getAllBooks', require('./routes/getAllBooks')); 
 app.use('/ricerca', require('./routes/getLibro')); 
-app.use('/book', require('./routes/deleteLibro')); 
+app.use('/CancellaLibro', require('./routes/deleteLibro')); 
 app.use('/filter', require('./routes/Filter')); 
 app.use('/disponibilita', require('./routes/patchDisponibilita')) 
 
@@ -43,7 +43,7 @@ app.use('/getAll', require('./routes/getAllusers'));
 app.use('/newLibro', require('./routes/newLibro')); 
 app.use('/deleteUtente', require('./routes/deleteUtente')); 
 app.use('/deleteLibro', require('./routes/deleteLibro')); 
-app.use('/Multa', require('./routes/postMulta')) 
+app.use('/postMulta', require('./routes/postMulta')) 
 
 module.exports = app;
 

@@ -5,7 +5,7 @@
     "title": "EasyLib",
     "description": "Documentazione API di EasyLib"
   },
-  "host": "easylib-wf03.onrender.com",
+  "host": "Error: Cannot find module 'swagger.json'",
   "basePath": "/",
   "schemes": ["http", "https"],
   "paths": {
@@ -31,8 +31,8 @@
           "400": {
             "description": "BAD REQUEST. Errore in seguito all'inserimento di un indirizzo email o una password non validi"
           },
-          "500": {
-            "description": "SERVER ERROR. Utente già presente in archivio."
+          "409": {
+            "description": "CONFLICT. Utente già presente in archivio."
           }
         }
       }
@@ -51,7 +51,7 @@
               "type": "object",
               "properties": {
                 "mail": { 
-                  "type": "string" 
+                  "type": "string", "example" : "utente@esempio.com"
                 },
                 "password": {
                   "type": "string" 
@@ -105,7 +105,7 @@
               "type": "object",
               "properties": {
                 "mail": {
-                  "type": "string" 
+                  "type": "string", "example" : "utente@esempio.com" 
                 },
                 "titolo": {
                   "type": "string" 
@@ -184,11 +184,11 @@
                 "Author_name": {
                   "type": "string" 
                 },
-                "genre": { 
+                "Genre": { 
                   "type": "string" 
                 }
               },
-              "required": ["titolo", "Author_sur", "Author_name", "genre"]
+              "required": ["titolo", "Author_sur", "Author_name", "Genre"]
             }
           }
         ],
@@ -269,7 +269,7 @@
             "description": "OK. Appuntamento cancellato correttamente"
           },
           "404": {
-            "description": "NOT FOUND. Appuntamento non trovato"
+            "description": "NOT FOUND. Appuntamento o mail  non trovati"
           }
         }
       }
@@ -299,6 +299,9 @@
           },
           "404": {
             "description": "NOT FOUND. Utente non trovato"
+          },
+          "502": {
+            "description": "BAD GATEWAY. Nessun appuntamento disponibile."
           }
         }
       }
@@ -313,7 +316,8 @@
             "in": "query",
             "description": "mail dell'utente che vuole visionare i suoi libri",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "example" : "utente@esempio.com"
           }
         ],
         "responses": {
@@ -411,7 +415,7 @@
             "type": "string"
           },
           {
-            "name": "genre",
+            "name": "Genre",
             "in": "query",
             "description": "Genere del libro da filtrare",
             "required": false,
@@ -431,7 +435,7 @@
         }
       }
     },
-    "/Cancella_Libro": {
+    "/CancellaLibro": {
       "delete": {
         "tags": ["Book"],
         "summary": "Cancella un libro",
@@ -454,7 +458,7 @@
         }
       }
     },
-    "/multa": {
+    "/getMulta": {
       "get": {
         "tags": ["Utente"],
         "summary": "Cerca le multe di un utente",
@@ -485,7 +489,7 @@
     },
   "/postMulta": {
     "post": {
-      "tags": ["Utente"],
+      "tags": ["Admin"],
       "summary": "Crea una multa",
       "parameters": [
         {
@@ -518,9 +522,9 @@
       }
     }
   },
-  "/disponibilità": {
+  "/disponibilita": {
     "patch": {
-      "tags": ["disponibilità"],
+      "tags": ["Disponibilità"],
       "summary": "Aggiorna la disponibilità di un libro",
       "parameters": [
         {
@@ -596,7 +600,7 @@
         "titolo": { "type": "string", "example": "Titolo libro" },
         "Author_sur": { "type": "string", "example": "Cognome autore" },
         "Author_name": { "type": "string", "example": "Nome autore" },
-        "genre": { "type": "string", "example": "Genere del libro" }
+        "Genre": { "type": "string", "example": "Genere del libro" }
       },
       "required": ["titolo", "Author_sur", "Author_name", "genre"]
     },
