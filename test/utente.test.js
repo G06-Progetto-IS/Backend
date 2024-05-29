@@ -349,18 +349,6 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
         expect(res.body.message).toBe('Utente non trovato');
     });
 
-    /*test('Chiamata API input non valido', async () => {
-        const inputBody={
-
-        }
-        const res= await request(app)
-        .patch('/Rented')
-        .send(inputBody)
-        .expect(500);
-        expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe('Errore interno del server');
-    });*/
-
     test('Chiamata API libro non presente', async () => {
         const inputBody={
             mail : 'Test1@gmail.com',

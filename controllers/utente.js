@@ -1,4 +1,3 @@
-const prenotazione = require("../models/prenotazione")
 const utente = require("../models/utente")
 const libro = require("../models/book")
 const counter = require("../models/counter")
@@ -95,38 +94,6 @@ const createApp = async(req, res) => {
             }
         }) 
     }
-
-/* Secondo me inutile avere due modelli, uno prenotazione e uno appuntamento!!
-// DONE
-const createPren = async(req, res) => {
-    let data_u = await utente.findOne ({mail: req.body.mail}).exec()
-    let data_b = await libro.findOne({titolo : req.body.titolo}).exec()
-    if (!data_u){
-        return res.status(404).json({success : false, message:"Utente non trovato"});
-    }
-    if (!data_b){
-        return res.status(404).json({success: false, message: "Libro non trovato"})
-    }
-    
-    const newPrenotazione = new prenotazione({
-        mail: req.body.mail,
-        titolo: req.body.titolo,
-        data: req.body.data
-    })
-
-    if(!compareDates(req.body.data)){
-        return res.status(400).json({ success: false, message: "Data non valida" });
-   }
-
-    newPrenotazione.save((err,data)=>{
-        if (err){
-            return res.status(500).json({success: false, message:"Errore del server"})
-        } else {
-            return res.status(200).json({success: true, message: "Prenotazione effettuata", data})
-        }
-    })
-}
-*/
 
 // DONE, Swagger DONE
 const deleteApp = async (req, res) => {
