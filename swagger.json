@@ -5,7 +5,7 @@
     "title": "EasyLib",
     "description": "Documentazione API di EasyLib"
   },
-  "host": "Error: Cannot find module 'swagger.json'",
+  "host": "easylib-wf03.onrender.com",
   "basePath": "/",
   "schemes": ["http", "https"],
   "paths": {
