@@ -210,7 +210,6 @@ const getMulta = async (req, res) => {
 // DONE, Swagger DONE
 const getAppuntamenti = async (req, res) => {
     let appointment = await appuntamento.find({mail: req.query.mail}).exec();
-    let prenotation = await prenotazione.find({mail: req.query.mail}).exec();
     if(!appointment ||appointment.length === 0){
         return res.status(404).json({ success: false, message: "Appuntamento non trovato" });
     }
