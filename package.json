@@ -23,6 +23,7 @@
     "mongoose": "^6.8.0",
     "mongoose-express-api": "^0.0.3",
     "multer": "^1.4.5-lts.1",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {

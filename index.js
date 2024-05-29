@@ -1,9 +1,6 @@
 const app = require('./server.js');
 const express = require('express');
 const mongoose = require('mongoose');
-//const Libro = require('./models/utente');
-//const Appuntamento = require('./models/appuntamento');
-//const invia = require('./invia');
 
 require('dotenv').config();
 
