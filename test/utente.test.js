@@ -122,16 +122,6 @@ describe('suite testing API endpoint "/getBooks"', () => {
         .expect(200);
         expect(res.body).toEqual(outputBody);
     });
-
-
-    //test('Chiamata API con un errore interno', async () => {
-    //    const res = await request(app)
-    //    .get('/arrayLibri')
-    //    .query({
-    //    })
-    //    .expect(500);
-    //    expect(res.body.message).toBe('Errore del server');
-    //})
 })
 
 describe('suite testing API endpoint "/ricerca"', () => {
@@ -372,6 +362,18 @@ describe('suite testing API endpoint : "/Rented" ', ()=>{
         .expect(400);
         expect(res.body.success).toBe(false);
         expect(res.body.message).toBe('Hai raggiunto il limite di libri noleggiati');
+    })
+
+    test('Chiamata api con libro non disponibile',async()=>{
+        const res= await request(app)
+        .patch('/Rented')
+        .send({
+            mail : 'utenteprova1@gmail.com',
+            titolo : 'Libro prova 1'
+        })
+        .expect(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe('Libro non disponibile');
     })
     
 });

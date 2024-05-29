@@ -29,7 +29,7 @@ afterAll(async () => {
 describe('Suite testing API endpoint "/newMulta"' ,() => {
     test('Chiamata API corretta',async() => {
         const res = await request(app)
-       .post('/Multa')
+       .post('/postMulta')
        .send({
             mail : 'utenteprova@gmail.com',
             importo : 10,
@@ -41,7 +41,7 @@ describe('Suite testing API endpoint "/newMulta"' ,() => {
 
     test('Chiamata API con utente non esistente', async () => {
         const res = await request(app)
-       .post('/Multa')
+       .post('/postMulta')
        .send({
             mail : 'nonesisto@gmail.com',
             importo : 10,

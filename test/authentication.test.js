@@ -70,10 +70,25 @@ describe('Suite testing API endpoint: "/login"',()=> {
 })
 
 
+
 describe('Suite testing API endpoint : "/logout"', () => {
-    test('Chiamata corretta API', async() => {
+
+    var token = jwt.sign( {username: 'utentediprova', id : 'utentediprova'}, 'EasyLib', {expiresIn: 23200} );
+
+    test("Chiamata all'API corretta", async() => {
         const response = await request(app)
-        .get('/logout')
-        .expect(200);
+        .get("/logout").set('x-access-token', token);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.success).toEqual(true);
+        expect(response.body.message).toEqual("You logged out!");
     })
+
+    test("Chiamata all'API senza token", async() => {
+        const response = await request(app)
+        .get("/logout");
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.success).toEqual(false);
+        expect(response.body.message).toEqual("You alreayd logged out!");
+    })
+
 })

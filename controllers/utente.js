@@ -168,6 +168,11 @@ const RentedBooks = async (req, res) => {
         }else if (user.n_libri >= 5){
             return res.status(400).json({ success: false, message: "Hai raggiunto il limite di libri noleggiati" });
         } 
+
+        if(!book.Is_available){
+            return res.status(400).json({ success: false, message: "Libro non disponibile" });
+        }
+        
         else {
             t = {
                 libri_noleggiati: user.libri_noleggiati,
