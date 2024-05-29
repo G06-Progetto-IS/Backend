@@ -10,6 +10,13 @@ app.get('/', (req, res) => {
 
 app.use(express.json())
 
+
+// Documentazione
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('swagger.json'); // Assumendo che il tuo file Swagger sia in questa posizione
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 //API utente
 app.use('/signUp', require('./routes/signUp')) //Swagger
 //app.use('/deletePrenotazione', require('./routes/deletePren'));
